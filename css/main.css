@@ -1,0 +1,291 @@
+/* =========================
+          BASE
+========================= */
+
+@charset "utf-8";
+
+body {
+  font-family: 'Oswald', Arial, 'Sawarabi Gothic', sans-serif;
+  font-size: 62.5%;
+  color: #3C3C3C;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  vertical-align: bottom;
+}
+
+ul, li, dl, dt, dd {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  height: 2.5em;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+button:focus {
+  outline: 0;
+}
+
+th, td {
+  padding: 8px;
+}
+
+section {
+  margin-bottom: 100px;
+}
+
+.logo {
+  width: 10%;
+  max-width: 180px;
+  min-width: 105px;
+  padding: 0 0 0 2em;
+  line-height: 80px;
+}
+
+.logo__img {
+  vertical-align: middle;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row wrap;
+}
+
+.theme-color {
+  color: #641388;
+}
+
+
+input {
+  width: 100%;
+  height: 2.5em;
+  margin: 0 0 16px;
+  padding: .5em;
+  box-sizing: border-box;
+  font-size: 1.6em;
+  font-family: inherit;
+}
+
+input[type="submit"] {
+  cursor: pointer;
+}
+
+select {
+  padding: 0.5em;
+  margin: 0 10px 20px 0;
+}
+
+.section__title {
+    margin-bottom: 50px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-block;
+    font-size: 2em;
+  }
+
+  .section__title::before {
+    content: "";
+    width: 6px;
+    height: 80%;
+    background: #8A4DA5;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -21px;
+  }
+
+  .section__title::after {
+    content: "";
+    width: 2px;
+    height: 80%;
+    background: #8A4DA5;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -10px;
+  }
+
+  .color--blue {
+    color: #0f42a3;
+  }
+
+  .fz--small {
+    font-size: 1.4em;
+  }
+
+  /* =========================
+          ANIMATION
+========================= */
+
+
+  /* =========================
+            HERO
+========================= */
+
+.hero {
+  width: 100vw;
+  height: 100vh;
+  background-image: url(./../images/hero_img.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.header {
+  width: 100%;
+  height: 80px;
+  background: #161267;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.header__logo {
+  float: left;
+  line-height: 80px;
+  margin: 0;
+  padding: 0 16px;
+  color: #ffffff;
+  font-size: 2.8em;
+}
+
+
+
+.header__log::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.header__direction-wrap {
+  float: right;
+}
+
+.header__direction-wrap::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.header__signin {
+  display: inline-block;
+  margin: 0;
+  padding: 0 16px;
+  line-height: 80px;
+  color: #ffffff;
+  font-size: 2.0em;
+}
+
+.header__signup {
+  display: inline-block;
+  margin: 0;
+  padding: 0 16px;
+  line-height: 80px;
+  color: #ffffff;
+  font-size: 2.0em;
+}
+
+.hero__text {
+  margin: 0 0 100px;
+  padding: 144px 0 0 80px;
+  color: #ffffff;
+  font-size: 6.0em;
+}
+
+.hero__signup-btn {
+  width: 250px;
+  height: 3.5em;
+  display: block;
+  margin-bottom: 32px;
+  margin-left: 80px;
+  background: #161267;
+  border-radius: 2em;
+  color: #ffffff;
+  font-size: 1.8em;
+}
+
+.hero__about-btn {
+  width: 250px;
+  height: 3.5em;
+  display: block;
+  margin-bottom: 32px;
+  margin-left: 80px;
+  background: #ffffff;
+  border-radius: 2em;
+  color: #161267;
+  font-size: 1.8em;
+}
+
+.signup-drawer {
+  width: 30%;
+  height: 100vh;
+  padding: 80px 0 16px;
+  background: #ffffff;
+  position: absolute;
+  top: 0;
+  right: -30%;
+  z-index: 2;
+  transform: translateX(-100%);
+  transition: transform 1s ease-out 3s;
+}
+
+.signup-drawer__times {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 1.4em;
+}
+
+.signup-drawer__times:focus {
+  outline: 0;
+}
+
+.sigup-drawer__content-wrap {
+  width: 80%;
+  height: 100%;
+  margin: 0 auto;
+  display: table;
+}
+
+.signup-drawer__title {
+  margin-top: 0;;
+  color: #161267;
+  font-size: 2.5em;
+}
+
+.signup-drawer__to-signin {
+  margin-bottom: 32px;
+}
+
+.agree-label {
+  display: table;
+  margin: 0 auto;
+}
+
+.agree {
+  width: auto;
+  height: auto;
+  margin-right: 10px;
+}
+
+.signup-drawer__submit {
+  background: #161267;
+  color: #ffffff;
+}
