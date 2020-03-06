@@ -86,7 +86,7 @@ crossorigin="anonymous"></script>
     <i class="account-field__icon account-field__icon--share icon--white fas fa-share-alt"></i>
   </button>
   <!-- account menu -->
-  <i class="account-field__icon icon--theme-color fas fa-ellipsis-h"></i>
+  <span class="account-field__user-menu"></span>
   <!-- user icon -->
   <div class="account-field__user-icon-wrap">
     <img src="./../images/user_icon.png" alt="ユーザーのアイコン画像" class="account-field__user-icon">
@@ -94,47 +94,99 @@ crossorigin="anonymous"></script>
   </div>
 </div>
 
-<aside>
-  <ul class="side-menu">
-    <li><i class="fas fa-folder-open"></i>My Project</li>
-    <li><i class="fab fa-slideshare"></i>Share
-    <li><i class="fas fa-clock"></i>Recent</li>
-    <li><i class="fas fa-flag"></i>Flag</li>
-    <li><i class="fas fa-trash-alt"></i>Trash</li>
-</i>
-</i></li>
+<aside class="side-menu">
+  <ul class="categories">
+    <li class="categories__list"><i class="categories-icon fas fa-folder-open"></i>My Project</li>
+    <li class="categories__list"><i class="categories-icon fab fa-slideshare"></i>Share
+    <li class="categories__list"><i class="categories-icon fas fa-clock"></i>Recent</li>
+    <li class="categories__list"><i class="categories-icon fas fa-flag"></i>Flag</li>
+    <li class="categories__list"><i class="categories-icon fas fa-trash-alt"></i>Trash</li>
   </ul>
-  <form class="side-menu__search-window" action="" method="get">
-    <input type="text" name="search" placeholder="search..."><i class="fas fa-search"></i>
+  <!-- search window -->
+  <form class="side-menu__search-window--wrap action="" method="get">
+    <input class="side-menu__search-window" type="text" name="search" placeholder="search..."><i class="side-menu__search-window--icon fas fa-search"></i>
   </form>
+  <!-- create project btn -->
   <button class="side-menu__create-btn">New Project</button>
 </aside>
   
 <main>
   <div class="project-window">
     <div class="project-window__overroll">
-
+      <div class="project">
+        <i class="fas fa-folder"></i>
+        <p>Project Name</p>
+        <p>2020-01-01</p>
+      </div>
+      <div class="project">
+        <i class="fas fa-folder"></i>
+        <p>Project Name</p>
+        <p>2020-01-01</p>
+      </div>
+      <div class="project">
+        <i class="fas fa-folder"></i>
+        <p>Project Name</p>
+        <p>2020-01-01</p>
+      </div>
+      <div class="project">
+        <i class="fas fa-folder"></i>
+        <p>Project Name</p>
+        <p>2020-01-01</p>
+      </div>
+      <div class="project">
+        <i class="fas fa-folder"></i>
+        <p>Project Name</p>
+        <p>2020-01-01</p>
+      </div>
     </div>
-    <div class="tool-bar">
-      <div class="breadcrumbs"></div>
-      <div class="sort-wrap">
-        <ul>
-          <li><i class="fas fa-sort-alpha-down"></i></li>
-          <li><i class="fas fa-sort-alpha-up"></i></li>
-          <li><i class="far fa-clock"></i></li>
+    <div class="tool-bar--flex-container flex-container">
+      <div class="tool-bar__breadcrumbs">
+        <span>Home >> My Project >> 最近使用したファイル</span>
+      </div>
+      <div class="tool-bar__sort">
+        <ul class="tool-bar__sort-flex-container flex-container">
+          <li class="sort-icon"><i class="fas fa-sort-alpha-down"></i></li>
+          <li class="sort-icon"><i class="fas fa-sort-alpha-up"></i></li>
+          <li class="sort-icon"><i class="far fa-clock"></i></li>
         </ul>
       </div>
     </div>
     <div class="project-window__details">
-      <table>
-        <tr>
-          <!-- file name -->
-          <th><i class="fas fa-file-alt"></i>file name</th>
-          <!-- time -->
-          <td><time>2020-02-28 10:30</time></td>
-          <!-- file menu -->
-          <td><i class="project-window__details__file-menu menu fas fa-ellipsis-h"></i></td>
-        </tr>
+      <table class="project-window__table">
+        <tbody>
+            <tr>
+              <!-- file name -->
+              <th class="file-name"><i class="file-icon fas fa-file-alt"></i>file name</th>
+              <!-- time -->
+              <td class="file-time"><time>2020-02-28 10:30</time></td>
+              <!-- file menu -->
+              <td class="file-menu"><i class="menu fas fa-ellipsis-h"></i></td>
+            </tr>
+            <tr>
+              <!-- file name -->
+              <th class="file-name"><i class="file-icon fas fa-file-alt"></i>file name</th>
+              <!-- time -->
+              <td class="file-time"><time>2020-02-28 10:30</time></td>
+              <!-- file menu -->
+              <td class="file-menu"><i class="menu fas fa-ellipsis-h"></i></td>
+            </tr>
+            <tr>
+              <!-- file name -->
+              <th class="file-name"><i class="file-icon fas fa-file-alt"></i>file name</th>
+              <!-- time -->
+              <td class="file-time"><time>2020-02-28 10:30</time></td>
+              <!-- file menu -->
+              <td class="file-menu"><i class="menu fas fa-ellipsis-h"></i></td>
+            </tr>
+            <tr>
+              <!-- file name -->
+              <th class="file-name"><i class="file-icon fas fa-file-alt"></i>file name</th>
+              <!-- time -->
+              <td class="file-time"><time>2020-02-28 10:30</time></td>
+              <!-- file menu -->
+              <td class="file-menu"><i class="menu fas fa-ellipsis-h"></i></td>
+            </tr>
+        </tbody>
       </table>
     </div>
   </div>
