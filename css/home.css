@@ -1,0 +1,11 @@
+
+ /* =========================
+            HEADER
+========================= */
+
+.header {
+  width: 100%;
+  height: 60px;
+  background: #161267;
+  position: static;
+}

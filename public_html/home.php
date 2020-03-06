@@ -1,16 +1,3 @@
-<?php
-
-require_once(__DIR__ . '/../config/config.php');
-trackingStart();
-$app = new MyApp\Controller\Signup();
-
-
-// $app = new MyApp\Controller\Index();
-
-$app->run();
-
-?>
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -38,6 +25,8 @@ crossorigin="anonymous"></script>
   <link href="https://unpkg.com/sanitize.css" rel="stylesheet"/> 
   <!-- Main CSS-->
   <link rel="stylesheet" href="./../css/main.css"> 
+  <!-- home CSS -->
+  <link rel="stylesheet" href="./../css/home.css">
 <!-- CARD -->
   <meta property="og:url" content="">
   <meta property="og:title" content="Duplazy | もっと簡単に、もっと楽に。">
@@ -64,78 +53,61 @@ crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css?family=Oswald|Sawarabi+Gothic&display=swap" rel="stylesheet">
   <!--FontAwesome -->
   <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet"> 
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 <!-- favicon -->
   <link rel="icon" type="image/x-icon" href="./favicon.ico">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" sizes="180x180">
   
 </head>
 <body>
-<!-- hero -->
-  <div class="hero">
-    <header class="header">
-      <!-- logo -->
-      <p class="header__logo"><a href="">Duplazy</a></p>
-      <!-- sign up / sign in -->
-      <div class="header__direction-wrap">
-      <p class="header__signin"><a href="#signin">Sign In</a></p>
-      <p class="header__signup"><a href="#signin">Sign Up</a></p>
-      </div>
-    </header>
-    <!-- text -->
-      <p class="hero__text">Make work easy<br>let you lazy</p>
-    <!-- btn -->
-    <button class="hero__signup-btn">Sign Up Now!</button>
-    <button class="hero__about-btn">About Duplazy</button>
-
-<!-- signup drawer -->    
-    <div class="signup-drawer">
-      <button class="signup-drawer__times">
-        <i class="fas fa-times"></i>
-      </button>
-      <div class="sigup-drawer__content-wrap">
-      <p class="signup-drawer__title">Sign Up</p>
-      <p class="signup-drawer__to-signin fz--small">or <a class="color--blue" href="#">Sign In</a> your account</p>
-      <form action="" method="post">
-      <!-- surname -->
-      <label for="surname">
-        <p>
-          <input type="text" name="surname" placeholder="surname"> 
-        </p>
-      </label>
-      <!-- givenname -->
-      <label for="givenname">
-        <p>
-          <input type="text" name="givenname" placeholder="givenname"> 
-        </p>
-      </label>
-      <!-- email -->
-      <label for="email">
-        <p>
-          <input type="text" name="email" placeholder="email"> 
-        </p>
-      </label>
-      <!-- password -->
-      <label for="password">
-        <p>
-          <input type="text" name="password" placeholder="password"> 
-        </p>
-      </label>
-      <!-- agree -->
-      <label class="agree-label">
-        <p class="fz--small">
-          <input class="agree" type="checkbox" name="agree">
-          I agree to <span class="color--blue"><a href=""> Duplazy terms</a></span>
-        </p>
-      </label>
-      <!-- token -->
-      <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
-      <p>
-        <input class="signup-drawer__submit" type="submit" value="Sign Up">
-      </p>
-      </form>
-      </div>
-    </div>
+<header class="header">
+  <!-- logo -->
+  <p class="header__logo"><a href="">Duplazy</a></p>
+  <!-- sign up / sign in -->
+  <div class="header__direction-wrap">
+  <p class="header__signin"><a href="#signin">Sign In</a></p>
+  <p class="header__signup"><a href="#signin">Sign Up</a></p>
   </div>
+</header>
+<div class="account-field">
+  <!-- friend icon -->
+  <div class="account-field__friend-flex-container flex-container">
+  <i class="account-field__icon fas fa-user-friends"></i>
+  <!-- chat icon -->
+  <i class="account-field__icon fas fa-comment-dots"></i>
+  <!-- bell icon -->
+  <i class="account-field__icon fas fa-bell"></i>
+  <!-- share btn -->
+  <button class="account-field__btn">
+    <span>SHARE</span>
+    <i class="account-field__icon fas fa-share-alt"></i>
+  </button>
+  <!-- account menu -->
+  <i class="account-field__icon fas fa-ellipsis-h"></i>
+  <!-- user icon -->
+  <div class="account-field__user-icon-wrap">
+    <img src="" alt="ユーザーのアイコン画像" class="account-field__user-icon">
+  </div>
+  </div>
+</div>
 
+<aside>
+  <ul class="side-menu">
+    <li><i class="fas fa-folder-open"></i>My Project</li>
+    <li><i class="fab fa-slideshare"></i>Share
+    <li><i class="fas fa-clock"></i>Recent</li>
+    <li><i class="fas fa-flag"></i>Flag</li>
+    <li><i class="fas fa-trash-alt"></i>Trash</li>
+</i>
+</i></li>
+  </ul>
+  <form class="side-menu__search-window" action="">
+    <input type="text" name="search" placeholder="search..."><i class="fas fa-search"></i>
+  </form>
+  <button class="side-menu__create-btn">New Project</button>
+</aside>
+  
 </body>
 </html>
