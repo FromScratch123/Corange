@@ -112,29 +112,74 @@ crossorigin="anonymous"></script>
   
 <main>
   <div class="project-window">
-    <div class="project-window__overroll">
+    <div class="project-window__overroll--flex flex-container">
       <div class="project">
-        <i class="fas fa-folder"></i>
+        <i class="folder-icon fas fa-folder"></i>
         <p>Project Name</p>
         <p>2020-01-01</p>
       </div>
       <div class="project">
-        <i class="fas fa-folder"></i>
+        <i class="folder-icon fas fa-folder"></i>
         <p>Project Name</p>
         <p>2020-01-01</p>
       </div>
       <div class="project">
-        <i class="fas fa-folder"></i>
+        <i class="folder-icon fas fa-folder"></i>
         <p>Project Name</p>
         <p>2020-01-01</p>
       </div>
       <div class="project">
-        <i class="fas fa-folder"></i>
+        <i class="folder-icon fas fa-folder"></i>
         <p>Project Name</p>
         <p>2020-01-01</p>
       </div>
       <div class="project">
-        <i class="fas fa-folder"></i>
+        <i class="folder-icon fas fa-folder"></i>
+        <p>Project Name</p>
+        <p>2020-01-01</p>
+      </div>
+      <div class="project">
+        <i class="folder-icon fas fa-folder"></i>
+        <p>Project Name</p>
+        <p>2020-01-01</p>
+      </div>
+      <div class="project">
+        <i class="folder-icon fas fa-folder"></i>
+        <p>Project Name</p>
+        <p>2020-01-01</p>
+      </div>
+      <div class="project">
+        <i class="folder-icon fas fa-folder"></i>
+        <p>Project Name</p>
+        <p>2020-01-01</p>
+      </div>
+      <div class="project">
+        <i class="folder-icon fas fa-folder"></i>
+        <p>Project Name</p>
+        <p>2020-01-01</p>
+      </div>
+      <div class="project">
+        <i class="folder-icon fas fa-folder"></i>
+        <p>Project Name</p>
+        <p>2020-01-01</p>
+      </div>
+      <div class="project">
+        <i class="folder-icon fas fa-folder"></i>
+        <p>Project Name</p>
+        <p>2020-01-01</p>
+      </div>
+      <div class="project">
+        <i class="folder-icon fas fa-folder"></i>
+        <p>Project Name</p>
+        <p>2020-01-01</p>
+      </div>
+      <div class="project">
+        <i class="folder-icon fas fa-folder"></i>
+        <p>Project Name</p>
+        <p>2020-01-01</p>
+      </div>
+      <div class="project">
+        <i class="folder-icon fas fa-folder"></i>
         <p>Project Name</p>
         <p>2020-01-01</p>
       </div>
@@ -154,6 +199,38 @@ crossorigin="anonymous"></script>
     <div class="project-window__details">
       <table class="project-window__table">
         <tbody>
+            <tr>
+              <!-- file name -->
+              <th class="file-name"><i class="file-icon fas fa-file-alt"></i>file name</th>
+              <!-- time -->
+              <td class="file-time"><time>2020-02-28 10:30</time></td>
+              <!-- file menu -->
+              <td class="file-menu"><i class="menu fas fa-ellipsis-h"></i></td>
+            </tr>
+            <tr>
+              <!-- file name -->
+              <th class="file-name"><i class="file-icon fas fa-file-alt"></i>file name</th>
+              <!-- time -->
+              <td class="file-time"><time>2020-02-28 10:30</time></td>
+              <!-- file menu -->
+              <td class="file-menu"><i class="menu fas fa-ellipsis-h"></i></td>
+            </tr>
+            <tr>
+              <!-- file name -->
+              <th class="file-name"><i class="file-icon fas fa-file-alt"></i>file name</th>
+              <!-- time -->
+              <td class="file-time"><time>2020-02-28 10:30</time></td>
+              <!-- file menu -->
+              <td class="file-menu"><i class="menu fas fa-ellipsis-h"></i></td>
+            </tr>
+            <tr>
+              <!-- file name -->
+              <th class="file-name"><i class="file-icon fas fa-file-alt"></i>file name</th>
+              <!-- time -->
+              <td class="file-time"><time>2020-02-28 10:30</time></td>
+              <!-- file menu -->
+              <td class="file-menu"><i class="menu fas fa-ellipsis-h"></i></td>
+            </tr>
             <tr>
               <!-- file name -->
               <th class="file-name"><i class="file-icon fas fa-file-alt"></i>file name</th>

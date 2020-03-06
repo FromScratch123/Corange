@@ -1,14 +1,28 @@
 @charset "utf-8";
 
  /* =========================
+            GRID
+========================= */
+body {
+  display: grid;
+  /* grid-template-columns:  250px 1fr; */
+  grid-template-areas: 
+    "header header"
+    "account account"
+    "aside main";
+}
+
+ /* =========================
             HEADER
 ========================= */
 
 .header {
+  grid-area: header;
   width: 100%;
   height: 60px;
   background: #161267;
   position: static;
+  overflow-x: hidden;
 }
 
  /* =========================
@@ -16,9 +30,11 @@
 ========================= */
 
 .account-field {
+  grid-area: account;
   width: 100%;
   height: 80px;
   border: solid 1px #707070;
+  overflow-x: hidden;
 }
 
 .account-field__icons-flex-container {
@@ -116,12 +132,13 @@
 ========================= */
 
 .side-menu {
-  width: 20%;
-  max-width: 250px;
-  min-width: 150px;
+  grid-area: aside;
+  width: 250px;
   height: calc(100vh - (60px + 80px));
   padding: 48px 24px;
   position: relative;
+  border: 1px solid #707070;
+  border-top: none;
 }
 
 .categories {
@@ -157,6 +174,7 @@
   top: 50%;
   right: 16px;
   transform: translateY(-50%);
+  font-size: 1.6em;
 }
 
 .side-menu__create-btn {
@@ -174,14 +192,44 @@
 ========================= */
 
 .project-window {
-  width: 80%;
-  background: skyblue;
+  grid-area: main;
+  width: calc(100vw - 250px);
+  height: calc(100vh - (60px + 80px));
+  margin: 0 auto;
+  padding: 32px;
+  overflow: hidden;
 }
 
-.tool-bar--flex-container {
-  padding: 16px 32px;
+.project-window__overroll--flex {
+  width: 100%;
+  height: 200px;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  background: #E8E9EB;
+  border: 1px solid #707070;
+  overflow: scroll;
+}
+
+.project {
+  align-self: center;
+  text-align: center;
   font-size: 1.6em;
-  background: pink;
+}
+
+.project:not(:last-child) {
+  margin-right: 32px;
+}
+.folder-icon {
+  font-size: 5.0rem;
+  color: #4D84FF
+}
+
+
+.tool-bar--flex-container {
+  margin-bottom: 16px;
+  padding: 16px 32px;
+  border-bottom: 1px solid #737373;
+  font-size: 1.6em;
 }
 
 .tool-bar__sort-flex-container {
@@ -194,8 +242,10 @@
 }
 
 .project-window__details {
+  height: calc(100% - 200px);
   padding: 0 32px;
   font-size: 1.6em;
+  overflow: scroll;
 }
 
 .project-window__table {
