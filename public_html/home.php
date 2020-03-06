@@ -73,22 +73,23 @@ crossorigin="anonymous"></script>
 </header>
 <div class="account-field">
   <!-- friend icon -->
-  <div class="account-field__friend-flex-container flex-container">
-  <i class="account-field__icon fas fa-user-friends"></i>
+  <div class="account-field__icons-flex-container flex-container">
+  <!-- friend icon -->
+  <i class="account-field__icon icon--black fas fa-user-friends"></i>
   <!-- chat icon -->
-  <i class="account-field__icon fas fa-comment-dots"></i>
+  <i class="account-field__icon icon--black fas fa-comment-dots"></i>
   <!-- bell icon -->
-  <i class="account-field__icon fas fa-bell"></i>
+  <i class="account-field__icon icon--black fas fa-bell"></i>
   <!-- share btn -->
   <button class="account-field__btn">
-    <span>SHARE</span>
-    <i class="account-field__icon fas fa-share-alt"></i>
+    <span class=account-field__btn--share>SHARE</span>
+    <i class="account-field__icon account-field__icon--share icon--white fas fa-share-alt"></i>
   </button>
   <!-- account menu -->
-  <i class="account-field__icon fas fa-ellipsis-h"></i>
+  <i class="account-field__icon icon--theme-color fas fa-ellipsis-h"></i>
   <!-- user icon -->
   <div class="account-field__user-icon-wrap">
-    <img src="" alt="ユーザーのアイコン画像" class="account-field__user-icon">
+    <img src="./../images/user_icon.png" alt="ユーザーのアイコン画像" class="account-field__user-icon">
   </div>
   </div>
 </div>
@@ -103,11 +104,41 @@ crossorigin="anonymous"></script>
 </i>
 </i></li>
   </ul>
-  <form class="side-menu__search-window" action="">
+  <form class="side-menu__search-window" action="" method="get">
     <input type="text" name="search" placeholder="search..."><i class="fas fa-search"></i>
   </form>
   <button class="side-menu__create-btn">New Project</button>
 </aside>
   
+<main>
+  <div class="project-window">
+    <div class="project-window__overroll">
+
+    </div>
+    <div class="tool-bar">
+      <div class="breadcrumbs"></div>
+      <div class="sort-wrap">
+        <ul>
+          <li><i class="fas fa-sort-alpha-down"></i></li>
+          <li><i class="fas fa-sort-alpha-up"></i></li>
+          <li><i class="far fa-clock"></i></li>
+        </ul>
+      </div>
+    </div>
+    <div class="project-window__details">
+      <table>
+        <tr>
+          <!-- file name -->
+          <th><i class="fas fa-file-alt"></i>file name</th>
+          <!-- time -->
+          <td><time>2020-02-28 10:30</time></td>
+          <!-- file menu -->
+          <td><i class="project-window__details__file-menu menu fas fa-ellipsis-h"></i></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</main>
 </body>
 </html>

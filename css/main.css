@@ -67,7 +67,7 @@ section {
 }
 
 .theme-color {
-  color: #641388;
+  color: #161267;
 }
 
 
@@ -129,6 +129,17 @@ select {
     font-size: 1.4em;
   }
 
+  .icon--black {
+    color: #000000;
+  }
+
+  .icon--white {
+    color: #ffffff;
+  }
+
+  .icon--theme-color {
+    color: #161267;
+  }
   /* =========================
           ANIMATION
 ========================= */

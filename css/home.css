@@ -1,3 +1,4 @@
+@charset "utf-8";
 
  /* =========================
             HEADER
@@ -8,4 +9,65 @@
   height: 60px;
   background: #161267;
   position: static;
+}
+
+ /* =========================
+       ACCOUNT FIELD
+========================= */
+
+.account-field {
+  width: 100%;
+  height: 80px;
+}
+
+.account-field__icons-flex-container {
+  width: 100%;
+  height: 80px;
+  justify-content: flex-end;
+  flex-flow: row nowrap;
+}
+
+.account-field__icon {
+  align-self: center;
+  font-size: 2.5em;
+}
+
+.account-field__icon:not(:last-child) {
+  margin-right: 16px;
+}
+
+
+
+.account-field__btn {
+  width: 100px;
+  height: 40px;
+  padding: 0 1em;
+  box-sizing: border-box;
+  align-self: center;
+  text-align: center;
+  margin-right: 16px;
+  background: #161267;
+  color: #ffffff;
+}
+
+.account-field__btn--share {
+  margin: 0 8px 0 0;
+  line-height: 40px;
+  display: inline-block;
+  font-size: 1.4em;
+}
+
+
+
+.account-field__user-icon-wrap {
+  width: 60px;
+  height: 60px;
+  align-self: center;
+  margin-right: 16px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.account-field__user-icon {
+  transform: scale(1.1, 1.1);
 }
