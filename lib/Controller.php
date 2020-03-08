@@ -19,11 +19,12 @@ class Controller {
     $this->_values->$key = $value;
   }
 
+  // 値を配列形式でセット
   public function getValues() {
     return $this->_values;
   }
 
-
+  //エラー内容を配列形式でセット
   protected function setErrors($key, $error) {
     $this->_errors->$key = $error;
   }
@@ -32,7 +33,7 @@ class Controller {
     return isset($this->_errors->$key) ? $this->_errors->$key : '';
   }
 
-
+  // エラーの有無を確認
   protected function hasError() {
     return !empty(get_object_vars($this->_errors));
   }

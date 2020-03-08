@@ -1,6 +1,7 @@
 <?php
 
 require_once(__DIR__ . '/../config/config.php');
+trackingStart();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
@@ -17,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   session_destroy();
 }
 
-header('Location:' . SITE_URL);
+header('Location:' . SITE_URL . '/Duplazy/public_html/index.php');
 
 ?>
 

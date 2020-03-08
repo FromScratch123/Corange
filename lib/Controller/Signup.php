@@ -4,12 +4,17 @@ namespace MyApp\Controller;
 
 class Signup extends \MyApp\Controller {
 
+  //loginの有無確認
   public function run() {
     if ($this->isLoggedIn()) {
-      header('Location:' . SITE_URL);
+      header('Location:' . SITE_URL . '/Duplazy/public_html/home.php');
       exit;
     }
 
+    if ($this->hasError()) {
+      header('Location:' . $_SERVER['REQUEST_URI'] . '#require-userinfo');
+    }
+  
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       track('POST送信がありました');
       $this->postProcess();
@@ -18,7 +23,10 @@ class Signup extends \MyApp\Controller {
 
   protected function postProcess() {
     try {
+      //validate開始
       $this->_validate();
+    } catch (\MyApp\Exception\EmptyPost $e) {
+      $this->setErrors('empty', $e->getMessage());
     } catch (\MyApp\Exception\InvalidEmail $e) {
       $this->setErrors('email', $e->getMessage());
     } catch (\MyApp\Exception\InvalidPassword $e) {
@@ -27,6 +35,9 @@ class Signup extends \MyApp\Controller {
       $this->setErrors('agree', $e->getMessage());
     }
 
+    //入力保持
+    $this->setValues('surname', $_POST['surname']);
+    $this->setValues('givenname', $_POST['givenname']);
     $this->setValues('email', $_POST['email']);
 
     if ($this->hasError()) {
@@ -35,7 +46,7 @@ class Signup extends \MyApp\Controller {
       try {
         track('新規登録開始');
         $userModel = new \MyApp\Model\User();
-        $userModel->create([
+        $user = $userModel->create([
           'surname' => $_POST['surname'],
           'givenname' => $_POST['givenname'],
           'email' => $_POST['email'],
@@ -46,25 +57,38 @@ class Signup extends \MyApp\Controller {
         $this->setErrors('email', $e->getMessage());
         return;
       }
-      header('Location:' . SITE_URL . '/login.php');
+
+      session_regenerate_id(true);
+      $_SESSION['me'] = $user;
+
+      error_log('HOMEへ遷移します');
+      header('Location:' . SITE_URL . '/Duplazy/public_html/home.php');
       exit;
     }
   }
 
   private function _validate() {
+    //tokenの確認
     if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
       error_log('tokenが不正です');
       echo "Invalid Token!";
       exit;
     }
+    //必須項目確認
+    if ($_POST['surname'] === '' || $_POST['givenname'] === '' || $_POST['email'] === '' || $_POST['password'] === '') {
+      throw new \MyApp\Exception\EmptyPost();
+    }
+    //Emailの形式確認
     if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
       error_log('Emailの形式ではありません');
       throw new \MyApp\Exception\InvalidEmail();
     }
+    //パスワードの英数字確認
     if (!preg_match('/\A[a-zA-z0-9]+\z/', $_POST['password'])) {
       error_log('英数文字ではありません');
       throw new \MyApp\Exception\InvalidPassword();
     }
+    //同意の有無の確認
     if (!isset($_POST['agree'])) {
       error_log('termsに同意していません');
       throw new \MyApp\Exception\ConfirmTerms();

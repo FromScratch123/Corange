@@ -32,8 +32,9 @@ a {
 button {
   height: 2.5em;
   border: none;
-  cursor: pointer;
+  border: none;
   font-family: inherit;
+  cursor: pointer;
 }
 
 button:focus {
@@ -44,32 +45,11 @@ th, td {
   padding: 8px;
 }
 
-section {
-  margin-bottom: 100px;
-}
-
-.logo {
-  width: 10%;
-  max-width: 180px;
-  min-width: 105px;
-  padding: 0 0 0 2em;
-  line-height: 60px;
-}
-
-.logo__img {
-  vertical-align: middle;
-}
-
 .flex-container {
   display: flex;
   justify-content: space-between;
   flex-flow: row wrap;
 }
-
-.theme-color {
-  color: #161267;
-}
-
 
 input {
   width: 100%;
@@ -83,46 +63,28 @@ input {
 
 input[type="submit"] {
   cursor: pointer;
+  border: none;
 }
 
 select {
+  width: 100%;
+  height: 2.5em;
   padding: 0.5em;
-  margin: 0 10px 20px 0;
+  margin: 0 0 16px;
+  font-size: 1.6em;
+  color: #3C3C3C;
 }
 
-.section__title {
-    margin-bottom: 50px;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    display: inline-block;
-    font-size: 2em;
-  }
-
-  .section__title::before {
-    content: "";
-    width: 6px;
-    height: 80%;
-    background: #8A4DA5;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: -21px;
-  }
-
-  .section__title::after {
-    content: "";
-    width: 2px;
-    height: 80%;
-    background: #8A4DA5;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: -10px;
+  .margin--0 {
+    margin: 0;
   }
 
   .color--blue {
     color: #0f42a3;
+  }
+
+  .color--red {
+    color: #ff0000;
   }
 
   .fz--small {
@@ -140,6 +102,12 @@ select {
   .icon--theme-color {
     color: #161267;
   }
+
+  .has-error {
+    color: #ff0000;
+    font-size: 1.2em;
+  }
+
   /* =========================
           ANIMATION
 ========================= */
@@ -149,10 +117,16 @@ select {
           JavaScript
 ========================= */
 
-.js-display--none {
+.js--show {
+  display: block;
+}
+.js--hidden {
   display: none;
 }
 
+.js--fixed {
+  position: fixed;
+}
 
   /* =========================
             HEADER
@@ -259,6 +233,11 @@ select {
   font-size: 1.8em;
 }
 
+
+  /* =========================
+      SIGNUP DRAWER
+========================= */
+
 .signup-drawer {
   width: 30%;
   height: 100vh;
@@ -313,9 +292,46 @@ select {
 
 .signup-drawer__submit {
   background: #161267;
+  border: none;
   color: #ffffff;
 }
 
   /* =========================
-            IMPORT
+      SIGN UP / SIGN IN
 ========================= */
+
+.require-userinfo {
+  width: 100%;
+  height: 100vh;
+  padding-top: 108px;
+  background-image: url(./../images/signup.jpg);
+  background-color: rgba(255, 255, 255, 0.3);
+  background-blend-mode: lighten;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.require-userinfo__content-wrap {
+  width: 50%;
+  max-width: 500px;
+  min-width: 320px;
+  margin: 0 auto;
+
+}
+
+.require-userinfo__title {
+  margin-top: 0;;
+  color: #161267;
+  font-size: 2.5em;
+}
+
+.require-userinfo__to-signin {
+  margin-bottom: 32px;
+}
+
+.require-userinfo__submit {
+  background: #161267;
+  border: none;
+  color: #ffffff;
+}
