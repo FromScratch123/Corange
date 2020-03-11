@@ -1,48 +1,27 @@
-<?php
+<?php 
 
-require_once(__DIR__ . '/../config/config.php');
-//log header
-trackingStart();
-//Signup Controller読込
-$app = new MyApp\Controller\Signup();
-//ログイン状態の確認
-$app->run();
+  require_once(__DIR__ . '/../config/config.php');
+  trackingStart();
 
-//HTML 
-//head読込
-$requestPage = '';
-$jsPath = '';
-$CSSPath1 = '';
-$CSSPath2 = '';
-$CSSPath3 = '';
-require_once(__DIR__ . '/head.php');
+  $app = new MyApp\Controller\EditProfile();
+  $app->run();
 
-?>
+  $requestPage = 'EDIT PROFILE -';
+  $jsPath = './../js/editProfile.js';
+  $CSSPath1 = './../CSS/editProfile.css';
+  $CSSPath2 = './../css/accountField.css';
+  $CSSPath3 = '';
+  require_once(__DIR__ . '/head.php');
 
-<body>
-<!-- hero -->
-  <div class="hero">
-    <!-- header -->
-    <?php 
-    $logoPath = ''; 
-    require_once(__DIR__ . '/header.php'); 
-    ?>
-    <!-- text -->
-      <p class="hero__text">Make work easy<br>let you lazy</p>
-    <!-- btn -->
-    <button class="hero__signup-btn"><a href="signup.php">Sign Up Now!</a></button>
-    <button class="hero__about-btn">About Duplazy</button>
+  ?>
 
-<!-- signup drawer -->    
-    <div class="signup-drawer">
-      <button class="signup-drawer__times">
-        <i class="fas fa-times"></i>
-      </button>
-      <div class="sigup-drawer__content-wrap">
-        <p class="signup-drawer__title">Sign Up</p>
-        <p class="signup-drawer__to-login fz--small">or <a class="color--blue" href="./login.php">Log In</a> your account</p>
-        <p class="has-error margin--0"><?= $app->getErrors('empty'); ?></p>
-        <form action="" method="post">
+  <body>
+  <?php 
+  $logoPath = './index.php'; 
+  require_once(__DIR__ . '/header.php');
+  require_once(__DIR__ . '/accountField.php');
+  ?>
+  <form action="" method="post">
           <!-- surname -->
           <label for="surname">
              <p class="has-error margin--0"><?= $app->getErrors('surname'); ?></p>
@@ -67,6 +46,8 @@ require_once(__DIR__ . '/head.php');
               <input type="text" name="email" value="<?= isset($app->getValues()->email) ? h($app->getValues()->email) : ''; ?>"
               placeholder="email"> 
             </p>
+            <!-- age -->
+            <input type="text" name="age" value="<?= isset($app->getValues()->age) ? h($app->getValues()->age) : ''; ?>" placeholder="age">
           </label>
           <!-- password -->
           <label for="password">
@@ -75,25 +56,12 @@ require_once(__DIR__ . '/head.php');
             <p class="margin--0">
               <input type="password" name="password" placeholder="password"> 
             </p>
-          </label>
-          <!-- agree -->
-          <label class="agree-label">
-             <p class="has-error margin--0"><?= $app->getErrors('agree'); ?></p>
-            <p class="fz--small">
-              <input class="agree" type="checkbox" name="agree">
-              I agree to <span class="color--blue"><a href=""> Duplazy terms</a></span>
-            </p>
-          </label>
+          </label> 
           <!-- token -->
           <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
           <p class="margin--0">
             <input class="signup-drawer__submit" type="submit" value="Sign Up">
           </p>
         </form>
-      </div>
-    </div>
-  </div>
-
-  
-</body>
-</html>
+  </body>
+  </html>

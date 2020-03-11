@@ -3,24 +3,26 @@
 require_once(__DIR__ . '/../config/config.php');
 trackingStart();
 
-$app = new MyApp\Controller\Cancel();
+$app = new MyApp\Controller\delete();
 $app->run();
 
 //<head>
-$requestPage = 'CANCEL -';
-$jsPath = './../js/cancel.js';
-$CSSPath = './../css/cancel.css';
+$requestPage = 'delete -';
+$jsPath = './../js/delete.js';
+$CSSPath1 = './../css/delete.css';
+$CSSPath2 = '';
+$CSSPath3 = '';
 require_once(__DIR__ . '/head.php');
 //</head>
 
 ?>
 
 <body>
-<!-- cancel -->    
-<section id="cancel" class="cancel">
-      <div class="cancel__content-wrap">
-      <p class="cancel__title">Cancel</p>
-      <p class="cancel__notice fz--small">※Please note that you will be not able to retrieve your account once you cancel your account.</p>
+<!-- delete -->    
+<section id="delete" class="delete">
+      <div class="delete__content-wrap">
+      <p class="delete__title">delete</p>
+      <p class="delete__notice fz--small">※Please note that you will be not able to retrieve your account once you delete your account.</p>
       <form action="" method="post">
       <!-- reason -->
       <label for="reason">
@@ -67,7 +69,7 @@ require_once(__DIR__ . '/head.php');
       <!-- token -->
       <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
       <p>
-        <input class="cancel__submit" type="submit" value="Cancl">
+        <input class="delete__submit" type="submit" value="Delete">
       </p>
       </form>
     </div>

@@ -15,8 +15,10 @@ class Controller {
     $this->_values = new \stdClass();
   }
 
-  protected function setValues($key, $value) {
-    $this->_values->$key = $value;
+  protected function setValues($array) {
+    foreach($array as $key => $value) {
+      $this->_values->$key = $value;
+    }
   }
 
   // 値を配列形式でセット
@@ -39,6 +41,6 @@ class Controller {
   }
 
   protected function isLoggedIn() {
-    return isset($_SERVER['me']) && !empty($_SESSION['me']);
+    return isset($_SESSION['me']) && !empty($_SESSION['me']);
   }
 }

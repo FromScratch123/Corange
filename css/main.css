@@ -169,7 +169,7 @@ select {
   clear: both;
 }
 
-.header__signin {
+.header__login {
   display: inline-block;
   margin: 0;
   padding: 0 16px;
@@ -275,7 +275,7 @@ select {
   font-size: 2.5em;
 }
 
-.signup-drawer__to-signin {
+.signup-drawer__to-login {
   margin-bottom: 32px;
 }
 
@@ -296,42 +296,4 @@ select {
   color: #ffffff;
 }
 
-  /* =========================
-      SIGN UP / SIGN IN
-========================= */
-
-.require-userinfo {
-  width: 100%;
-  height: 100vh;
-  padding-top: 108px;
-  background-image: url(./../images/signup.jpg);
-  background-color: rgba(255, 255, 255, 0.3);
-  background-blend-mode: lighten;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-}
-
-.require-userinfo__content-wrap {
-  width: 50%;
-  max-width: 500px;
-  min-width: 320px;
-  margin: 0 auto;
-
-}
-
-.require-userinfo__title {
-  margin-top: 0;;
-  color: #161267;
-  font-size: 2.5em;
-}
-
-.require-userinfo__to-signin {
-  margin-bottom: 32px;
-}
-
-.require-userinfo__submit {
-  background: #161267;
-  border: none;
-  color: #ffffff;
-}
+ 

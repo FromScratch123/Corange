@@ -26,7 +26,9 @@ crossorigin="anonymous"></script>
   <link href="https://unpkg.com/sanitize.css" rel="stylesheet"/> 
   <!-- Main CSS-->
   <link rel="stylesheet" href="./../css/main.css"> 
-  <link rel="stylesheet" href="<?= $CSSPath ?>"> 
+  <link rel="stylesheet" href="<?= $CSSPath1 ?>"> 
+  <link rel="stylesheet" href="<?= $CSSPath2 ?>"> 
+  <link rel="stylesheet" href="<?= $CSSPath3 ?>"> 
 <!-- CARD -->
   <meta property="og:url" content="">
   <meta property="og:title" content="Duplazy | もっと簡単に、もっと楽に。">

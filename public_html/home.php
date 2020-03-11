@@ -2,67 +2,25 @@
 <?php 
   require_once(__DIR__ . '/../config/config.php');
   trackingStart();
-
   $requestPage = 'HOME -';
   $jsPath = './../js/home.js';
-  $CSSPath = './../CSS/home.css';
+  $CSSPath1 = './../CSS/home.css';
+  $CSSPath2 = './../CSS/accountField.css';
+  $CSSPath3 = './../CSS/aside.css';
   require_once(__DIR__ . '/head.php');
 
   ?>
 
 <body>
-<?php require_once(__DIR__ . '/header.php') ?>
-<div class="account-field">
-  <!-- friend icon -->
-  <div class="account-field__icons-flex-container flex-container">
-  <!-- friend icon -->
-  <i class="account-field__icon icon--black fas fa-user-friends"></i>
-  <!-- chat icon -->
-  <i class="account-field__icon icon--black fas fa-comment-dots"></i>
-  <!-- bell icon -->
-  <i class="account-field__icon icon--black bell-icon fas fa-bell">
-  <span class="notification">1</span>
-  </i>
-  <!-- share btn -->
-  <button class="account-field__btn">
-    <span class=account-field__btn--share>SHARE</span>
-    <i class="account-field__icon account-field__icon--share icon--white fas fa-share-alt"></i>
-  </button>
-  <!-- account menu -->
-  <i id="user-menu-trigger" class="user-menu-trigger menu fas fa-ellipsis-h">
-  <!-- menu list -->
-  <div class="user-menu-box js--hidden">
-    <ul>
-      <li class="user-menu-list"><i class="user-menu-icon far fa-address-card"></i><a href="">プロフィール</a></li>
-      <li class="user-menu-list"><i class="user-menu-icon fas fa-cog"></i><a href="">設定</a></li>
-      <li class="user-menu-list"><i class="user-menu-icon far fa-question-circle"></i><a href="">ヘルプ</a></li>
-      <li class="user-menu-list"><i class="user-menu-icon fas fa-sign-out-alt"></i><a href="./logout.php">ログアウト</a></li>
-      <li class="user-menu-list"><i class="user-menu-icon fas fa-user-slash"></i><a href="./cancel.php">退会</a></li>
-    </ul>
-  </div>
-  </i>
-  <!-- user icon -->
-  <div class="account-field__user-icon-wrap">
-    <img src="./../images/user_icon.png" alt="ユーザーのアイコン画像" class="account-field__user-icon">
-  </div>
-  </div>
-</div>
+<?php 
+$logoPath = '';
+require_once(__DIR__ . '/header.php');
+require_once(__DIR__ . '/accountField.php');
+require_once(__DIR__ . '/aside.php');
+ ?>
 
-<aside class="side-menu">
-  <ul class="categories">
-    <li class="categories__list"><i class="categories-icon fas fa-folder-open"></i><a href="">My Project</a></li>
-    <li class="categories__list"><i class="categories-icon fab fa-slideshare"></i><a href="">Share
-    <li class="categories__list"><i class="categories-icon fas fa-clock"></i><a href="">Recent</a></li>
-    <li class="categories__list"><i class="categories-icon fas fa-flag"></i><a href="">Flag</a></li>
-    <li class="categories__list"><i class="categories-icon fas fa-trash-alt"></i><a href="">Tras</a>h</li>
-  </ul>
-  <!-- search window -->
-  <form class="side-menu__search-window--wrap action="" method="get">
-    <input class="side-menu__search-window" type="text" name="search" placeholder="search..."><i class="side-menu__search-window--icon fas fa-search"></i>
-  </form>
-  <!-- create project btn -->
-  <button class="side-menu__create-btn">New Project</button>
-</aside>
+
+
   
 <main>
   <div class="project-window">

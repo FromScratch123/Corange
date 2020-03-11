@@ -1,0 +1,61 @@
+/* =========================
+        SIDE MENU
+========================= */
+
+.side-menu {
+  grid-area: aside;
+  width: 250px;
+  height: calc(100vh - (60px + 80px));
+  padding: 48px 24px;
+  position: relative;
+  border: 1px solid #707070;
+  border-top: none;
+}
+
+.categories {
+  font-size: 2.0em;
+  color: #000000;
+}
+
+.categories__list {
+  margin-bottom: 24px;
+}
+
+.categories-icon {
+  margin-right: 8px;
+}
+
+.side-menu__search-window--wrap {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.side-menu__search-window {
+  margin-bottom: 0;
+  padding: 16px;
+  border: solid 1px #707070;
+  border-radius: calc(2.5em / 2);
+}
+
+.side-menu__search-window:focus {
+  outline: none;
+}
+
+.side-menu__search-window--icon {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  font-size: 1.6em;
+}
+
+.side-menu__create-btn {
+  width: 80%;
+  height: 3em;
+  position: absolute;
+  bottom: 48px;
+  background: #161267;
+  border-radius: calc(3em / 2);
+  color: #ffffff;
+  font-size: 1.6em; 
+}

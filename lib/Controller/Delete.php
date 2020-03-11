@@ -2,11 +2,11 @@
 
 namespace MyApp\Controller;
 
-class Cancel extends \MyApp\Controller {
+class Delete extends \MyApp\Controller {
 
   public function run() {
-    if ($this->isLoggedIn()) {
-      track('【未ログイン】index.phpへ遷移します');
+    if (!$this->isLoggedIn()) {
+      track('【ログイン未】index.phpへ遷移します');
       header('Location:' . SITE_URL . '/Duplazy/public_html/index.php');
       exit;
     }
@@ -22,7 +22,7 @@ class Cancel extends \MyApp\Controller {
       $this->_validate();
     } catch (\MyApp\Exception\EmptyPost $e) {
 
-      $this->setErrors('cancel', $e->getMessage());
+      $this->setErrors('delete', $e->getMessage());
     } 
 
     $this->setValues('email', $_POST['email']);
@@ -33,12 +33,12 @@ class Cancel extends \MyApp\Controller {
       try {
         $userModel = new \MyApp\Model\User();
         track('退会処理開始');
-        $userModel->cancel(['email' => $_POST['email'],
+        $userModel->delete(['email' => $_POST['email'],
         'password' => $_POST['password']
         ]);
       } catch (\MyApp\Exception\UnmatchEmailOrPassword $e) {
         track('メールアドレスまたはパスワードが間違っています');
-        $this->setErrors('cancel', $e->getMessage());
+        $this->setErrors('delete', $e->getMessage());
         return;
       }
 

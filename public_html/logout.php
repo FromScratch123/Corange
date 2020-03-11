@@ -8,7 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "Invalid Token!";
     exit;
   }
-
+}
+  
   $_SESSION = [];
 
   if (isset($_COOKIE[session_name()])) {
@@ -16,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   session_destroy();
-}
+
 
 header('Location:' . SITE_URL . '/Duplazy/public_html/index.php');
 

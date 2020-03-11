@@ -1,8 +1,8 @@
  /* =========================
-         CANCEL
+         delete
 ========================= */
 
-.cancel{
+.delete{
   width: 100%;
   height: 100vh;
   padding-top: 108px;
@@ -14,7 +14,7 @@
   background-position: center;
 }
 
-.cancel__content-wrap {
+.delete__content-wrap {
   width: 50%;
   max-width: 500px;
   min-width: 320px;
@@ -22,17 +22,17 @@
 
 }
 
-.cancel__title {
+.delete__title {
   margin-top: 0;;
   color: #161267;
   font-size: 2.5em;
 }
 
-.cancel__to-signin {
+.delete__to-signin {
   margin-bottom: 32px;
 }
 
-.cancel__submit {
+.delete__submit {
   background: #161267;
   border: none;
   color: #ffffff;

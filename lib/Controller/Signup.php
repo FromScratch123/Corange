@@ -7,12 +7,9 @@ class Signup extends \MyApp\Controller {
   //loginの有無確認
   public function run() {
     if ($this->isLoggedIn()) {
+      track('【ログイン済】home.phpへ遷移します');
       header('Location:' . SITE_URL . '/Duplazy/public_html/home.php');
       exit;
-    }
-
-    if ($this->hasError()) {
-      header('Location:' . $_SERVER['REQUEST_URI'] . '#require-userinfo');
     }
   
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -60,7 +57,6 @@ class Signup extends \MyApp\Controller {
 
       session_regenerate_id(true);
       $_SESSION['me'] = $user;
-
       error_log('HOMEへ遷移します');
       header('Location:' . SITE_URL . '/Duplazy/public_html/home.php');
       exit;

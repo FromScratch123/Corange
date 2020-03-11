@@ -1,11 +1,11 @@
  /* =========================
-         LOG IN
+         SIGN UP
 ========================= */
 
-.login{
+.require-userinfo {
   width: 100%;
   height: 100vh;
-  padding-top: calc(100vh / 3);
+  padding-top: 108px;
   background-image: url(./../images/signup.jpg);
   background-color: rgba(255, 255, 255, 0.3);
   background-blend-mode: lighten;
@@ -14,7 +14,7 @@
   background-position: center;
 }
 
-.login__content-wrap {
+.require-userinfo__content-wrap {
   width: 50%;
   max-width: 500px;
   min-width: 320px;
@@ -22,17 +22,17 @@
 
 }
 
-.login__title {
+.require-userinfo__title {
   margin-top: 0;;
   color: #161267;
   font-size: 2.5em;
 }
 
-.login__to-signup {
+.require-userinfo__to-signin {
   margin-bottom: 32px;
 }
 
-.login__submit {
+.require-userinfo__submit {
   background: #161267;
   border: none;
   color: #ffffff;
