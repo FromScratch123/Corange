@@ -3,7 +3,7 @@
 require_once(__DIR__ . '/../config/config.php');
 trackingStart();
 
-$app = new MyApp\Controller\delete();
+$app = new MyApp\Controller\Delete();
 $app->run();
 
 //<head>
@@ -18,10 +18,15 @@ require_once(__DIR__ . '/head.php');
 ?>
 
 <body>
+<?php 
+$logoPath = './index.php'; 
+require_once(__DIR__ . '/header.php');
+?>
 <!-- delete -->    
 <section id="delete" class="delete">
       <div class="delete__content-wrap">
-      <p class="delete__title">delete</p>
+      <p class="delete__title">Delete account</p>
+      <p class="has-error color--red"><?= $app->getErrors('delete') ?></p>
       <p class="delete__notice fz--small">※Please note that you will be not able to retrieve your account once you delete your account.</p>
       <form action="" method="post">
       <!-- reason -->
@@ -49,18 +54,21 @@ require_once(__DIR__ . '/head.php');
       </label>
       <!-- email -->
       <label for="email">
-        <p>
+      <span class="color--red">※</span>
+        <p class="margin--0">
           <input type="text" name="email" placeholder="email"> 
         </p>
       </label>
       <!-- password -->
       <label for="password">
-        <p>
+      <span class="color--red">※</span>
+        <p class="margin--0">
           <input type="password" name="password" placeholder="password"> 
         </p>
       </label>
       <!-- agree -->
       <label class="agree-label">
+      <p class="has-error margin--0"><?= $app->getErrors('agree'); ?></p>
         <p class="fz--small">
           <input class="agree" type="checkbox" name="agree">
           I agree to <span class="color--blue"><a href=""> Duplazy terms</a></span>
@@ -69,7 +77,7 @@ require_once(__DIR__ . '/head.php');
       <!-- token -->
       <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
       <p>
-        <input class="delete__submit" type="submit" value="Delete">
+        <input class="delete__submit" type="submit" value="Delete account">
       </p>
       </form>
     </div>

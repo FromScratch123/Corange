@@ -25,10 +25,10 @@ $logoPath = './index.php';
 require_once(__DIR__ . '/header.php'); 
 ?>
 <!-- signup -->    
-<section id="require-userinfo" class="require-userinfo">
-      <div class="require-userinfo__content-wrap">
-        <p class="require-userinfo__title">Sign Up</p>
-        <p class="require-userinfo__to-login fz--small">or <a class="color--blue" href="./login.php">Log in</a> your account</p>
+<section id="signup" class="signup">
+      <div class="signup__content-wrap">
+        <p class="signup__title">Sign Up</p>
+        <p class="signup__to-login fz--small">or <a class="color--blue" href="./login.php">Log in</a> your account</p>
         <p class="has-error margin--0"><?= $app->getErrors('empty'); ?></p>
         <form action="" method="post">
         <!-- surname -->
@@ -74,7 +74,7 @@ require_once(__DIR__ . '/header.php');
         <!-- token -->
         <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
         <p>
-          <input class="require-userinfo__submit" type="submit" value="Sign Up">
+          <input class="signup__submit" type="submit" value="Sign Up">
         </p>
       </form>
     </div>

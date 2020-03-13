@@ -32,7 +32,6 @@ a {
 button {
   height: 2.5em;
   border: none;
-  border: none;
   font-family: inherit;
   cursor: pointer;
 }
@@ -63,7 +62,6 @@ input {
 
 input[type="submit"] {
   cursor: pointer;
-  border: none;
 }
 
 select {

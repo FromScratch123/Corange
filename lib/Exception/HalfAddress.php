@@ -2,6 +2,6 @@
 
 namespace MyApp\Exception;
 
-class InvalidCharacters extends \Exception {
+class HalfAddress extends \Exception {
   protected $message = 'Please enter in half-whith characters!';
 }

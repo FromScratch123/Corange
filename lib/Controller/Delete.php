@@ -21,11 +21,12 @@ class Delete extends \MyApp\Controller {
     try {
       $this->_validate();
     } catch (\MyApp\Exception\EmptyPost $e) {
-
       $this->setErrors('delete', $e->getMessage());
-    } 
+    } catch (\MyApp\Exception\ConfirmTerms $e) {
+      $this->setErrors('agree', $e->getMessage());
+    }
 
-    $this->setValues('email', $_POST['email']);
+    $this->setValues($_POST);
 
     if ($this->hasError()) {
       return;
@@ -67,12 +68,16 @@ class Delete extends \MyApp\Controller {
     }
 
     if (!isset($_POST['email']) || !isset($_POST['password'])) {
-      echo "Invalid Form!";
-      exit;
+      throw new \MyApp\Exception\EmptyPost();
     }
 
     if ($_POST['email'] === '' || $_POST['password'] === '') {
       throw new \MyApp\Exception\EmptyPost();
+    }
+    //同意の有無の確認
+    if (!isset($_POST['agree'])) {
+      error_log('termsに同意していません');
+      throw new \MyApp\Exception\ConfirmTerms();
     }
   }
 }

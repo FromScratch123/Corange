@@ -72,36 +72,22 @@ class User extends \MyApp\Model {
   public function modify($array) {
       $this->setProperties($array);
       foreach($array as $key => $value) {
-        if($key === 'password') {
-          $stmt = $this->db->prepare('update users set ' . $key . ' = ' . ':' . $key . ', modified_date = now() where id = :id');
-          $res = $stmt->execute([
-            ':' . $key => password_hash($value, PASSWORD_DEFAULT),
-            ':id' => $_SESSION['me']['id']
-          ]);
-      } else {
         $stmt = $this->db->prepare('update users set ' . $key . ' = ' . ':' . $key . ', modified_date = now() where id = :id');
             $res = $stmt->execute([
               ':' . $key => $value,
-              ':id' => $_SESSION['me']['id']
+              ':id' => $_SESSION['me']->id
             ]);
       }
-           
       $modifiedStmt = $this->db->query("select * from users where id =" . $_SESSION['me']->id);
       $modifiedStmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
       $user = $modifiedStmt->fetch();
       return $user;
-   }
   }
 
   public function setProperties($array) {
     foreach($array as $key => $value) {
-      if ($key === 'password') {
-        $this->_properties->$key = 
-        password_hash($value, PASSWORD_DEFAULT);
-      } else {
         $this->_properties->$key = $value;
       }
-    }
     return;
   }
 

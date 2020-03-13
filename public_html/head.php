@@ -21,6 +21,7 @@ crossorigin="anonymous"></script>
 <!-- JavaScript -->
 <script src="./../js/main.js"></script> 
 <script src="<?= $jsPath ?>"></script> 
+<script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
 <!-- CSS -->
   <!-- Reset CSS -->
   <link href="https://unpkg.com/sanitize.css" rel="stylesheet"/> 

@@ -30,21 +30,37 @@ class EditProfile extends \MyApp\Controller {
 
   protected function postProcess() {
     try {
-      //validate開始
+      track('validate開始');
       $this->_validate();
     } catch (\MyApp\Exception\EmptyPost $e) {
+      track('必須項目が未入力です');
       $this->setErrors('empty', $e->getMessage());
-    } catch (\MyApp\Exception\InvalidCharacters $e) {
+    } catch (\MyApp\Exception\HalfAge $e) {
+      track('半角数字ではありません');
       $this->setErrors('age', $e->getMessage());
+    } catch (\MyApp\Exception\InvalidAge $e) {
+      track('年齢が3桁を超えています');
+      $this->setErrors('age', $e->getMessage());
+    } catch (\MyApp\Exception\HalfTel $e) {
+      track('半角数字ではありません');
+      $this->setErrors('tel', $e->getMessage());
     } catch (\MyApp\Exception\InvalidTel $e) {
+      track('電話番号の形式ではありません');
       $this->setErrors('tel', $e->getMessage());
     } catch (\MyApp\Exception\InvalidEmail $e) {
+      track('Emailの形式ではありません');
       $this->setErrors('email', $e->getMessage());
-    } catch (\MyApp\Exception\InvalidZip $e) {
+    } catch (\MyApp\Exception\HalfZip $e) {
+      track('半角数字ではありません');
       $this->setErrors('zip', $e->getMessage());
-    } catch (\MyApp\Exception\InvalidCharacters $e) {
-      $this->setErrors('password', $e->getMessage());
+    } catch (\MyApp\Exception\InvalidZip $e) {
+      track('郵便番号の形式ではありません');
+      $this->setErrors('zip', $e->getMessage());
+    } catch (\MyApp\Exception\HalfAddress $e) {
+      track('半角数字ではありません');
+      $this->setErrors('address', $e->getMessage());
     } catch (\MyApp\Exception\UnmatchConfirmation $e) {
+      track('パスワードが一致しません');
       $this->setErrors('password', $e->getMessage());
     }
 
@@ -53,20 +69,23 @@ class EditProfile extends \MyApp\Controller {
     if ($this->hasError()) {
       return;
     } else {
+      track('validateクリア');
       try {
         track('プロフィール変更開始');
           global $userModel;
           $user = $userModel->modify($_POST);
       } catch (\MyApp\Exception\Query $e) {
         track('クエリ実行に失敗しました');
+        track($e->getMesssage());
         $this->setErrors('query', $e->getMessage());
         return;
       }
 
       track('プロフィール変更完了');
       $_SESSION['me'] = $user;
+      $_SESSION['modify'] = true;
       track('変更後:' . print_r($_SESSION['me'], true));
-      error_log('HOMEへ遷移します');
+      track('HOMEへ遷移します');
       header('Location:' . SITE_URL . '/Duplazy/public_html/home.php');
       exit;
     }
@@ -75,69 +94,74 @@ class EditProfile extends \MyApp\Controller {
   private function _validate() {
     //tokenの確認
     if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
-      error_log('tokenが不正です');
+      track('tokenが不正です');
       echo "Invalid Token!";
       exit;
     }
     //必須項目確認
-    if ($_POST['surname'] === '' || $_POST['givenname'] === '' || $_POST['email'] === '' || $_POST['password'] === '') {
+    if ($_POST['surname'] === '' || $_POST['givenname'] === '' || $_POST['email'] === '') {
       throw new \MyApp\Exception\EmptyPost();
     }
     //ageの半角数字確認
-    if(!empty($_POST['age'])) {
-      if (!preg_match('/\A[a-zA-z0-9]+\z/', $_POST['age'])) {
-        error_log('年齢が半角英数文字ではありません');
-        throw new \MyApp\Exception\InvalidCharacters();
+    if(isset($_POST['age']) && $_POST['age'] !== "") {
+      //1.半角数字確認
+      if (!preg_match('/\A[0-9]+\z/', $_POST['age'])) {
+        throw new \MyApp\Exception\HalfAge();
+      } else if 
+      //2.桁数確認
+        ($_POST['age'] > 1000) {
+        throw new \MyApp\Exception\InvalidAge();
       }
-
     }
     //電話番号形式確認
-    //1.全角文字を半角に変換
-    if(!empty($_POST['tel'])) {
-      mb_convert_kana($_POST['tel'], 'n');
-      //2.ハイフンを削除
+    if(isset($_POST['tel']) && $_POST['tel'] !== "") {
+      //1.ハイフンを削除
       $tel = str_replace(array('-', 'ー', '−', '―', '‐'), '', $_POST['tel']);
+      track('ハイフン削除後:'.$tel);
+      //2.半角数字確認
+      if (!preg_match('/\A[0-9]+\z/', $tel)) {
+        throw new \MyApp\Exception\HalfTel();
+      } else if 
       //3.形式確認
-      if (!preg_match("/0\d{1,4}\d{1,4}\d{4}/", $tel)) {
-        error_log('電話番号の形式に一致しません');
+      (!preg_match("/^0\d{8,10}$/", $tel)) {
         throw new \MyApp\Exception\InvalidTel();
       }
-
     }
     //Emailの形式確認
     if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-      error_log('Emailの形式に一致しません');
       throw new \MyApp\Exception\InvalidEmail();
     }
     //郵便番号の形式確認
-    if(!empty($_POST['zip'])) {
-      //1.全角文字を半角に変換
-      mb_convert_kana($_POST['zip'], 'n');
-      //2.ハイフンを削除
+    if(isset($_POST['zip']) && $_POST['zip'] !== "") {
+      //1.ハイフンを削除
       $zip = str_replace(array('-', 'ー', '−', '―', '‐'), '', $_POST['zip']);
+      track('ハイフン削除後:' . $zip);
+      //2.半角数字確認
+      if (!preg_match('/\A[0-9]+\z/', $zip)) {
+        throw new \MyApp\Exception\HalfZip();
+      } else if 
       //3.形式確認
-      if(!preg_match("/^\d{7}$/", $zip)){
-       error_log('郵便番号の形式に一致しません');
-       throw new \MyApp\Exception\InvalidZip();
-     }
+       (!preg_match("/^\d{7}$/", $zip)) {
+         throw new \MyApp\Exception\InvalidZip();
+      }
     }
     //番地の形式確認
-    if(!empty($_POST['address'])) {
-      //1.全角文字を半角に変換
-      mb_convert_kana($_POST['address'], 'n');
-      //2.ハイフンを削除
+    if(isset($_POST['address']) && $_POST['address'] !== "") {
+      //1.ハイフンを削除
       $address = str_replace(array('-', 'ー', '−', '―', '‐'), '', $_POST['address']);
-      str_replace($address, '-', 3, 1);
+      track('ハイフン削除後:' . $address);
+      if (!preg_match('/\A[0-9]+\z/', $address)) {
+        throw new \MyApp\Exception\HalfAddress();
+      }
     }
 
-    //パスワードの半角英数字確認
-    if (!preg_match('/\A[a-zA-z0-9]+\z/', $_POST['password'])) {
-      error_log('半角英数文字ではありません');
-      throw new \MyApp\Exception\InvalidCharacters();
-    }
+    // //パスワードの半角英数字確認
+    // if (!preg_match('/\A[a-zA-z0-9]+\z/', $_POST['password'])) {
+    //   throw new \MyApp\Exception\HalfPassword();
+    // }
     // //パスワードの同値確認
     // if ($_POST['password'] !== $_POST['password-confirmation']) {
-    //   error_log('パスワードの入力に誤りがあります');
+    //   track('パスワードの入力に誤りがあります');
     //   throw new \MyApp\Exception\UnmatchConfirmation();
     // }
   }

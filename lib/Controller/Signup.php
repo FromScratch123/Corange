@@ -33,10 +33,8 @@ class Signup extends \MyApp\Controller {
     }
 
     //入力保持
-    $this->setValues('surname', $_POST['surname']);
-    $this->setValues('givenname', $_POST['givenname']);
-    $this->setValues('email', $_POST['email']);
-
+    $this->setValues('surname', $_POST);
+   
     if ($this->hasError()) {
       return;
     } else {

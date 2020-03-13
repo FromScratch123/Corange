@@ -17,7 +17,11 @@ class Controller {
 
   protected function setValues($array) {
     foreach($array as $key => $value) {
-      $this->_values->$key = $value;
+      if ($key === 'password') {
+        $this->_values->$key = password_hash($value, PASSWORD_DEFAULT);
+      } else {
+        $this->_values->$key = $value;
+      }
     }
   }
 

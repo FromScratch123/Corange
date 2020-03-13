@@ -7,6 +7,7 @@
   $CSSPath1 = './../CSS/home.css';
   $CSSPath2 = './../CSS/accountField.css';
   $CSSPath3 = './../CSS/aside.css';
+  $messages = ['modify' => 'プロフィール変更完了しました。'];
   require_once(__DIR__ . '/head.php');
 
   ?>
@@ -19,8 +20,11 @@ require_once(__DIR__ . '/accountField.php');
 require_once(__DIR__ . '/aside.php');
  ?>
 
-
-
+<?php if ($_SESSION['modify']) : ?>
+  <div class="message">
+    <p class="message__text"><?= $messages['modify'] ?></p>
+  </div>
+<?php endif; ?>
   
 <main>
   <div class="project-window">

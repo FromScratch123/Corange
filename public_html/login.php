@@ -29,7 +29,7 @@ require_once(__DIR__ . '/header.php');
     <div class="login__content-wrap">
       <p class="login__title">login</p>
       <!-- signup link -->
-      <p class="require-userinfo__to-signup fz--small">You don't have an account yet? Please <a class="color--blue" href="./signup.php">sign up here</a>.</p>
+      <p class="login__to-signup fz--small">You don't have an account yet? Please <a class="color--blue" href="./signup.php">sign up here</a>.</p>
       <p class="has-error margin--0"><?= $app->getErrors('login'); ?></p>
       <form action="" method="post">
       <!-- email -->
@@ -45,7 +45,7 @@ require_once(__DIR__ . '/header.php');
         </p>
       </label>
       <!-- forgotten password -->
-      <p class="require-userinfo__to-reset fz--small">You have<a class="color--blue" href="./reset.php"> forgotten password?</a></p>
+      <p class="login__to-reset fz--small">You have<a class="color--blue" href="./reset.php"> forgotten password?</a></p>
       <!-- token -->
       <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
       <p>
