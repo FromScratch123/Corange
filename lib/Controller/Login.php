@@ -44,6 +44,7 @@ class Login extends \MyApp\Controller {
 
       session_regenerate_id(true);
       $_SESSION['me'] = $user;
+      $_SESSION['modify'] = false;
       track('home.phpへ遷移します');
       header('Location:' . SITE_URL . '/Duplazy/public_html/home.php');
       exit;

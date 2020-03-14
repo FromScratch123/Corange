@@ -2,6 +2,48 @@
       EDIT PROFILE
 ========================= */
 
+.user-icon {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.user-icon__input {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.user-icon__cover {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 150px;
+  background: #8E8E8E;
+  opacity: .5;
+}
+
+.user-icon__cover--mouseover {
+  background: #B8D5FD;
+}
+
+.user-icon__camera {
+  vertical-align: middle;
+  font-size: 3em;
+  color: black;
+}
+
 .edit-profile {
   width: 100%;
   height: auto;
@@ -15,21 +57,31 @@
 }
 
 .edit-profile__content-wrap {
-  width: 50%;
-  max-width: 500px;
+  width: 80%;
+  max-width: 800px;
   min-width: 320px;
   margin: 0 auto 108px;
 
 }
 
 .edit-profile__title {
-  margin-top: 0;;
+  width: 500px;
+  margin: 0 0 32px auto;
   color: #161267;
   font-size: 2.5em;
 }
 
-.edit-profile__to-signin {
-  margin-bottom: 32px;
+.edit-profile-flex-container {
+  justify-content: space-around;
+}
+
+.user-icon-wrap {
+  width: 150px;
+  margin: 0 auto;
+}
+
+.user-info-wrap {
+  width: 500px;
 }
 
 .edit-profile__submit {

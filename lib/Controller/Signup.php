@@ -55,6 +55,7 @@ class Signup extends \MyApp\Controller {
 
       session_regenerate_id(true);
       $_SESSION['me'] = $user;
+      $_SESSION['modify'] = false;
       error_log('HOMEへ遷移します');
       header('Location:' . SITE_URL . '/Duplazy/public_html/home.php');
       exit;

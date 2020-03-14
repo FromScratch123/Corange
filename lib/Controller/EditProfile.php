@@ -12,9 +12,12 @@ class EditProfile extends \MyApp\Controller {
       exit;
     }
 
-    //Userクラスのインスタンス作成
+    //Userクラスをインスタンス化
     global $userModel;
     $userModel = new \MyApp\Model\User();
+    //Uploadクラスをインスタンス化
+    global $uploadModel;
+    $uploadModel = new \MyApp\Model\Upload();
     //インスタンスの_Propertiesにユーザーの属性をセット
     $userModel->setProperties($_SESSION['me']);
     //ユーザーの属性を取得
@@ -59,26 +62,57 @@ class EditProfile extends \MyApp\Controller {
     } catch (\MyApp\Exception\HalfAddress $e) {
       track('半角数字ではありません');
       $this->setErrors('address', $e->getMessage());
-    } catch (\MyApp\Exception\UnmatchConfirmation $e) {
-      track('パスワードが一致しません');
-      $this->setErrors('password', $e->getMessage());
+    } catch (\MyApp\Exception\SizeOver $e) {
+      track('ファイルサイズが規定値を超えています');
+      $this->setErrors('user-icon', $e->getMessage());
+    } catch (\MyApp\Exception\NoSelected $e) {
+      track('画像が選択されていません');
+      $this->setErrors('user-icon', $e->getMessage());
+    } catch (\MyApp\Exception\UploadError $e) {
+      track('画像のアップロードに失敗しました');
+      $this->setErrors('user-icon', $e->getMessage());
     }
 
     //POSTされた値を保持(変更前の値ではなくPOSTの値を優先)
     $this->setValues($_POST);
+    $this->setValues($_FILES['user-icon']);
     if ($this->hasError()) {
       return;
     } else {
       track('validateクリア');
       try {
+        track('画像アップロード開始');
+        global $uploadModel;
+        if (isset($_FILES['user-icon']) && $_FILES['user-icon']['error'] !== UPLOAD_ERR_NO_FILE) {
+          track('画像が選択されています');
+          $filePath = $uploadModel->save($_FILES['user-icon']);
+          if(!$filePath) {
+            throw new \MyApp\Exception\SaveFailure();
+          } 
+        } else if (isset($_SESSION['me']->profile_img)){
+          track('画像の変更はありません');
+          $filePath = $_SESSION['me']->profile_img;
+        } else {
+          track('画像の登録がありません');
+          $filePath = DEFAULT_USER_ICON;
+        }
+      } catch (\MyApp\Exception\SaveFailure $e) {
+        track('ファイルの移動に失敗しました');
+        $this->setErrors('user-icon', $e->getMessage());
+        return;
+      }
+      try {
         track('プロフィール変更開始');
           global $userModel;
+          $_POST = ['profile_img' => $filePath];
           $user = $userModel->modify($_POST);
+          if (!$user) {
+            throw new \MyApp\Exception\Query();
+          }
       } catch (\MyApp\Exception\Query $e) {
         track('クエリ実行に失敗しました');
-        track($e->getMesssage());
         $this->setErrors('query', $e->getMessage());
-        return;
+        exit;
       }
 
       track('プロフィール変更完了');
@@ -153,6 +187,34 @@ class EditProfile extends \MyApp\Controller {
       if (!preg_match('/\A[0-9]+\z/', $address)) {
         throw new \MyApp\Exception\HalfAddress();
       }
+    //user-iconの確認
+    if (isset($_FILES['user-icon']) || isset($_FILES['user-icon']['error'])) {
+      //エラー内容別に例外を投げる
+      switch ($_FILES['user-icon']['error']) {
+        case UPLOAD_ERR_OK:
+          return true;
+        case UPLOAD_ERR_INI_SIZE:
+        case UPLOAD_ERR_FORM_SIZE:
+          throw new \MyApp\Exception\SizeOver();
+        case UPLOAD_ERR_NO_FILE:
+          throw new \MyApp\Exception\NoSelected();
+        default:
+          throw new \MyApp\Exception\UploadError();
+      }
+      //MIMEタイプの確認
+      $imageType = @exif_imagetype($_FILES['user-icon']['tmp_name']);
+      switch ($imageType) {
+        case IMAGETYPE_GIF:
+          return 'gif';
+        case IMAGETYPE_JPEG:
+          return 'jpg';
+        case IMAGETYPE_PNG:
+          return 'png';
+        default:
+        throw new \MyApp\Exception\IncompatibleType();
+      }
+
+      }
     }
 
     // //パスワードの半角英数字確認
@@ -165,5 +227,7 @@ class EditProfile extends \MyApp\Controller {
     //   throw new \MyApp\Exception\UnmatchConfirmation();
     // }
   }
+
+  
 
 }

@@ -33,7 +33,7 @@ body {
 ========================= */
 
 .message {
-  animation: blind 1s ease-in-out;
+  animation: blind-down 1s ease-in-out;
   width: 100%;
   height: 60px;
   margin: 0;

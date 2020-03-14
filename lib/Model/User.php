@@ -77,11 +77,18 @@ class User extends \MyApp\Model {
               ':' . $key => $value,
               ':id' => $_SESSION['me']->id
             ]);
+        if (!$res) {
+          return false;
+        }
       }
       $modifiedStmt = $this->db->query("select * from users where id =" . $_SESSION['me']->id);
       $modifiedStmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
       $user = $modifiedStmt->fetch();
-      return $user;
+      if (!isset($user)) {
+        return false;
+      } else {
+        return $user;
+      }
   }
 
   public function setProperties($array) {
