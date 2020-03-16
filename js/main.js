@@ -22,5 +22,18 @@ $(function () {
   signupDrawerTimes.click(function () {
     signupDrawer.addClass('js--hidden');
   });
+
+  //setting-menuの出現
+  let $setting = $('.user-menu__setting');
+  let $settingMenu = $('.setting-menu');
+  $($setting).on('mouseover', function() {
+    $($settingMenu).removeClass('js--hidden');
+  });
+  $($settingMenu).on('mouseover', function() {
+    $($settingMenu).removeClass('js--hidden');
+  });
+  $($setting).on('mouseleave', function() {
+    $($settingMenu).addClass('js--hidden');
+  });
   
 });

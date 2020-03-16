@@ -45,7 +45,7 @@ require_once(__DIR__ . '/header.php');
         </p>
       </label>
       <!-- forgotten password -->
-      <p class="login__to-reset fz--small">You have<a class="color--blue" href="./reset.php"> forgotten password?</a></p>
+      <p class="login__to-issueCode fz--small">You have<a class="color--blue" href="./issueCode.php"> forgotten password?</a></p>
       <!-- token -->
       <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
       <p>

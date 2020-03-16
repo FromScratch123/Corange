@@ -72,11 +72,21 @@ class User extends \MyApp\Model {
   public function modify($array) {
       $this->setProperties($array);
       foreach($array as $key => $value) {
+        if ($key === 'MAX_FILE_SIZE' || $key === 'token' || $key === 'current-password' || $key === 'password-confirmation') {
+          continue;
+        }
         $stmt = $this->db->prepare('update users set ' . $key . ' = ' . ':' . $key . ', modified_date = now() where id = :id');
-            $res = $stmt->execute([
-              ':' . $key => $value,
-              ':id' => $_SESSION['me']->id
-            ]);
+        if ($key === 'password') {
+          $res = $stmt->execute([
+            ':' . $key => password_hash($value, PASSWORD_DEFAULT),
+            ':id' => $_SESSION['me']->id
+          ]);
+        } else {
+          $res = $stmt->execute([
+            ':' . $key => $value,
+            ':id' => $_SESSION['me']->id
+          ]);
+        }
         if (!$res) {
           return false;
         }
@@ -84,6 +94,22 @@ class User extends \MyApp\Model {
       $modifiedStmt = $this->db->query("select * from users where id =" . $_SESSION['me']->id);
       $modifiedStmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
       $user = $modifiedStmt->fetch();
+      if (!isset($user)) {
+        return false;
+      } else {
+        return $user;
+      }
+  }
+
+  public function getAll($email) {
+    $stmt = $this->db->prepare("select * from users where email = :email and delete_flg = 0");
+    $res = $stmt->execute([
+      ':email' => $email
+    ]);
+    track($res);
+    $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+      $user = $stmt->fetch();
+      track(print_r($user, true));
       if (!isset($user)) {
         return false;
       } else {
@@ -100,6 +126,19 @@ class User extends \MyApp\Model {
 
   public function getProperties() {
     return $this->_properties;
+  }
+
+
+  public function issueCode() {
+    return sha1(uniqid(mt_rand(), true));
+  }
+
+  public function resetPass ($password, $email) {
+    $stmt = $this->db->prepare('update users set password = :password where email = :email and delete_flg = 0');
+    $res = $stmt->execute([
+      ':password' => password_hash($password, PASSWORD_DEFAULT),
+      ':email' => $email
+    ]);
   }
 
 }

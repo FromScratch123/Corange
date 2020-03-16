@@ -38,11 +38,12 @@ define('OPTIONS', array(
 ));
 //サイトURL
 define('SITE_URL', 'http://' . $_SERVER['HTTP_HOST']);
-define('MAX_FILE_SIZE', 1 * 1024 * 1024); //1MB
+define('MAX_FILE_SIZE', 1 * 1024 * 1024 * 1024); //1MB
 define('THUMBNAIL_WIDTH', 400);
 define('UPLOAD_DIR', './../images/userPost');
 define('THUMBNAIL_DIR', './../thumbnails');
 define('DEFAULT_USER_ICON', './../images/default_user_icon.png');
+define('MAIL_ADDRESS', 'hctarcsmorf@gmail.com');
 
 //============================================
 // セッション準備・セッション有効期限を延ばす

@@ -27,6 +27,7 @@ class EditProfile extends \MyApp\Controller {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       track('POST送信がありました');
+      track(print_r($_FILES['user-icon'], true));
       $this->postProcess();
     }
   }
@@ -71,6 +72,9 @@ class EditProfile extends \MyApp\Controller {
     } catch (\MyApp\Exception\UploadError $e) {
       track('画像のアップロードに失敗しました');
       $this->setErrors('user-icon', $e->getMessage());
+    } catch (\MyApp\Exception\IncompatibleType $e) {
+      track('ファイルが画像形式ではありません');
+      $this->setErrors('user-icon', $e->getMessage());
     }
 
     //POSTされた値を保持(変更前の値ではなくPOSTの値を優先)
@@ -81,19 +85,19 @@ class EditProfile extends \MyApp\Controller {
     } else {
       track('validateクリア');
       try {
-        track('画像アップロード開始');
+        track('アイコン画像アップロード開始');
         global $uploadModel;
         if (isset($_FILES['user-icon']) && $_FILES['user-icon']['error'] !== UPLOAD_ERR_NO_FILE) {
-          track('画像が選択されています');
+          track('アイコン画像が選択されています');
           $filePath = $uploadModel->save($_FILES['user-icon']);
           if(!$filePath) {
             throw new \MyApp\Exception\SaveFailure();
           } 
         } else if (isset($_SESSION['me']->profile_img)){
-          track('画像の変更はありません');
+          track('アイコン画像の変更はありません');
           $filePath = $_SESSION['me']->profile_img;
         } else {
-          track('画像の登録がありません');
+          track('アイコン画像の登録がありません');
           $filePath = DEFAULT_USER_ICON;
         }
       } catch (\MyApp\Exception\SaveFailure $e) {
@@ -104,7 +108,8 @@ class EditProfile extends \MyApp\Controller {
       try {
         track('プロフィール変更開始');
           global $userModel;
-          $_POST = ['profile_img' => $filePath];
+          $_POST['profile_img'] = $filePath;
+          track('流し込みデータ:'.print_r($_POST, true));
           $user = $userModel->modify($_POST);
           if (!$user) {
             throw new \MyApp\Exception\Query();
@@ -112,6 +117,7 @@ class EditProfile extends \MyApp\Controller {
       } catch (\MyApp\Exception\Query $e) {
         track('クエリ実行に失敗しました');
         $this->setErrors('query', $e->getMessage());
+        echo $e->getMessage();
         exit;
       }
 
@@ -188,7 +194,7 @@ class EditProfile extends \MyApp\Controller {
         throw new \MyApp\Exception\HalfAddress();
       }
     //user-iconの確認
-    if (isset($_FILES['user-icon']) || isset($_FILES['user-icon']['error'])) {
+    if (!empty($_FILES['user-icon']) &&  !empty($_FILES['user-icon']['name'])) {
       //エラー内容別に例外を投げる
       switch ($_FILES['user-icon']['error']) {
         case UPLOAD_ERR_OK:
@@ -217,15 +223,7 @@ class EditProfile extends \MyApp\Controller {
       }
     }
 
-    // //パスワードの半角英数字確認
-    // if (!preg_match('/\A[a-zA-z0-9]+\z/', $_POST['password'])) {
-    //   throw new \MyApp\Exception\HalfPassword();
-    // }
-    // //パスワードの同値確認
-    // if ($_POST['password'] !== $_POST['password-confirmation']) {
-    //   track('パスワードの入力に誤りがあります');
-    //   throw new \MyApp\Exception\UnmatchConfirmation();
-    // }
+    
   }
 
   

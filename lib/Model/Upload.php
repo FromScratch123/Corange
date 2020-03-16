@@ -8,7 +8,7 @@ class Upload extends \MyApp\Model {
 
 public function save($file) {
   //MIMEタイプの確認
-  $imageType = @exif_imagetype($_FILES['user-icon']['tmp_name']);
+  $imageType = @exif_imagetype($file['tmp_name']);
   //拡張子取得
   $ext = image_type_to_extension($imageType);
   track('拡張子:' . $ext);

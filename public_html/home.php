@@ -2,6 +2,10 @@
 <?php 
   require_once(__DIR__ . '/../config/config.php');
   trackingStart();
+
+  $app = new MyApp\Controller\Home();
+  $app->run();
+
   $requestPage = 'HOME -';
   $jsPath = './../js/home.js';
   $CSSPath1 = './../CSS/home.css';

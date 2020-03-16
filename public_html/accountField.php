@@ -20,16 +20,24 @@
   <div class="user-menu-box js--hidden">
     <ul>
       <li class="user-menu-list"><i class="user-menu-icon far fa-address-card"></i><a href="./editProfile.php">プロフィール</a></li>
-      <li class="user-menu-list"><i class="user-menu-icon fas fa-cog"></i><a href="">設定</a></li>
+      <li class="user-menu-list user-menu__setting"><i class="user-menu-icon  fas fa-cog"></i><a href="./changPass.php">設定</a>
+     <!-- setting drawer -->
+      <div class="setting-menu js--hidden">
+        <ul>
+          <li class="setting-menu-list"><i class="setting-menu-icon fas fa-lock"></i><a href="./changePass.php">パスワード変更</a></li>
+          <li class="setting-menu-list"><i class="setting-menu-icon fas fa-user-slash"></i><a href="./delete.php">退会</a></li>
+        </ul>
+      </div>
+      </li>
       <li class="user-menu-list"><i class="user-menu-icon far fa-question-circle"></i><a href="">ヘルプ</a></li>
       <li class="user-menu-list"><i class="user-menu-icon fas fa-sign-out-alt"></i><a href="./logout.php">ログアウト</a></li>
-      <li class="user-menu-list"><i class="user-menu-icon fas fa-user-slash"></i><a href="./delete.php">退会</a></li>
     </ul>
   </div>
   </i>
+ 
   <!-- user icon -->
   <div class="account-field__user-icon-wrap">
-    <img src="./../images/user_icon.png" alt="ユーザーのアイコン画像" class="account-field__user-icon">
+    <img src="<?= isset($app->getValues()->profile_img) ? h($app->getValues()->profile_img) : './../images/default_user_icon.png' ?>" alt="ユーザーのアイコン画像" class="account-field__user-icon">
   </div>
   </div>
 </div>

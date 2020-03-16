@@ -102,6 +102,7 @@
   transform: scale(1.1, 1.1);
 }
 
+
 /* =========================
          USER MENU
 ========================= */
@@ -124,5 +125,30 @@
 }
 
 .user-menu-icon {
+  margin-right: 8px;
+}
+
+.user-menu__setting {
+  position: relative;
+}
+
+.setting-menu{
+  width: 200px;
+  height: auto;
+  padding: 32px 16px;
+  position: absolute;
+  top: 0;
+  left: -200px;
+  text-align: left;
+  background: #ffffff;
+  box-shadow: 0px 3px 8px #707070;
+  font-size: 1.0rem;
+}
+
+.setting-menu-list:not(:last-child) {
+  margin-bottom: 32px;
+}
+
+.setting-menu-icon {
   margin-right: 8px;
 }

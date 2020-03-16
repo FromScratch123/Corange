@@ -34,3 +34,25 @@ function trackingStart(){
 function h($s) {
   return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
 }
+
+//================================
+//          mail送信
+//================================
+
+function sendMail($from, $to, $subject, $text){
+  if(!empty($to) && !empty($subject) && !empty($text)){
+      //文字化け回避設定
+      mb_language("Japanese"); 
+      mb_internal_encoding("UTF-8"); 
+      //メール送信
+      $result = mb_send_mail($to, $subject, $text, "From: " . $from);
+      //送信結果を判定
+      if ($result) {
+        track('メールを送信しました');
+        return true;
+      } else {
+        track('メールの送信に失敗しました');
+        return false;
+      }
+  }
+}
