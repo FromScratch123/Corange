@@ -23,7 +23,7 @@ require_once(__DIR__ . '/autoload.php');
 //             定数
 //================================
 
-//データべース情報
+//*********** データべース情報 ***********
 define('DSN', 'mysql:dbhost=localhost;dbname=Duplazy;charset=utf8');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', 'root');
@@ -36,14 +36,28 @@ define('OPTIONS', array(
   // SELECTで得た結果に対してもrowCountメソッドを使えるようにする
   PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true,
 ));
+
+//*********** メッセージ ***********
+define('WELCOME', 'Welcome to Duplazy!');
+define('WELCOMEBACK', 'Welcomeback to Duplazy!');
+define('MODIFIEDPROFILE', 'プロフィールを変更しました。');
+define('CHANGEPASS', 'パスワードを変更しました。');
+define('SENDCODE', '認証コードをご登録のメールアドレスへ送信しました。');
+define('SENDPASS', 'パスワードをご登録のメールアドレスへ送信しました。');
+
+
 //サイトURL
 define('SITE_URL', 'http://' . $_SERVER['HTTP_HOST']);
-define('MAX_FILE_SIZE', 1 * 1024 * 1024 * 1024); //1MB
-define('THUMBNAIL_WIDTH', 400);
+//最大ファイルサイズ
+define('MAX_FILE_SIZE', 1 * 1024 * 1024 * 1024); //3MB
+//ファイル保存先
 define('UPLOAD_DIR', './../images/userPost');
-define('THUMBNAIL_DIR', './../thumbnails');
+//ユーザーアイコンのデフォルトパス
 define('DEFAULT_USER_ICON', './../images/default_user_icon.png');
+//自動メールの送信メールアドレス
 define('MAIL_ADDRESS', 'hctarcsmorf@gmail.com');
+
+
 
 //============================================
 // セッション準備・セッション有効期限を延ばす
@@ -51,9 +65,9 @@ define('MAIL_ADDRESS', 'hctarcsmorf@gmail.com');
 //セッションファイルの置き場を変更
 session_save_path("/var/tmp/");
 //ガーベージコレクションが削除するセッションの有効期限の設定
-ini_set('session.gc_maxlifetime', 60*60*24*30);
+ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 30); //30日
 //クッキーの有効期限を延長
-ini_set('session.cookie_lifetime ', 60*60*24*30);
+ini_set('session.cookie_lifetime ', 60 * 60 * 24 * 30); //30日
 //セッション開始
 session_start();
 //セッションIDを再生成

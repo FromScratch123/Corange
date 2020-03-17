@@ -1,6 +1,6 @@
 $(function () {
  
   $('.delete__submit').click(function () {
-    confirm('Are you suret to delete your account?');
+    confirm('Are you sure to delete your account?');
   }); 
 });

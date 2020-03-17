@@ -19,44 +19,46 @@ class IssueCode extends \MyApp\Controller {
 
   protected function postProcess() {
     try {
-      track('validate開始');
+      track('バリデーション開始');
       $this->_validate();
     } catch (\MyApp\Exception\EmptyPost $e) {
+      track('Exception:' . $e->getMessage());
       $this->setErrors('common', $e->getMessage());
     } catch (\MyApp\Exception\InvalidEmail $e) {
+      track('Exception:' . $e->getMessage());
       $this->setErrors('email', $e->getMessage());
     } catch(\MyApp\Exception\UnmatchConfirmation $e) {
+      track('Exception:' . $e->getMessage());
       $this->setErrors('email-confirmation', $e->getMessage());
     }
 
   
-    //入力保持
+    //POSTされた値を保持(変更前の値ではなくPOSTの値を優先)
     $this->setValues($_POST);
 
     if ($this->hasError()) {
-      track('入力エラーがありました');
+      track('入力エラー有');
       return;
     } else {
+      track('バリデーションクリア');
       try {
-      track('バリデーションクリアしました');
       $userModel = new \MyApp\Model\User();
-        $user = $userModel->getAll($_POST['email']);
-        if (!$user) {
-          throw new \MyApp\Exception\NoExistEmail();
-        }
-      } catch (\MyApp\Exception\NoExistEmail $e) {
+      $user = $userModel->getAll('email', $_POST['email']);
+      } catch (\MyApp\Exception\Query $e) {
         track('登録されていないメールアドレスです');
-        $this->setErrors('email', $e->getMessage());
-        exit;
+        track('Exception:' . $e->getMessage());
+        $this->setErrors('common', $e->getMessage());
+        return;
       }
 
       try {
+      //ユーザー情報を格納
       $email = $user->email;
       $surname = $user->surname;
       $givenname = $user->givenname;
       //code生成
-      $code = $userModel->issueCode();
-      //メール送信
+      $code = random(4);
+      //メールの内容を格納
       $from = MAIL_ADDRESS;
       $to = $email;
       $subject = '【認証コード発行】 | Duplazy';
@@ -87,32 +89,30 @@ class IssueCode extends \MyApp\Controller {
       Email: duplazy@gmail.com
       営業時間: 平日 10時00分~19時00分
       *==============================*
-      EOM;
+EOM;
       
     
-        $is_success = sendMail($from, $to, $subject, $text);
-
+        sendMail($from, $to, $subject, $text);
         track('メール送信内容' . print_r(array([
           $from, $to, $subject, $text
         ]), true));
-        if (!$is_success) {
-          throw new \MyApp\Exception\FaildIssueCode();
-        }
-      } catch (\MyApp\Exception\FaildIssueCode $e) {
-        track('認証コードの発行に失敗しました');
+
+      } catch (\MyApp\Exception\FaildSendMail $e) {
+        track('Exception:' . $e->getMessage());
         $this->setErrors('common', $e->getMessage());
         return;
       }
+      track('メール送信完了しました');
 
       $_SESSION['auth_code'] = $code;
       $_SESSION['code_limit'] = time() + (60 * 30);
       $_SESSION['email'] = $email;
-      track(print_r($_SESSION, true));
-      track('メール送信完了しました');
+      $_SESSION['messages'] = [];
+      $_SESSION['messages']['welcome'] = SENDCODE;
+      track('セッションの中身:' . print_r($_SESSION, true));
       track('confirmCode.phpへ遷移します');
       header('Location:' . SITE_URL . '/Duplazy/public_html/confirmCode.php');
       exit;
-    
     }
   }
   
@@ -124,13 +124,14 @@ class IssueCode extends \MyApp\Controller {
     }
      //必須項目確認
      if ($_POST['email'] === '' || $_POST['email-confirmation'] === '') {
+      track('必須項目が未入力です');
       throw new \MyApp\Exception\EmptyPost();
     }
     //Emailの形式確認
     if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+      track('Emailの形式ではありません');
       throw new \MyApp\Exception\InvalidEmail();
     }
-
     //Emailの同値確認
     if ($_POST['email'] !== $_POST['email-confirmation']) {
       track('メールアドレスの再入力が一致しません');

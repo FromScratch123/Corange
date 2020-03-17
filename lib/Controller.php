@@ -39,6 +39,14 @@ class Controller {
     return isset($this->_errors->$key) ? $this->_errors->$key : '';
   }
 
+  //messageを表示
+  public function getMessage($messages) {
+    foreach ($messages as $key => $value) {
+      $message = isset($this->_values->$key) ? $this->_values->$key : '';
+    }
+    return $message;
+  }
+
   // エラーの有無を確認
   protected function hasError() {
     return !empty(get_object_vars($this->_errors));

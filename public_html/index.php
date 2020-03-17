@@ -41,7 +41,7 @@ require_once(__DIR__ . '/head.php');
       <div class="sigup-drawer__content-wrap">
         <p class="signup-drawer__title">Sign Up</p>
         <p class="signup-drawer__to-login fz--small">or <a class="color--blue" href="./login.php">Log In</a> your account</p>
-        <p class="has-error margin--0"><?= $app->getErrors('empty'); ?></p>
+        <p class="has-error margin--0"><?= $app->getErrors('common'); ?></p>
         <form action="" method="post">
           <!-- surname -->
           <label for="surname">

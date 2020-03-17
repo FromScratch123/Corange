@@ -5,13 +5,12 @@
 
   $app = new MyApp\Controller\Home();
   $app->run();
-
   $requestPage = 'HOME -';
   $jsPath = './../js/home.js';
   $CSSPath1 = './../CSS/home.css';
   $CSSPath2 = './../CSS/accountField.css';
   $CSSPath3 = './../CSS/aside.css';
-  $messages = ['modify' => 'プロフィール変更完了しました。'];
+  
   require_once(__DIR__ . '/head.php');
 
   ?>
@@ -24,9 +23,10 @@ require_once(__DIR__ . '/accountField.php');
 require_once(__DIR__ . '/aside.php');
  ?>
 
-<?php if ($_SESSION['modify']) : ?>
+<!-- message -->
+<?php if (!empty($_SESSION['messages'])) : ?>
   <div class="message">
-    <p class="message__text"><?= $messages['modify'] ?></p>
+    <p class="message__text"><?= h($app->getMessage($_SESSION['messages']))  ?></p>
   </div>
 <?php endif; ?>
   

@@ -12,6 +12,8 @@ class EditProfile extends \MyApp\Controller {
       exit;
     }
 
+    //messageを初期化
+    $_SESSION['messages'] = [];
     //Userクラスをインスタンス化
     global $userModel;
     $userModel = new \MyApp\Model\User();
@@ -27,104 +29,170 @@ class EditProfile extends \MyApp\Controller {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       track('POST送信がありました');
-      track(print_r($_FILES['user-icon'], true));
+      track('POST内容:' . print_r($_POST, true));
+      track('ファイル内容:' . print_r($_FILES['user-icon'], true));
       $this->postProcess();
     }
   }
 
   protected function postProcess() {
+    global $userModel;
+    global $uploadModel;
+ 
+
     try {
       track('validate開始');
       $this->_validate();
     } catch (\MyApp\Exception\EmptyPost $e) {
       track('必須項目が未入力です');
+      track('Exception:' . $e->getMessage());
       $this->setErrors('empty', $e->getMessage());
     } catch (\MyApp\Exception\HalfAge $e) {
       track('半角数字ではありません');
+      track('Exception:' . $e->getMessage());
       $this->setErrors('age', $e->getMessage());
     } catch (\MyApp\Exception\InvalidAge $e) {
       track('年齢が3桁を超えています');
+      track('Exception:' . $e->getMessage());
       $this->setErrors('age', $e->getMessage());
     } catch (\MyApp\Exception\HalfTel $e) {
       track('半角数字ではありません');
+      track('Exception:' . $e->getMessage());
       $this->setErrors('tel', $e->getMessage());
     } catch (\MyApp\Exception\InvalidTel $e) {
       track('電話番号の形式ではありません');
+      track('Exception:' . $e->getMessage());
       $this->setErrors('tel', $e->getMessage());
     } catch (\MyApp\Exception\InvalidEmail $e) {
       track('Emailの形式ではありません');
+      track('Exception:' . $e->getMessage());
       $this->setErrors('email', $e->getMessage());
     } catch (\MyApp\Exception\HalfZip $e) {
       track('半角数字ではありません');
+      track('Exception:' . $e->getMessage());
       $this->setErrors('zip', $e->getMessage());
     } catch (\MyApp\Exception\InvalidZip $e) {
       track('郵便番号の形式ではありません');
+      track('Exception:' . $e->getMessage());
       $this->setErrors('zip', $e->getMessage());
     } catch (\MyApp\Exception\HalfAddress $e) {
       track('半角数字ではありません');
+      track('Exception:' . $e->getMessage());
       $this->setErrors('address', $e->getMessage());
     } catch (\MyApp\Exception\SizeOver $e) {
       track('ファイルサイズが規定値を超えています');
+      track('Exception:' . $e->getMessage());
       $this->setErrors('user-icon', $e->getMessage());
     } catch (\MyApp\Exception\NoSelected $e) {
       track('画像が選択されていません');
+      track('Exception:' . $e->getMessage());
       $this->setErrors('user-icon', $e->getMessage());
     } catch (\MyApp\Exception\UploadError $e) {
       track('画像のアップロードに失敗しました');
+      track('Exception:' . $e->getMessage());
       $this->setErrors('user-icon', $e->getMessage());
     } catch (\MyApp\Exception\IncompatibleType $e) {
       track('ファイルが画像形式ではありません');
+      track('Exception:' . $e->getMessage());
       $this->setErrors('user-icon', $e->getMessage());
     }
 
     //POSTされた値を保持(変更前の値ではなくPOSTの値を優先)
     $this->setValues($_POST);
-    $this->setValues($_FILES['user-icon']);
     if ($this->hasError()) {
       return;
     } else {
-      track('validateクリア');
+      track('バリデーションクリアしました');
       try {
-        track('アイコン画像アップロード開始');
-        global $uploadModel;
+        track('アイコン画像保存処理開始');
+        //ファイル選択状態を判定
         if (isset($_FILES['user-icon']) && $_FILES['user-icon']['error'] !== UPLOAD_ERR_NO_FILE) {
+          //ファイル選択がある場合
           track('アイコン画像が選択されています');
+          //ファイルを保存先に移動し、保存先のパスを格納
           $filePath = $uploadModel->save($_FILES['user-icon']);
-          if(!$filePath) {
-            throw new \MyApp\Exception\SaveFailure();
-          } 
         } else if (isset($_SESSION['me']->profile_img)){
+          //ファイルは選択されていないが、DBに保存がされている場合
           track('アイコン画像の変更はありません');
+          //DBの保存先を格納
           $filePath = $_SESSION['me']->profile_img;
         } else {
+          //ファイルの選択がなく、DBにも保存されていない場合
           track('アイコン画像の登録がありません');
+          //デフォルト画像を格納
           $filePath = DEFAULT_USER_ICON;
         }
       } catch (\MyApp\Exception\SaveFailure $e) {
         track('ファイルの移動に失敗しました');
+        track('Exception:' . $e->getMessage());
         $this->setErrors('user-icon', $e->getMessage());
         return;
       }
+        track('アイコン画像保存処理終了');
       try {
-        track('プロフィール変更開始');
-          global $userModel;
-          $_POST['profile_img'] = $filePath;
-          track('流し込みデータ:'.print_r($_POST, true));
-          $user = $userModel->modify($_POST);
-          if (!$user) {
-            throw new \MyApp\Exception\Query();
-          }
+        track('プロフィール変更処理開始');
+
+        //元のデータとPOSTのデータを比較
+        $before = [
+          'surname' => $_SESSION['me']->surname,
+          'givenname' => $_SESSION['me']->givenname,
+          'age' => $_SESSION['me']->age,
+          'tel' => $_SESSION['me']->tel,
+          'email' => $_SESSION['me']->email,
+          'zip' => $_SESSION['me']->zip,
+          'prefecture' => $_SESSION['me']->prefecture,
+          'municipalities' => $_SESSION['me']->municipalities,
+          'profile_img' => $_SESSION['me']->profile_img
+        ];
+        $after = [
+          'surname' => $_POST['surname'],
+          'givenname' => $_POST['givenname'],
+          'age' => $_POST['age'],
+          'tel' => $_POST['tel'],
+          'email' => $_POST['email'],
+          'zip' => $_POST['zip'],
+          'prefecture' => $_POST['prefecture'],
+          'municipalities' => $_POST['municipalities'],
+          'profile_img' => $filePath
+        ];
+
+        if ($before == $after) {
+          track('変更箇所がありません');
+          $_SESSION['messages'] = [];
+          track('HOMEへ遷移します');
+          header('Location:' . SITE_URL . '/Duplazy/public_html/home.php');
+          exit;
+        }
+
+        track('変更箇所があります');
+        //変更項目をDBへ送る
+        $userModel->modify([
+          'surname' => $_POST['surname'],
+          'givenname' => $_POST['givenname'],
+          'age' => $_POST['age'],
+          'tel' => $_POST['tel'],
+          'email' => $_POST['email'],
+          'zip' => $_POST['zip'],
+          'prefecture' => $_POST['prefecture'],
+          'municipalities' => $_POST['municipalities'],
+          'profile_img' => $filePath
+        ]);
+        //変更後のユーザー情報を取得
+        $user = $userModel->getAll('id', $_SESSION['me']->id);
       } catch (\MyApp\Exception\Query $e) {
         track('クエリ実行に失敗しました');
-        $this->setErrors('query', $e->getMessage());
-        echo $e->getMessage();
+        track('Exception:' . $e->getMessage());
+        $this->setErrors('common', $e->getMessage());
         exit;
       }
 
-      track('プロフィール変更完了');
+      track('プロフィール変更処理完了');
+      //変更後のユーザー情報をセッションへ格納
       $_SESSION['me'] = $user;
-      $_SESSION['modify'] = true;
       track('変更後:' . print_r($_SESSION['me'], true));
+      //メッセージの格納
+      $_SESSION['messages'] = [];
+      $_SESSION['messages']['modifiedProfile'] = MODIFIEDPROFILE;
       track('HOMEへ遷移します');
       header('Location:' . SITE_URL . '/Duplazy/public_html/home.php');
       exit;

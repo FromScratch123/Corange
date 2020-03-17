@@ -5,7 +5,7 @@
   $app = new MyApp\Controller\EditProfile();
   $app->run();
 
-  $requestPage = 'EDIT PROFILE -';
+  $requestPage = 'PROFILE -';
   $jsPath = './../js/editProfile.js';
   $CSSPath1 = './../CSS/editProfile.css';
   $CSSPath2 = './../css/accountField.css';

@@ -2,7 +2,7 @@
 
 require_once(__DIR__ . '/../config/config.php');
 trackingStart();
-
+var_dump(print_r( $_SERVER['HTTP_REFERER'], true));
 $app = new MyApp\Controller\Delete();
 $app->run();
 
@@ -26,7 +26,7 @@ require_once(__DIR__ . '/header.php');
 <section id="delete" class="delete">
       <div class="delete__content-wrap">
       <p class="delete__title">Delete account</p>
-      <p class="has-error color--red"><?= $app->getErrors('delete') ?></p>
+      <p class="has-error color--red"><?= $app->getErrors('common') ?></p>
       <p class="delete__notice fz--small">※Please note that you will be not able to retrieve your account once you delete your account.</p>
       <form action="" method="post">
       <!-- reason -->
@@ -53,6 +53,7 @@ require_once(__DIR__ . '/header.php');
         </p>
       </label>
       <!-- email -->
+      <p class="has-error margin--0"><?= $app->getErrors('email'); ?></p>
       <label for="email">
       <span class="color--red">※</span>
         <p class="margin--0">
@@ -60,6 +61,7 @@ require_once(__DIR__ . '/header.php');
         </p>
       </label>
       <!-- password -->
+      <p class="has-error margin--0"><?= $app->getErrors('password'); ?></p>
       <label for="password">
       <span class="color--red">※</span>
         <p class="margin--0">

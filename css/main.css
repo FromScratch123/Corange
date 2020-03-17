@@ -109,7 +109,16 @@ select {
   /* =========================
           ANIMATION
 ========================= */
-
+@keyframes blind-down {
+  0% {
+    display: none;
+    transform: translateY(-100%);
+  }
+  100% {
+    display: 100%;
+    transform: translateY(0);
+  }
+}
 
 /* =========================
           JavaScript
@@ -125,6 +134,31 @@ select {
 .js--fixed {
   position: fixed;
 }
+
+/* =========================
+            MESSAGE
+========================= */
+
+.message {
+  animation: blind-down 1s ease-in-out;
+  width: 100%;
+  height: 60px;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  line-height: 60px;
+  background: #161267;
+  color: #ffffff;
+  z-index: 2;
+}
+
+.message__text {
+  margin: 0;
+  font-size: 1.4em;
+}
+
 
   /* =========================
             HEADER

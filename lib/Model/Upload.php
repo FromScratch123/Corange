@@ -4,7 +4,7 @@ namespace MyApp\Model;
 
 class Upload extends \MyApp\Model {
 
-  private $_imageFileName;
+private $_imageFileName;
 
 public function save($file) {
   //MIMEタイプの確認
@@ -12,17 +12,19 @@ public function save($file) {
   //拡張子取得
   $ext = image_type_to_extension($imageType);
   track('拡張子:' . $ext);
-  //ファイル名
+  //ファイル名作成(現在時刻+一意の乱数)
   $this->_imageFileName = sprintf(
     '%s_%s.%s',
     time(),
     sha1(uniqid(mt_rand(), true)),
     $ext
   );
+  //ファイル保存先の指定
   $savePath = UPLOAD_DIR . '/' . $this->_imageFileName;
+  //ファイルを一時保存先からファイル保存先へ移動
   $res = move_uploaded_file($file['tmp_name'], $savePath);
   if (!$res) {
-    return false;
+    throw new \MyApp\Exception\SaveFailure();
   } else {
     //権限の変更(所有者:rw- その他:r--)
     chmod($savePath, 0644);

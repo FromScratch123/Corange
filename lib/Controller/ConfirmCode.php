@@ -11,6 +11,15 @@ class ConfirmCode extends \MyApp\Controller {
       exit;
     }
 
+    if (!isset($_SESSION['auth_code']) || empty($_SESSION['auth_code'])) {
+      track('【認証コード発行未】issueCode.phpへ遷移します');
+      header('Location:' . SITE_URL . '/Duplazy/public_html/issueCode.php');
+      exit;
+    }
+
+    //messageをセット
+    $this->setValues($_SESSION['messages']);
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       track('POST送信がありました');
       $this->postProcess();
@@ -19,17 +28,22 @@ class ConfirmCode extends \MyApp\Controller {
 
   protected function postProcess() {
     try {
-      track('validate開始');
+      track('バリデーション開始');
       $this->_validate();
     } catch (\MyApp\Exception\EmptyPost $e) {
+      track('Exception:' . $e->getMessage());
       $this->setErrors('common', $e->getMessage());
     } catch (\MyApp\Exception\InvalidEmail $e) {
+      track('Exception:' . $e->getMessage());
       $this->setErrors('email', $e->getMessage());
-    } catch(\MyApp\Exception\UnmatchConfirmation $e) {
-      $this->setErrors('code', $e->getMessage());
+    } catch(\MyApp\Exception\NoExistEmail $e) {
+      track('Exception:' . $e->getMessage());
+      $this->setErrors('email', $e->getMessage());
     } catch(\MyApp\Exception\UnmatchCode $e) {
+      track('Exception:' . $e->getMessage());
       $this->setErrors('code', $e->getMessage());
     } catch(\MyApp\Exception\ExpireCode $e) {
+      track('Exception:' . $e->getMessage());
       $this->setErrors('code', $e->getMessage());
     }
 
@@ -41,18 +55,16 @@ class ConfirmCode extends \MyApp\Controller {
       track('入力エラーがありました');
       return;
     } else {
-      try {
       track('バリデーションクリアしました');
+      try {
       $userModel = new \MyApp\Model\User();
-      $user = $userModel->getAll($_SESSION['email']);
-        if (!$user) {
-          throw new \MyApp\Exception\FaildIssuePass();
-        }
+      $user = $userModel->getAll('email', $_POST['email']);
+      //ユーザー情報を格納
       $email = $user->email;
       $surname = $user->surname;
       $givenname = $user->givenname;
       //code生成
-      $password = $userModel->issueCode();
+      $password = random(6);
       //メール送信
       $from = MAIL_ADDRESS;
       $to = $email;
@@ -63,7 +75,7 @@ class ConfirmCode extends \MyApp\Controller {
       こんにちは。
       いつもご利用いただき誠にありがとうございます。
       
-      パスワード再発行のご依頼を承りました。
+      パスワード発行のご依頼を承りました。
       下記のパスワードを使ってログインしていただき、パスワードの再設定をお願いいたします。
       
       パスワード: $password
@@ -83,32 +95,30 @@ class ConfirmCode extends \MyApp\Controller {
       Email: duplazy@gmail.com
       営業時間: 平日 10時00分~19時00分
       *==============================*
-      EOM;
+EOM;
       
     
-      $is_success = sendMail($from, $to, $subject, $text);
-
-      track('メール送信内容:' . print_r(array([
+     sendMail($from, $to, $subject, $text);
+     track('メール送信内容:' . print_r(array([
         $from, $to, $subject, $text
       ]), true));
-        if (!$is_success) {
-          throw new \MyApp\Exception\FaildIssuePass();
-        } 
 
       $userModel->resetPass($password, $_SESSION['email']);
 
-      } catch (\MyApp\Exception\FaildIssuePass $e) {
-        track('パスワードの再発行に失敗しました');
+      } catch (\MyApp\Exception\FaildSendMail $e) {
+        track('Exception:' . $e->getMessage());
         $this->setErrors('common', $e->getMessage());
         return;
       }
       
       session_unset();
+      $_SESSION['messages'] = [];
+      $_SESSION['messages']['send-pass'] = SENDPASS;
+      
 
       track('login.phpへ遷移します');
       header('Location:' . SITE_URL . '/Duplazy/public_html/login.php');
       exit;
-    
     }
   }
   
@@ -120,27 +130,29 @@ class ConfirmCode extends \MyApp\Controller {
     }
      //必須項目確認
      if ($_POST['email'] === '' || $_POST['code'] === '') {
+      track('必須項目が未入力です');
       throw new \MyApp\Exception\EmptyPost();
     }
     //Emailの形式確認
     if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+      track('Emailの形式ではありません');
       throw new \MyApp\Exception\InvalidEmail();
     }
-    //Emailの同値確認
+    //$_POSTと$_SESSIONの比較
     if ($_POST['email'] !== $_SESSION['email']) {
-      track('メールアドレスが正しくありません');
-      throw new \MyApp\Exception\UnmatchConfirmation();
+      track('メールアドレスが一致しません');
+      throw new \MyApp\Exception\NoExistEmail();
     }
-       //auth-codeの有効期限確認
-       if (time() > $_SESSION['code_limit']) {
-        track('認証コードの有効期限が切れています');
-        throw new \MyApp\Exception\ExpireCode();
-      }
-    //auth-codeの同値確認
-    if ($_POST['code'] !== $_SESSION['auth_code']) {
-      track('認証コードが間違っています');
-      throw new \MyApp\Exception\UnmatchCode();
-    }
- 
+    //auth-codeの有効期限確認
+    if (time() > $_SESSION['code_limit']) {
+    track('認証コードの有効期限が切れています');
+    throw new \MyApp\Exception\ExpireCode();
+  }
+  //auth-codeの同値確認
+  if ($_POST['code'] !== $_SESSION['auth_code']) {
+    track('認証コードが間違っています');
+    throw new \MyApp\Exception\UnmatchCode();
+  }
+
   }
 }

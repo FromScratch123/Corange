@@ -21,12 +21,13 @@ class Signup extends \MyApp\Controller {
   protected function postProcess() {
     try {
       //validate開始
+      track('バリデーション開始');
       $this->_validate();
     } catch (\MyApp\Exception\EmptyPost $e) {
-      $this->setErrors('empty', $e->getMessage());
+      $this->setErrors('common', $e->getMessage());
     } catch (\MyApp\Exception\InvalidEmail $e) {
       $this->setErrors('email', $e->getMessage());
-    } catch (\MyApp\Exception\InvalidPassword $e) {
+    } catch (\MyApp\Exception\HalfPassword $e) {
       $this->setErrors('password', $e->getMessage());
     } catch (\MyApp\Exception\ConfirmTerms $e) {
       $this->setErrors('agree', $e->getMessage());
@@ -36,10 +37,12 @@ class Signup extends \MyApp\Controller {
     $this->setValues($_POST);
    
     if ($this->hasError()) {
+      track('入力エラー有');
       return;
     } else {
       try {
-        track('新規登録開始');
+        track('バリデーションクリア');
+        track('新規登録処理開始');
         $userModel = new \MyApp\Model\User();
         $user = $userModel->create([
           'surname' => $_POST['surname'],
@@ -48,15 +51,17 @@ class Signup extends \MyApp\Controller {
           'password' => $_POST['password']
         ]);
       } catch (\MyApp\Exception\DuplicateEmail $e) {
-        error_log('すでに登録されたemailです');
+        track('すでに登録されたemailです');
         $this->setErrors('email', $e->getMessage());
         return;
       }
 
+      track('新規登録処理完了');
       session_regenerate_id(true);
       $_SESSION['me'] = $user;
-      $_SESSION['modify'] = false;
-      error_log('HOMEへ遷移します');
+      $_SESSION['messages'] = [];
+      $_SESSION['messages']['welcome'] = WELCOME;
+      track('HOMEへ遷移します');
       header('Location:' . SITE_URL . '/Duplazy/public_html/home.php');
       exit;
     }
@@ -65,27 +70,28 @@ class Signup extends \MyApp\Controller {
   private function _validate() {
     //tokenの確認
     if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
-      error_log('tokenが不正です');
+      track('tokenが不正です');
       echo "Invalid Token!";
       exit;
     }
     //必須項目確認
     if ($_POST['surname'] === '' || $_POST['givenname'] === '' || $_POST['email'] === '' || $_POST['password'] === '') {
+      track('必須項目が未入力です');
       throw new \MyApp\Exception\EmptyPost();
     }
     //Emailの形式確認
     if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-      error_log('Emailの形式ではありません');
+      track('Emailの形式ではありません');
       throw new \MyApp\Exception\InvalidEmail();
     }
-    //パスワードの英数字確認
+    //パスワードの半角英数字確認
     if (!preg_match('/\A[a-zA-z0-9]+\z/', $_POST['password'])) {
-      error_log('英数文字ではありません');
-      throw new \MyApp\Exception\InvalidPassword();
+      track('半角英数文字ではありません');
+      throw new \MyApp\Exception\HalfPassword();
     }
     //同意の有無の確認
     if (!isset($_POST['agree'])) {
-      error_log('termsに同意していません');
+      track('termsに同意していません');
       throw new \MyApp\Exception\ConfirmTerms();
     }
   }

@@ -3,5 +3,5 @@
 namespace MyApp\Exception;
 
 class UnmatchConfirmation extends \Exception {
-  protected $message = 'Please maek sure email again!';
+  protected $message = 'Please try again!';
 }

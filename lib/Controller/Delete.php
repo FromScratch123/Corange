@@ -19,27 +19,35 @@ class Delete extends \MyApp\Controller {
 
   protected function postProcess() {
     try {
+      track('バリデーション開始');
       $this->_validate();
     } catch (\MyApp\Exception\EmptyPost $e) {
-      $this->setErrors('delete', $e->getMessage());
+      $this->setErrors('common', $e->getMessage());
+    } catch (\MyApp\Exception\InvalidEmail $e) {
+      $this->setErrors('email', $e->getMessage());
+    } catch (\MyApp\Exception\HalfPassword $e) {
+      $this->setErrors('password', $e->getMessage());
     } catch (\MyApp\Exception\ConfirmTerms $e) {
       $this->setErrors('agree', $e->getMessage());
     }
 
+    //入力保持
     $this->setValues($_POST);
 
     if ($this->hasError()) {
+      track('入力エラー有');
       return;
     } else {
       try {
-        $userModel = new \MyApp\Model\User();
+        track('バリデーションクリア');
         track('退会処理開始');
+        $userModel = new \MyApp\Model\User();
         $userModel->delete(['email' => $_POST['email'],
         'password' => $_POST['password']
         ]);
       } catch (\MyApp\Exception\UnmatchEmailOrPassword $e) {
-        track('メールアドレスまたはパスワードが間違っています');
-        $this->setErrors('delete', $e->getMessage());
+        track('Exception:' . $e->getMessage());
+        $this->setErrors('common', $e->getMessage());
         return;
       }
 
@@ -66,17 +74,24 @@ class Delete extends \MyApp\Controller {
       echo "Invalid Token!";
       exit;
     }
-
-    if (!isset($_POST['email']) || !isset($_POST['password'])) {
-      throw new \MyApp\Exception\EmptyPost();
-    }
-
-    if ($_POST['email'] === '' || $_POST['password'] === '') {
-      throw new \MyApp\Exception\EmptyPost();
-    }
+   //必須項目確認
+   if ($_POST['surname'] === '' || $_POST['givenname'] === '' || $_POST['email'] === '' || $_POST['password'] === '') {
+     track('必須項目が未入力です');
+    throw new \MyApp\Exception\EmptyPost();
+  }
+  //Emailの形式確認
+  if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+    track('Emailの形式ではありません');
+    throw new \MyApp\Exception\InvalidEmail();
+  }
+  //パスワードの英数字確認
+  if (!preg_match('/\A[a-zA-z0-9]+\z/', $_POST['password'])) {
+    track('半角英数字ではありません');
+    throw new \MyApp\Exception\HalfPassword();
+  }
     //同意の有無の確認
     if (!isset($_POST['agree'])) {
-      error_log('termsに同意していません');
+      track('termsに同意していません');
       throw new \MyApp\Exception\ConfirmTerms();
     }
   }

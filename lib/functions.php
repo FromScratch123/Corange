@@ -52,7 +52,16 @@ function sendMail($from, $to, $subject, $text){
         return true;
       } else {
         track('メールの送信に失敗しました');
-        return false;
+        throw new \MyApp\Exception\FaildSendMail();
       }
   }
+}
+
+//================================
+//          その他
+//================================
+
+// 乱数生成
+function random($length) {
+  return bin2hex(openssl_random_pseudo_bytes($length));
 }

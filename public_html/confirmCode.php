@@ -24,6 +24,14 @@ require_once(__DIR__ . '/head.php');
 $logoPath = './index.php'; 
 require_once(__DIR__ . '/header.php');
 ?>
+
+<!-- message -->
+<?php if (!empty($_SESSION['messages'])) : ?>
+  <div class="message">
+    <p class="message__text"><?= h($app->getMessage($_SESSION['messages']))  ?></p>
+  </div>
+<?php endif; ?>
+  
   <!-- issue code -->    
 <section id="confirm-code" class="confirm-code">
     <div class="confirm-code__content-wrap">

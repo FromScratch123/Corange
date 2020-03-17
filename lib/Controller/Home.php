@@ -10,8 +10,10 @@ class Home extends \MyApp\Controller {
       track('【ログイン未】index.phpへ遷移します');
       header('Location:' . SITE_URL . '/Duplazy/public_html/index.php');
       exit;
-    }
-  
+    } 
+      
+    //messageをセット
+    $this->setValues($_SESSION['messages']);
     //Userクラスをインスタンス化
     global $userModel;
     $userModel = new \MyApp\Model\User();
