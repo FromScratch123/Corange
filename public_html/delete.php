@@ -2,7 +2,7 @@
 
 require_once(__DIR__ . '/../config/config.php');
 trackingStart();
-var_dump(print_r( $_SERVER['HTTP_REFERER'], true));
+
 $app = new MyApp\Controller\Delete();
 $app->run();
 
@@ -19,7 +19,7 @@ require_once(__DIR__ . '/head.php');
 
 <body>
 <?php 
-$logoPath = './index.php'; 
+$logoPath = './home.php'; 
 require_once(__DIR__ . '/header.php');
 ?>
 <!-- delete -->    

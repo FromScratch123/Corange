@@ -6,6 +6,12 @@ class Controller {
 
   private $_errors;
   private $_values;
+  private $_rooms;
+  private $_users;
+  private $_clients;
+  private $_friends;
+  private $_messages;
+  private $_imageFileName;
 
   public function __construct() {
     if (!isset($_SESSION['token'])) {
@@ -13,6 +19,12 @@ class Controller {
     }
     $this->_errors = new \stdClass();
     $this->_values = new \stdClass();
+    $this->_rooms = new \stdClass();
+    $this->_users = new \stdClass();
+    $this->_clients = new \stdClass();
+    $this->_friends = new \stdClass();
+    $this->_messages = new \stdClass();
+    $this->_imageFileName = new \stdClass();
   }
 
   protected function setValues($array) {
@@ -33,6 +45,17 @@ class Controller {
   //エラー内容を配列形式でセット
   protected function setErrors($key, $error) {
     $this->_errors->$key = $error;
+  }
+
+  public function setProperties($array, $_properties) {
+    foreach($array as $key => $value) {
+        $this->$_properties->$key = $value;
+      }
+    return;
+  }
+
+  public function getProperties($_properties) {
+    return $this->$_properties;
   }
 
   public function getErrors($key) {

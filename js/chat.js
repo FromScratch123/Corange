@@ -10,17 +10,6 @@ $(function () {
    });
   });
 
-  //file-menuの表示
-  let $fileMenuIcon = $('.file-menu-trigger');
-  $fileMenuIcon.click(function (e) {
-    let target = $(this).children('.file-menu-box');
-    target.toggleClass('js--hidden');
-    e.stopPropagation(); //clickイベント中断
-    $(window).click(function () {
-     target.addClass('js--hidden');
-    });
-  });
-
     //messageの削除
     setTimeout(function () {
       $('.message').fadeOut(1000);

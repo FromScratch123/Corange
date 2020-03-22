@@ -11,6 +11,11 @@ class IssueCode extends \MyApp\Controller {
       exit;
     }
 
+    //messageをセット
+    if (isset($_SESSION['messages'])) {
+      $this->setValues($_SESSION['messages']);
+    }
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       track('POST送信がありました');
       $this->postProcess();

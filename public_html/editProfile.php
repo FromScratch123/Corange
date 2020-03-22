@@ -16,7 +16,7 @@
 
   <body>
   <?php 
-  $logoPath = './index.php'; 
+  $logoPath = './home.php'; 
   require_once(__DIR__ . '/header.php');
   require_once(__DIR__ . '/accountField.php');
   ?>
@@ -30,7 +30,7 @@
           <div class="user-icon">
             <input type="hidden" name="MAX_FILE_SIZE" value="<?= h(MAX_FILE_SIZE) ?>">
             <input class ="user-icon__input" type="file" name="user-icon" >
-            <img class="user-icon__img" src="<?= isset($app->getValues()->profile_img) ? h($app->getValues()->profile_img) : './../images/default_user_icon.png'; ?>" alt="">
+            <img class="user-icon__img" src="<?= isset($app->getProperties('_users')->profile_img) ? h($app->getProperties('_users')->profile_img) : './../images/default_user_icon.png'; ?>" alt="">
             <div class="user-icon__cover">
             <i class="user-icon__camera fas fa-camera"></i>
             </div>

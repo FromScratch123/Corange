@@ -17,16 +17,9 @@ class ChangePass extends \MyApp\Controller {
     //Userクラスをインスタンス化
     global $userModel;
     $userModel = new \MyApp\Model\User();
-    //Uploadクラスをインスタンス化
-    global $uploadModel;
-    $uploadModel = new \MyApp\Model\Upload();
-    //インスタンスの_Propertiesにユーザーの属性をセット
-    $userModel->setProperties($_SESSION['me']);
+    //_usersにユーザーの属性をセット
+    $this->setProperties($_SESSION['me'], '_users');
     //ユーザーの属性を取得
-    $userProperties = $userModel->getProperties();
-    //ユーザーの属性を値にセット
-    $this->setValues($userProperties);
-
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       track('POST送信がありました');

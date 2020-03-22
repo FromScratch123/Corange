@@ -49,7 +49,7 @@ define('SENDPASS', 'パスワードをご登録のメールアドレスへ送信
 //サイトURL
 define('SITE_URL', 'http://' . $_SERVER['HTTP_HOST']);
 //最大ファイルサイズ
-define('MAX_FILE_SIZE', 1 * 1024 * 1024 * 1024); //3MB
+define('MAX_FILE_SIZE', 3 * 1024 * 1024); //3MB
 //ファイル保存先
 define('UPLOAD_DIR', './../images/userPost');
 //ユーザーアイコンのデフォルトパス

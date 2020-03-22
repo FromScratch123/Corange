@@ -4,7 +4,7 @@ namespace MyApp\Model;
 
 class Upload extends \MyApp\Model {
 
-private $_imageFileName;
+
 
 public function save($file) {
   //MIMEタイプの確認

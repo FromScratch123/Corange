@@ -12,7 +12,9 @@ class Login extends \MyApp\Controller {
     }
 
     //messageをセット
-    $this->setValues($_SESSION['messages']);
+    if (isset($_SESSION['messages'])) {
+      $this->setValues($_SESSION['messages']);
+    }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       track('POST送信がありました');

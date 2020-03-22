@@ -75,7 +75,7 @@ class Delete extends \MyApp\Controller {
       exit;
     }
    //必須項目確認
-   if ($_POST['surname'] === '' || $_POST['givenname'] === '' || $_POST['email'] === '' || $_POST['password'] === '') {
+   if ($_POST['email'] === '' || $_POST['password'] === '') {
      track('必須項目が未入力です');
     throw new \MyApp\Exception\EmptyPost();
   }

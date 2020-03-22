@@ -2,13 +2,20 @@
   <!-- friend icon -->
   <div class="account-field__icons-flex-container flex-container">
   <!-- friend icon -->
-  <i class="account-field__icon icon--black fas fa-user-friends"></i>
+  <p class="account-field__icon margin--0">
+  <a href="./friendList.php"><i class="icon--black fas fa-user-friends"></i></a>
+  </p>
   <!-- chat icon -->
-  <i class="account-field__icon icon--black fas fa-comment-dots"></i>
+  <p class="account-field__icon margin--0">
+  <a href="./chatList.php"><i class="icon--black fas fa-comment-dots"></i></a>
+  </p>
+  
   <!-- bell icon -->
-  <i class="account-field__icon icon--black bell-icon fas fa-bell">
+  <p class="account-field__icon margin--0">
+  <a href="notification.php"><i class="icon--black bell-icon fas fa-bell">
   <span class="notification">1</span>
-  </i>
+  </i></a>
+  </p>
   <!-- share btn -->
   <button class="account-field__btn">
     <span class=account-field__btn--share>SHARE</span>
@@ -37,7 +44,7 @@
  
   <!-- user icon -->
   <div class="account-field__user-icon-wrap">
-    <img src="<?= isset($app->getValues()->profile_img) ? h($app->getValues()->profile_img) : './../images/default_user_icon.png' ?>" alt="ユーザーのアイコン画像" class="account-field__user-icon">
+    <img src="<?= isset($app->getProperties('_users')->profile_img) ? h($app->getProperties('_users')->profile_img) : './../images/default_user_icon.png' ?>" alt="ユーザーのアイコン画像" class="account-field__user-icon">
   </div>
   </div>
 </div>

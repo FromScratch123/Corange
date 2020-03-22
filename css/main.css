@@ -85,6 +85,18 @@ select {
     color: #ff0000;
   }
 
+  .bg--skyblue {
+    background: #9DCAFF;
+  }
+
+  .bg--orange {
+    background: #F77D31;
+  }
+
+  .bg--green {
+    background: #30EB95;
+  }
+
   .fz--small {
     font-size: 1.4em;
   }

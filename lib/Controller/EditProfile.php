@@ -20,12 +20,10 @@ class EditProfile extends \MyApp\Controller {
     //Uploadクラスをインスタンス化
     global $uploadModel;
     $uploadModel = new \MyApp\Model\Upload();
-    //インスタンスの_Propertiesにユーザーの属性をセット
-    $userModel->setProperties($_SESSION['me']);
-    //ユーザーの属性を取得
-    $userProperties = $userModel->getProperties();
-    //ユーザーの属性を値にセット
-    $this->setValues($userProperties);
+    //_usersにユーザーの属性をセット
+    $this->setProperties($_SESSION['me'], '_users');
+    //ユーザーの属性をValuesにセット
+    $this->setValues($_SESSION['me']);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       track('POST送信がありました');
@@ -41,7 +39,7 @@ class EditProfile extends \MyApp\Controller {
  
 
     try {
-      track('validate開始');
+      track('バリデーション開始');
       $this->_validate();
     } catch (\MyApp\Exception\EmptyPost $e) {
       track('必須項目が未入力です');
@@ -99,10 +97,11 @@ class EditProfile extends \MyApp\Controller {
 
     //POSTされた値を保持(変更前の値ではなくPOSTの値を優先)
     $this->setValues($_POST);
+
     if ($this->hasError()) {
       return;
     } else {
-      track('バリデーションクリアしました');
+      track('バリデーションクリア');
       try {
         track('アイコン画像保存処理開始');
         //ファイル選択状態を判定

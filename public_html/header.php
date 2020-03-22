@@ -8,3 +8,9 @@
   </div>
 </header>
 
+<!-- message -->
+<!-- <?php if (!empty($_SESSION['messages'])) : ?>
+  <div class="message">
+    <p class="message__text"><?= h($app->getMessage($_SESSION['messages']))  ?></p>
+  </div>
+<?php endif; ?> -->

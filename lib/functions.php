@@ -17,7 +17,12 @@ function track($str) {
 //基本情報出力
 function trackingStart(){
   track('-------画面表示処理開始-------');
-  track('訪問ページ:' . $_SERVER['REQUEST_URI']);
+  if (isset($_SERVER['HTTP_REFERER'])) {
+    track('訪問元ページ:' . $_SERVER['HTTP_REFERER']);
+  } else {
+    track('訪問元ページは検出出来ませんでした');
+  }
+  track('訪問先ページ:' . $_SERVER['REQUEST_URI']);
   track('セッションID：'.session_id());
   track('セッション変数の中身：' . print_r($_SESSION, true));
   track('処理開始日時：' . date('Y年m月d日 H時i

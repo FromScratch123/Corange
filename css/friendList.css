@@ -1,0 +1,158 @@
+@charset "utf-8";
+
+ /* =========================
+            GRID
+========================= */
+body {
+  display: grid;
+  /* grid-template-columns:  250px 1fr; */
+  grid-template-areas: 
+    "header header"
+    "account account"
+    "aside main"
+    ".. footer";
+}
+
+ 
+ /* =========================
+            HEADER
+========================= */
+
+.header {
+  grid-area: header;
+  width: 100%;
+  height: 60px;
+  background: #161267;
+  position: static;
+  overflow-x: hidden;
+}
+
+ 
+
+ /* =========================
+         USER MENU
+========================= */
+
+.user-menu-box {
+  width: 200px;
+  height: auto;
+  padding: 32px 16px;
+  position: absolute;
+  top: 16px;
+  right: 0;
+  text-align: left;
+  background: #ffffff;
+  box-shadow: 0px 3px 8px #707070;
+  font-size: 1.0rem;
+}
+
+.user-menu-list:not(:last-child) {
+  margin-bottom: 32px;
+}
+
+.user-menu-icon {
+  margin-right: 8px;
+}
+
+ 
+
+ /* =========================
+            WINDOW
+========================= */
+
+.friend-list-window {
+  grid-area: main;
+  width: calc(100vw - 250px);
+  height: calc(100vh - (60px + 80px));
+  margin: 0 auto;
+  padding: 32px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+ /* =========================
+        FRIEND LIST
+========================= */
+
+.friend-list {
+  padding: 8px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #cfcfcf;
+}
+
+.friend-list__table {
+  width: 100%;
+}
+
+.label {
+  width: 8px;
+  padding: 0;
+}
+
+.user-icon {
+  width: 60px;
+}
+
+.user-name__text {
+  font-size: 1.6em;
+}
+
+.friend-summary__text {
+  font-size: 1.4em;
+}
+
+.friend-list__user-icon-wrap {
+  width: 60px;
+  height: 60px;
+  align-self: center;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.friend-list__user-icon {
+  width: auto;
+  height: 100%;
+}
+
+.time {
+  text-align: right;
+  font-size: 1.2em;
+}
+
+.no-show {
+  text-align: center;
+  font-size: 2.3em;
+}
+
+/* =========================
+         FRIEND MENU
+========================= */
+
+.friend-menu {
+  text-align: right;
+  font-size: 1.4em;
+}
+
+.friend-menu-trigger {
+  position: relative;
+  min-width: 16px;
+  cursor: pointer;
+}
+
+.friend-menu-box {
+  width: 150px;
+  height: auto;
+  padding: 32px 16px;
+  position: absolute;
+  top: 16px;
+  right: 0;
+  text-align: left;;
+  background: #ffffff;
+  box-shadow: 0px 3px 8px #707070;
+  font-size: 1.0rem;
+  z-index: 1;
+}
+
+.friend-menu-list:not(:last-child) {
+  margin-bottom: 16px;
+}

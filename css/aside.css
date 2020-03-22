@@ -10,6 +10,7 @@
   position: relative;
   border: 1px solid #707070;
   border-top: none;
+  border-bottom: none;
 }
 
 .categories {
