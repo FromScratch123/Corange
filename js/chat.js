@@ -1,5 +1,11 @@
 $(function () {
 
+  setTimeout(function () {
+    let $chatBoxPos = $('.chat-box').last().position();
+  $('.chat-window').scrollTop($chatBoxPos.top);
+  }, 0);
+  
+  
   // user-menuの表示
   let $userMenuIcon = $('#user-menu-trigger');
   $userMenuIcon.click(function (e) {
@@ -14,4 +20,6 @@ $(function () {
     setTimeout(function () {
       $('.message').fadeOut(1000);
     }, 2500);
+
+
 });

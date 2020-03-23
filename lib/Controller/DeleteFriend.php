@@ -23,12 +23,12 @@ class DeleteFriend extends \MyApp\Controller {
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       track('GET送信がありました');
-      $this->postProcess();
+      $this->getProcess();
     }
 
   }
 
-  public function postProcess() {
+  public function getProcess() {
       global $userModel;
       global $friendModel;
     try {

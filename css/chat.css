@@ -80,6 +80,36 @@ body {
   position: relative;
 }
 
+.client-info {
+  margin-bottom: 32px;
+  position: fixed;
+  top: 60px;
+  left: 0px;
+
+}
+
+.client-info__icon {
+  width: 60px;
+}
+
+.chat__client-icon-wrap {
+  width: 60px;
+  height: 60px;
+  margin: 0 8px;
+  align-self: center;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.chat__client-icon {
+  width: auto;
+  height: 100%;
+}
+
+.client-info__name {
+  font-size: 1.4em;
+}
+
 .chat-box {
   padding: 8px;
   margin-bottom: 32px;

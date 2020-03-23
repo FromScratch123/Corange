@@ -33,6 +33,7 @@ class ChatList extends \MyApp\Controller {
 
     //相手の情報を取得
       track('相手情報取得');
+      $clients = [];
       for ($i = 0; isset($this->getProperties('_rooms')->$i); $i++) {
         //clientのIDを判別
         if ($this->getProperties('_rooms')->$i->host_user === $_SESSION['me']->id) {
@@ -40,12 +41,13 @@ class ChatList extends \MyApp\Controller {
         } else {
           $client_id = $this->getProperties('_rooms')->$i->host_user;
         }
-        $clients = $userModel->getAll('id', $client_id);
-        track('相手情報: ' . print_r($clients, true));
+        array_push($clients, $userModel->getAll('id', $client_id));
+       
         //_clientsに相手情報をセット
         $this->setProperties($clients, '_clients');
       }
-
+        track('相手情報: ' . print_r($clients, true));
+      
     //メッセージ情報を取得
       track('メッセージ情報取得');
       $messages = [];
