@@ -98,7 +98,7 @@ class User extends \MyApp\Model {
   }
 
   public function search($values) {
-    $stmt = $this->db->prepare("select id, surname, givenname, profile_img from users where id not in (:id) and surname like :search and delete_flg = 0 or id not in (:id) and givenname like :search and delete_flg = 0 order by surname");
+    $stmt = $this->db->prepare("select id, surname, givenname,profile_img from users where id not in (:id) and surname like :search and delete_flg = 0 or id not in (:id) and givenname like :search and delete_flg = 0 order by surname");
     $res = $stmt->execute([
       ':search' => "%" . $values['search'] . "%",
       ':id' => $values['id']
@@ -126,6 +126,21 @@ class User extends \MyApp\Model {
         ':' . $key => $value
       ]);
     }
+    $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+      $user = $stmt->fetch();
+      if (!$user) {
+        throw new \MyApp\Exception\Query();
+      } else {
+        return $user;
+      }
+  }
+
+  public function getProfile($values) {
+    $stmt = $this->db->prepare("select id, surname, givenname, age, prefecture, slogan, profile, profile_img, banner_img from users where id = :id and delete_flg = 0");
+    $res = $stmt->execute([
+      ':id' => $values['id']
+    ]);
+
     $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
       $user = $stmt->fetch();
       if (!$user) {

@@ -1,5 +1,6 @@
 $(function () {
 
+  //chat-window下部へ移動
   setTimeout(function () {
     let $chatBoxPos = $('.chat-box').last().position();
   $('.chat-window').scrollTop($chatBoxPos.top);

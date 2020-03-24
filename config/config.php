@@ -45,7 +45,7 @@ define('CHANGEPASS', 'パスワードを変更しました。');
 define('SENDCODE', '認証コードをご登録のメールアドレスへ送信しました。');
 define('SENDPASS', 'パスワードをご登録のメールアドレスへ送信しました。');
 
-
+//*********** その他 ***********
 //サイトURL
 define('SITE_URL', 'http://' . $_SERVER['HTTP_HOST']);
 //最大ファイルサイズ
@@ -54,6 +54,7 @@ define('MAX_FILE_SIZE', 3 * 1024 * 1024); //3MB
 define('UPLOAD_DIR', './../images/userPost');
 //ユーザーアイコンのデフォルトパス
 define('DEFAULT_USER_ICON', './../images/default_user_icon.png');
+define('DEFAULT_USER_BANNER', './../images/default_user_banner.jpg');
 //自動メールの送信メールアドレス
 define('MAIL_ADDRESS', 'hctarcsmorf@gmail.com');
 

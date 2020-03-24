@@ -2,7 +2,7 @@
 
 namespace MyApp\Controller;
 
-class SearchFriend extends \MyApp\Controller {
+class Profile extends \MyApp\Controller {
 
   //loginの有無確認
   public function run() {
@@ -29,41 +29,27 @@ class SearchFriend extends \MyApp\Controller {
       $this->getProcess();
     }
 
-  }
 
+  }
 
   private function getProcess() {
     global $userModel;
     global $friendModel;
-    //検索結果を取得
-    $users = $userModel->search([
-      'search' => $_GET['search'],
-      'id' => $_SESSION['me']->id
-    ]);
- 
-      
-    if (!$users) {
-      return;
-    } else {
+    try {
+      $user = $userModel->getProfile([
+        'id' => $_GET['u']
+      ]);
 
-      //友達状態を判定
-      for ($i = 0; isset($users[$i]); $i++) {
-        $isFriend = $friendModel->isFriend([
-          'me' => $_SESSION['me']->id,
-          'client' => $users[$i]->id
-        ]);
-        $users[$i]->isFriend = $isFriend;
-        $isAsked = $friendModel->isAsked([
-          'me' => $_SESSION['me']->id,
-          'client' => $users[$i]->id
-        ]);
-        $users[$i]->isAsked = $isAsked;
-      }
-      //検索結果を_friendsにセット
-      $this->setProperties($users, '_friends');
+    } catch (\MyApp\Exception\Query $e) {
+      track('クエリ実行に失敗しました');
+      track('Exception:' . $e->getMessage());
+      $this->setErrors('common', $e->getMessage());
+      exit;
     }
-    track('検索結果:' . print_r($users, true));
+
+    //取得したprofile情報を_friendにセット
+    $this->setProperties($user, '_friends');
+    track('ユーザー情報:' . print_r($user, true));
   }
-  
 
 }

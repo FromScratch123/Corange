@@ -43,6 +43,19 @@ class Chat extends \MyApp\Controller {
   protected function getProcess() {
     global $userModel;
     global $chatModel;
+
+    $isBelonged = $chatModel->isBelonged([
+      'id' => $_GET['r'],
+      'me' => $_SESSION['me']->id
+    ]);
+
+    if ($isBelonged == false) {
+      track('GETパラメーターが不正です');
+      track('home.phpへ遷移します');
+      header('Location:' . SITE_URL . '/Duplazy/public_html/home.php');
+      exit;
+    }
+
     try {
     //掲示板情報を取得
     track('掲示板情報取得');
@@ -57,7 +70,7 @@ class Chat extends \MyApp\Controller {
     } else {
       $client_id = $this->getProperties('_rooms')->host_user;
     }
-
+    
     track('client_id:' . $client_id);
 
 

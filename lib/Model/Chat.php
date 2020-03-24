@@ -108,6 +108,21 @@ class Chat extends \MyApp\Model {
     }
   }
 
+  public function isBelonged($values) {
+    $stmt = $this->db->prepare("select count(id) from room where id = :id and host_user = :me and delete_flg = 0 or id = :id and invited_user = :me and delete_flg = 0");
+    $res = $stmt->execute([
+      ':id' => $values['id'],
+      ':me' => $values['me']
+    ]);
+    $count = $stmt->fetchColumn();
+    if ($count == 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+
   public function getMsg($room_id, $orderby = 'id', $in = 'ASC' ) {
     $stmt = $this->db->prepare("select * from message where room_id = :room_id and delete_flg = 0 order by " . $orderby . " " . $in);
     $res = $stmt->execute([
