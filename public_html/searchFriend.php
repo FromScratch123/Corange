@@ -3,11 +3,11 @@
   require_once(__DIR__ . '/../config/config.php');
   trackingStart();
 
-  $app = new MyApp\Controller\FriendList();
+  $app = new MyApp\Controller\SearchFriend();
   $app->run();
-  $requestPage = 'FRIEND LIST -';
+  $requestPage = 'SEARCH -';
   $jsPath = './../js/friendList.js';
-  $CSSPath1 = './../CSS/friendList.css';
+  $CSSPath1 = './../CSS/searchFriend.css';
   $CSSPath2 = './../CSS/accountField.css';
   $CSSPath3 = './../CSS/aside.css';
   
@@ -21,22 +21,21 @@ $logoPath = './home.php';
 require_once(__DIR__ . '/header.php');
 require_once(__DIR__ . '/accountField.php');
 require_once(__DIR__ . '/aside.php');
-$message = ['id' => 1];
  ?>
 
 <!-- message -->
-<?php if (!empty($_SESSION['messages']['friend-list'])) : ?>
+<?php if (!empty($_SESSION['messages']['search-friend'])) : ?>
   <div class="message">
-    <p class="message__text"><?= h($app->getMessage($_SESSION['messages']['friend-list']))  ?></p>
+    <p class="message__text"><?= h($app->getMessage($_SESSION['messages']['search-friend']))  ?></p>
   </div>
 <?php endif; ?>
 
   
 <main>
-  <div class="friend-list-window">
+  <div class="search-friend-window">
   <!-- search window -->
-  <form class="search-friend__search-window--wrap" action="./searchFriend.php" method="get">
-    <input class="search-friend__search-window" type="text" name="search" placeholder="search users..."><i class="search-friend__search-window--icon fas fa-search"></i>
+  <form class="search-friend__search-window--wrap" action="" method="get">
+    <input class="search-friend__search-window" type="text" name="search" placeholder="search users"><i class="search-friend__search-window--icon fas fa-search"></i>
   </form>
   <!-- NOTHING TO SHOW -->
   <?php if (!isset($app->getProperties('_friends')->{0})) : ?>
@@ -49,19 +48,16 @@ $message = ['id' => 1];
     
     <ul>
       <li>
-      <div class="friend-list">
-      <table class="friend-list__table">
+      <div class="search-friend">
+      <table class="search-friend__table">
         <tbody>
           <!-- 1行目 -->
           <tr>
-            <?php if (isset($app->getProperties('_friends')->$i) && $app->getProperties('_friends')->$i->accept_flg == 0) : ?>
-            <td class="label bg--green" rowspan="2"></td>
-            <?php endif; ?>
             <td class="user-icon" rowspan="2">
                <!-- user icon -->
-              <div class="friend-list__user-icon-wrap">
+              <div class="search-friend__user-icon-wrap">
               <a href="./profile.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">
-                <img src="<?= isset($app->getProperties('_friends')->$i->profile_img) ? h($app->getProperties('_friends')->$i->profile_img) : './../images/default_user_icon.png' ?>" alt="ユーザーのアイコン画像" class="friend-list__user-icon">
+                <img src="<?= isset($app->getProperties('_friends')->$i->profile_img) ? h($app->getProperties('_friends')->$i->profile_img) : './../images/default_user_icon.png' ?>" alt="ユーザーのアイコン画像" class="search-friend__user-icon">
             </a>
               </div>
             </td>
@@ -82,17 +78,17 @@ $message = ['id' => 1];
           <i id="friend-menu-trigger" class="friend-menu-trigger menu fas fa-ellipsis-h">
           <div class="friend-menu-box js--hidden">
             <ul>
-            <?php if (isset($app->getProperties('_friends')->$i) && $app->getProperties('_friends')->$i->accept_flg == 1) : ?>
               <li class="friend-menu-list">
-              <a href="./createRoom.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">メッセージ</a>
+              <a href="./profile.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">プロフィール</a>
               </li>
+              <?php if ($app->getProperties('_friends')->$i->isFriend === false) : ?>
+              <li class="friend-menu-list">
+              <a href="./askBeFriend.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">友達申請を送る</a>
+              </li>
+              <?php endif; ?>
+              <?php if ($app->getProperties('_friends')->$i->isFriend === true) : ?>
               <li class="friend-menu-list">
               <a href="./deleteFriend.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">友達解除</a>
-              </li>
-            <?php endif; ?>
-            <?php if (isset($app->getProperties('_friends')->$i) && $app->getProperties('_friends')->$i->accept_flg === false && $app->getProperties('_friends')->$i->follow_user !== $_SESSION['me']->id) : ?>
-              <li class="friend-menu-list">
-              <a href="./acceptFriend.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">友達申請承諾</a>
               </li>
             <?php endif; ?>
             <li class="friend-menu-list">
@@ -118,7 +114,6 @@ $message = ['id' => 1];
         </tbody>
       </table>
     </div>
-    </a>
     <?php endfor; ?>
   </div>
   </li>

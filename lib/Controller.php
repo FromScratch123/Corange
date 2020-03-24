@@ -49,7 +49,6 @@ class Controller {
 
   public function setProperties($array, $_properties) {
     foreach($array as $key => $value) {
-      track($key . '=>' . print_r($value, true));
         $this->$_properties->$key = $value;
       }
     return;

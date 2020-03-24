@@ -296,6 +296,7 @@ select {
 }
 
 .signup-drawer__times {
+  background: transparent;
   position: absolute;
   top: 16px;
   right: 16px;

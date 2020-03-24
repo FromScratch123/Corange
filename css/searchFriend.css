@@ -60,7 +60,7 @@ body {
             WINDOW
 ========================= */
 
-.friend-list-window {
+.search-friend-window {
   grid-area: main;
   width: calc(100vw - 250px);
   height: calc(100vh - (60px + 80px));
@@ -74,19 +74,14 @@ body {
         FRIEND LIST
 ========================= */
 
-.friend-list {
+.search-friend {
   padding: 8px;
   margin-bottom: 16px;
   border-bottom: 1px solid #cfcfcf;
 }
 
-.friend-list__table {
+.search-friend__table {
   width: 100%;
-}
-
-.label {
-  width: 8px;
-  padding: 0;
 }
 
 .user-icon {
@@ -101,7 +96,7 @@ body {
   font-size: 1.4em;
 }
 
-.friend-list__user-icon-wrap {
+.search-friend__user-icon-wrap {
   width: 60px;
   height: 60px;
   align-self: center;
@@ -109,14 +104,9 @@ body {
   overflow: hidden;
 }
 
-.friend-list__user-icon {
+.search-friend__user-icon {
   width: auto;
   height: 100%;
-}
-
-.time {
-  text-align: right;
-  font-size: 1.2em;
 }
 
 .no-show {

@@ -97,6 +97,22 @@ class User extends \MyApp\Model {
       }
   }
 
+  public function search($values) {
+    $stmt = $this->db->prepare("select id, surname, givenname, profile_img from users where id not in (:id) and surname like :search or givenname like :search and delete_flg = 0 order by surname");
+    $res = $stmt->execute([
+      ':search' => "%" . $values['search'] . "%",
+      ':id' => $values['id']
+    ]);
+
+    $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+      $users = $stmt->fetchAll();
+      if (!$users) {
+        return false;
+      } else {
+        return $users;
+      }
+  }
+
   public function getAll($key, $value) {
     $stmt = $this->db->prepare("select * from users where " . $key . " = :" . $key . " and delete_flg = 0");
     if ($key === 'password') {
