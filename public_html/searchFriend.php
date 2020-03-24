@@ -81,12 +81,12 @@ require_once(__DIR__ . '/aside.php');
               <li class="friend-menu-list">
               <a href="./profile.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">プロフィール</a>
               </li>
-              <?php if ($app->getProperties('_friends')->$i->isFriend === false) : ?>
+              <?php if ($app->getProperties('_friends')->$i->isFriend == false && $app->getProperties('_friends')->$i->isAsked == false ) : ?>
               <li class="friend-menu-list">
               <a href="./askBeFriend.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">友達申請を送る</a>
               </li>
               <?php endif; ?>
-              <?php if ($app->getProperties('_friends')->$i->isFriend === true) : ?>
+              <?php if ($app->getProperties('_friends')->$i->isFriend == true) : ?>
               <li class="friend-menu-list">
               <a href="./deleteFriend.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">友達解除</a>
               </li>

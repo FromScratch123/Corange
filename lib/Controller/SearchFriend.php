@@ -52,6 +52,11 @@ class SearchFriend extends \MyApp\Controller {
           'client' => $users[$i]->id
         ]);
         $users[$i]->isFriend = $isFriend;
+        $isAsked = $friendModel->isAsked([
+          'me' => $_SESSION['me']->id,
+          'client' => $users[$i]->id
+        ]);
+        $users[$i]->isAsked = $isAsked;
       }
       //検索結果を_friendsにセット
       $this->setProperties($users, '_friends');

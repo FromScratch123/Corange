@@ -19,7 +19,7 @@ class Friend extends \MyApp\Model {
   }
 
   public function isFriend($values) {
-    $stmt = $this->db->prepare("select count(id) from friend where follow_user = :me and followed_user = :client or follow_user = :client and followed_user = :me and delete_flg = 0");
+    $stmt = $this->db->prepare("select count(id) from friend where follow_user = :me and followed_user = :client and accept_flg = 1 or follow_user = :client and followed_user = :me and accept_flg = 1");
     $res = $stmt->execute([
       ':me' => $values['me'],
       ':client' => $values['client']
@@ -31,6 +31,21 @@ class Friend extends \MyApp\Model {
       } else {
         return true;
       }
+  }
+
+  public function isAsked($values) {
+    $stmt = $this->db->prepare("select count(id) from friend where follow_user = :me and followed_user = :client and accept_flg = 0 or follow_user = :client and followed_user = :me and accept_flg = 0" );
+    $res = $stmt->execute([
+      ':me' => $values['me'],
+      ':client' => $values['client']
+    ]);
+
+    $count = $stmt->fetchColumn();
+    if ($count == 0) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   public function createRoom($values) {
@@ -54,7 +69,7 @@ class Friend extends \MyApp\Model {
 
   public function delete($values) {
 
-    $stmt = $this->db->prepare("update friend set delete_flg = 1 where follow_user = :me and followed_user = :friend or follow_user = :friend and followed_user = :me and delete_flg = 0");
+    $stmt = $this->db->prepare("delete from friend where follow_user = :me and followed_user = :friend or follow_user = :friend and followed_user = :me");
     $res = $stmt->execute([
       ':me' => $values['me'],
       ':friend' => $values['friend']
@@ -79,7 +94,7 @@ class Friend extends \MyApp\Model {
   }
 
   public function getFriend($id, $orderby = 'id', $in = 'ASC') {
-    $stmt = $this->db->prepare("select friend.accept_flg, friend.follow_user, friend.followed_user, users.id, users.surname, users.givenname, users.profile_img from friend inner join users on friend.follow_user = users.id or friend.followed_user = users.id where users.id not in (" . $id . ") and friend.follow_user = :follow_user or friend.followed_user = :followed_user and users.id not in (" . $id . ") and users.delete_flg = 0 and friend.delete_flg = 0 order by " . $orderby . " " . $in);
+    $stmt = $this->db->prepare("select friend.delete_flg, friend.follow_user, friend.followed_user, friend.accept_flg, users.id, users.surname, users.givenname, users.profile_img from friend inner join users on friend.follow_user = users.id or friend.followed_user = users.id where users.id not in (" . $id . ") and friend.follow_user = :follow_user or friend.followed_user = :followed_user and users.id not in (" . $id . ") and users.delete_flg = 0 order by " . $orderby . " " . $in);
     track(print_r($stmt,true));
     $res = $stmt->execute([
         ':follow_user' => $id,

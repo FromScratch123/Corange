@@ -90,9 +90,12 @@ $message = ['id' => 1];
               <a href="./deleteFriend.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">友達解除</a>
               </li>
             <?php endif; ?>
-            <?php if (isset($app->getProperties('_friends')->$i) && $app->getProperties('_friends')->$i->accept_flg === false && $app->getProperties('_friends')->$i->follow_user !== $_SESSION['me']->id) : ?>
+            <?php if (isset($app->getProperties('_friends')->$i) && $app->getProperties('_friends')->$i->accept_flg == false && $app->getProperties('_friends')->$i->follow_user !== $_SESSION['me']->id) : ?>
               <li class="friend-menu-list">
               <a href="./acceptFriend.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">友達申請承諾</a>
+              </li>
+              <li class="friend-menu-list">
+              <a href="./deleteFriend.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">友達申請拒否</a>
               </li>
             <?php endif; ?>
             <li class="friend-menu-list">
