@@ -113,7 +113,7 @@ $message = ['id' => 1];
             <a href="./profile.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">
             <!-- friend profile -->
               <p class="friend-summary__text margin--0">
-              <?= isset($app->getProperties('_friends')->$i->profile) ? h($app->getProperties('/friends')->$i->profile) : "自己紹介文はありません。"  ?>
+              <?= isset($app->getProperties('_friends')->$i->profile) ? mb_substr(h($app->getProperties('_friends')->$i->profile), 0, 50, "UTF-8") . "..." : "自己紹介文はありません。"  ?>
               </p>
             </a>
             </td>

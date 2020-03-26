@@ -3,26 +3,52 @@
          USER BANNER
 ========================= */
 
-.profile {
+ .profile {
   position: relative;
-}
+  }
 
- .profile__banner {
+ .banner {
    width: 100%;
    height: 250px;
    position: relative;
    top: 60px;
    left: 0;
-   z-index: -1;
    overflow: hidden;
  }
 
- .profile__banner-img {
+ .user-banner__input {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+ .user-banner__img {
    width: 100%;
    height: 100%;
    object-fit: cover;
  }
 
+ .user-banner__cover {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  line-height: 250px;
+  background: #8E8E8E;
+  opacity: .5;
+ }
+
+ .user-banner__cover--mouseover {
+  background: #B8D5FD;
+}
  
  /* =========================
          USER TABLE
@@ -36,17 +62,53 @@
   width: 120px;
 }
 
-.profile__user-icon-wrap {
+.user-icon-wrap {
   width: 120px;
   height: 120px;
   align-self: center;
+  position: relative;
   border-radius: 50%;
   overflow: hidden;
 }
 
-.profile__user-icon {
+.user-icon__input {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.user-icon__img {
   width: auto;
   height: 100%;
+}
+
+.user-icon__cover {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 120px;
+  background: #8E8E8E;
+  opacity: .5;
+}
+
+.user-icon__cover--mouseover {
+  background: #B8D5FD;
+}
+
+
+.user-icon__camera {
+  vertical-align: middle;
+  font-size: 3em;
+  color: black;
 }
 
 .user-name {
@@ -60,6 +122,26 @@
   min-width: 250px;
   font-size: 1.6em;
   vertical-align: top;
+  position: relative;
+}
+
+.user-slogan__input {
+  font-size: 1em;
+  border: none;
+}
+
+.slogan-limit-wrap {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.slogan-count {
+  font-size: 0.8em;
+}
+
+.slogan-limit {
+  font-size: 0.8em;
 }
 
 .user-age {
@@ -75,10 +157,13 @@
   font-size: 1.6em;
   text-align: right;
 }
+
  /* =========================
         PROFILE INFO
 ========================= */
-
+.profile-error {
+  text-align: center;
+}
 
 .profile-summary {
   width: 80%;
@@ -86,9 +171,51 @@
   margin: 32px auto;
   padding: 32px;
   text-align: center;
+  position: relative;
 }
 
 .profile-summary__text {
+  white-space: pre-wrap;
   font-size: 1.4em;
 }
 
+.profile-textarea {
+  width: 100%;
+  height: 300px;
+  padding: 16px;
+  border: none;
+  text-align: center;
+  font-size: 1.4em;
+}
+
+.profile-limit-wrap {
+  position: absolute;
+  top: 0;
+  right: 32px;
+}
+
+.profile-count {
+  font-size: 1.28em;
+}
+
+.profile-limit {
+  font-size: 1.28em;
+}
+
+.profile-submit {
+  width: 100px;
+  margin: 0;
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  border: 1px solid #161267;
+  color: #161267;
+}
+
+.profile__submit:hover {
+  background: #161267;
+  color: #ffffff;
+  transition: all 1s ease-out;
+}

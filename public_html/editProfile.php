@@ -23,6 +23,9 @@
   <section class="edit-profile">
     <div class="edit-profile__content-wrap">
       <p class="edit-profile__title">Modify profile</p>
+      <p class="fz--small edit-profile__link">
+      <a href="./profile.php?u=<?= $_SESSION['me']->id; ?>">プロフィール画面を確認</a>
+      </p>
       <form class="flex-container edit-profile-flex-container" action="" method="post" enctype="multipart/form-data">
         <div class="user-icon-wrap">
         <p class="has-error margin--0"><?= $app->getErrors('user-icon'); ?></p>

@@ -98,7 +98,7 @@ class User extends \MyApp\Model {
   }
 
   public function search($values) {
-    $stmt = $this->db->prepare("select id, surname, givenname,profile_img from users where id not in (:id) and surname like :search and delete_flg = 0 or id not in (:id) and givenname like :search and delete_flg = 0 order by surname");
+    $stmt = $this->db->prepare("select id, surname, givenname,slogan, profile, profile_img from users where id not in (:id) and surname like :search and delete_flg = 0 or id not in (:id) and givenname like :search and delete_flg = 0 order by surname");
     $res = $stmt->execute([
       ':search' => "%" . $values['search'] . "%",
       ':id' => $values['id']

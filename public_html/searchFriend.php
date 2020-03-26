@@ -98,9 +98,18 @@ require_once(__DIR__ . '/aside.php');
            </div> 
            </i>
           </td>
-
           </tr>
-          
+          <!-- 2行目 -->
+          <tr>
+          <td class="friend-summary">
+            <a href="./profile.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">
+            <!-- friend profile -->
+              <p class="friend-summary__text margin--0">
+              <?= isset($app->getProperties('_friends')->$i->profile) ? mb_substr(h($app->getProperties('_friends')->$i->profile), 0, 50, "UTF-8") : "自己紹介文はありません。"  ?>
+              </p>
+            </a>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

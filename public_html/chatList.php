@@ -71,7 +71,7 @@ $message = ['id' => 1];
             <td class="chat-summary">
             <!-- chat -->
               <p class="chat-summary__text margin--0">
-              <?= isset($app->getProperties('_messages')->$i[0]->msg) ? h($app->getProperties('_messages')->$i[0]->msg) : "メッセージはありません。"  ?>
+              <?= isset($app->getProperties('_messages')->$i[0]->msg) ? mb_substr(h($app->getProperties('_messages')->$i[0]->msg), 0, 50, "UTF-8") : "メッセージはありません。"  ?>
               </p>
             </td>
           </tr>

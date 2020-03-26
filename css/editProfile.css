@@ -71,9 +71,20 @@
 
 .edit-profile__title {
   width: 500px;
-  margin: 0 0 32px auto;
+  margin: 0 0 0 auto;
   color: #161267;
   font-size: 2.5em;
+}
+
+.edit-profile__link {
+  width: 500px;
+  margin: 0 0 32px auto;
+  color: #8E8E8E;
+}
+
+.edit-profile__link:hover {
+  color: #161267;
+  transition: color .7s ease;
 }
 
 .edit-profile-flex-container {
