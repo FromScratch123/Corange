@@ -1,5 +1,4 @@
 <div class="account-field">
-  <!-- friend icon -->
   <div class="account-field__icons-flex-container flex-container">
   <!-- friend icon -->
   <p class="account-field__icon margin--0">

@@ -1,11 +1,11 @@
 $(function () {
 
   //chat-window下部へ移動
-  setTimeout(function () {
-    let $chatBoxPos = $('.chat-box').last().position();
-    let $chatWindow = $('.chat-window');
-    $chatWindow.animate({scrollTop : $chatBoxPos.top}, 1000, 'swing');
-  }, 100);
+    $(window).on('load', function() {
+      let $chatBoxPos = $('.chat-box').last().position();
+      let $chatWindow = $('.chat-window');
+      $chatWindow.scrollTop($chatBoxPos.top);
+    });
 
   
   // user-menuの表示
@@ -26,7 +26,7 @@ $(function () {
     //既読の登録
    let $chatTable = $('.chat-table--right') || null;
    let $chatWindow = $('.chat-window');
-    $chatWindow.on('scroll', function () {
+    $(window).on('load scroll', function () {
         $chatTable.each(function () {
           let targetOffset = $(this).offset();
           let $chatWindowHight = $chatWindow.height();

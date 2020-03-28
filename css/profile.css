@@ -49,7 +49,19 @@
  .user-banner__cover--mouseover {
   background: #B8D5FD;
 }
- 
+
+.icon-wrap {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  font-size: 2em;
+}
+
+.friend-icon {
+  margin-right: 16px;
+}
+
+
  /* =========================
          USER TABLE
 ========================= */
@@ -113,14 +125,12 @@
 }
 
 .user-name {
-  min-width: 250px;
   padding-top: 60px;
   font-size: 1.8em;
   vertical-align: bottom;
 }
 
 .user-slogan {
-  min-width: 250px;
   font-size: 1.6em;
   vertical-align: top;
   position: relative;
@@ -157,6 +167,24 @@
   text-align: right;
 }
 
+/* small screen */
+@media screen and (max-width: 560px) {
+  
+  .user-icon {
+    width: 80px;
+  }
+  
+  .user-icon-wrap {
+    width: 80px;
+    height: 80px;
+  }
+  
+  
+  .user-icon__cover {
+    line-height: 80px;
+  }
+  
+}
  /* =========================
         PROFILE INFO
 ========================= */
@@ -217,4 +245,14 @@
   background: #161267;
   color: #ffffff;
   transition: all 1s ease-out;
+}
+
+/* small screen */
+@media screen and (max-width: 560px) {
+  .profile-summary {
+    width: 80%;
+    height: auto;
+    margin: 8 auto;
+    padding: 0;
+  }
 }

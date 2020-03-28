@@ -4,7 +4,7 @@
 
 .side-menu {
   grid-area: aside;
-  width: 250px;
+  /* width: 250px; */
   height: calc(100vh - (60px + 80px));
   padding: 48px 24px;
   position: relative;
@@ -59,4 +59,33 @@
   border-radius: calc(3em / 2);
   color: #ffffff;
   font-size: 1.6em; 
+}
+
+/* small screen */
+@media screen and (max-width: 560px) {
+  .side-menu {
+    width: 32px;
+    padding: 48px 8px;
+  }
+  
+  .categories {
+    font-size: 1.6em;
+  }
+  
+  .categories-icon {
+    margin-right: 0px;
+  }
+
+  .categories__list-text {
+    display: none;
+  }
+  
+  .side-menu__search-window--wrap {
+    display: none;
+  }
+  
+  .side-menu__create-btn {
+    display: none;
+  }
+
 }

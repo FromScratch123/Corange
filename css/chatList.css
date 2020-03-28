@@ -5,7 +5,7 @@
 ========================= */
 body {
   display: grid;
-  /* grid-template-columns:  250px 1fr; */
+  grid-template-columns:  250px 1fr;
   grid-template-areas: 
     "header header"
     "account account"
@@ -13,6 +13,12 @@ body {
     ".. footer";
 }
 
+/* small screen */
+@media screen and (max-width: 560px) {
+  body {
+    grid-template-columns: 32px 1fr;
+  }
+}
  
  /* =========================
             HEADER
@@ -27,34 +33,6 @@ body {
   overflow-x: hidden;
 }
 
- 
-
- /* =========================
-         USER MENU
-========================= */
-
-.user-menu-box {
-  width: 200px;
-  height: auto;
-  padding: 32px 16px;
-  position: absolute;
-  top: 16px;
-  right: 0;
-  text-align: left;
-  background: #ffffff;
-  box-shadow: 0px 3px 8px #707070;
-  font-size: 1.0rem;
-}
-
-.user-menu-list:not(:last-child) {
-  margin-bottom: 32px;
-}
-
-.user-menu-icon {
-  margin-right: 8px;
-}
-
- 
 
  /* =========================
             WINDOW
@@ -62,12 +40,18 @@ body {
 
 .chat-list-window {
   grid-area: main;
-  width: calc(100vw - 250px);
   height: calc(100vh - (60px + 80px));
   margin: 0 auto;
   padding: 32px;
   overflow-x: hidden;
   overflow-y: scroll;
+}
+
+/* small screen */
+@media screen and (max-width: 560px) {
+  .chat-list-window {
+    padding: 8px;
+  }
 }
 
  /* =========================

@@ -28,7 +28,17 @@ require_once(__DIR__ . '/header.php');
 <section class="profile">
 <div class="banner">
   <img class="user-banner__img" src="<?= isset($app->getProperties('_friends')->banner_img) ? $app->getProperties('_friends')->banner_img : DEFAULT_USER_BANNER ?>" alt="ユーザーのバナー画像">
+  <div class="icon-wrap flex-container">
+    <!-- friend icon -->
+    <p class="friend-icon margin--0">
+    <a href="./askBeFriend.php?u=<?= isset($app->getProperties('_friends')->id) ? h($app->getProperties('_friends')->id) : "" ?>"><i class="icon--black fas fa-user-friends"></i></a>
+    </p>
+    <!-- chat icon -->
+    <p class="chat-icon margin--0">
+    <a href="./chat.php?r=<?= isset($app->getProperties('_rooms')->id) ? h($app->getProperties('_rooms')->id) : "" ?>"><i class="icon--black fas fa-comment-dots"></i></a>
+    </p>
   </div>
+</div>
 
   <table class="profile-table">
     <tbody>
@@ -112,7 +122,7 @@ require_once(__DIR__ . '/header.php');
         <p class="has-error margin--0"><?= $app->getErrors('slogan'); ?></p>
           <input class="user-slogan__input" type="text" name="slogan" placeholder="あなたのキャッチフレーズを入力しましょう。(50文字以内)" value="<?= isset($app->getValues()->slogan) ? h($app->getValues()->slogan) : "" ?>">
           <div class="slogan-limit-wrap">
-            <span class="slogan-count js--hidden">0</span><span class="slogan-limit js--hidden">/250</span>
+            <span class="slogan-count js--hidden">0</span><span class="slogan-limit js--hidden">/50</span>
           </div>
         </td>
       </tr>

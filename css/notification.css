@@ -5,7 +5,7 @@
 ========================= */
 body {
   display: grid;
-  /* grid-template-columns:  250px 1fr; */
+  grid-template-columns:  250px 1fr;
   grid-template-areas: 
     "header header"
     "account account"
@@ -13,6 +13,12 @@ body {
     ".. footer";
 }
 
+/* small screen */
+@media screen and (max-width: 560px) {
+  body {
+    grid-template-columns: 32px 1fr;
+  }
+}
  
  /* =========================
             HEADER
@@ -62,12 +68,18 @@ body {
 
 .notification-window {
   grid-area: main;
-  width: calc(100vw - 250px);
   height: calc(100vh - (60px + 80px));
   margin: 0 auto;
   padding: 32px;
   overflow-x: hidden;
   overflow-y: scroll;
+}
+
+/* small screen */
+@media screen and (max-width: 560px) {
+  .notification-window {
+    padding: 8px;
+  }
 }
 
  /* =========================

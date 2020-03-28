@@ -32,6 +32,18 @@ class AskBeFriend extends \MyApp\Controller {
       global $userModel;
       global $friendModel;
     try {
+      //友達状態確認
+        track('友達状態確認');
+        $isFriend = $friendModel->isFriend([
+          'me' => $_SESSION['me']->id,
+          'client' => $_GET['u']
+        ]);
+        if ($isFriend) {
+          track('既に友達関係です');
+          track('遷移元ページへ遷移します');
+          header('Location:' . $_SERVER['HTTP_REFERER']);
+          return;
+        } 
       //友達申請処理
         track('友達申請処理開始');
         $friendModel->beFriend([

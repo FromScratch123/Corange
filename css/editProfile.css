@@ -52,7 +52,7 @@
 .edit-profile {
   width: 100%;
   height: auto;
-  padding-top: 108px;
+  padding: 108px;
   background-image: url(./../images/edit-profile.jpg);
   background-color: rgba(255, 255, 255, 0.3);
   background-blend-mode: lighten;
@@ -64,20 +64,20 @@
 .edit-profile__content-wrap {
   width: 80%;
   max-width: 800px;
-  min-width: 320px;
+  min-width: calc(320px - (16px * 2));
   margin: 0 auto 108px;
 
 }
 
 .edit-profile__title {
-  width: 500px;
+  width: 100%;
   margin: 0 0 0 auto;
   color: #161267;
   font-size: 2.5em;
 }
 
 .edit-profile__link {
-  width: 500px;
+  width: 100%;
   margin: 0 0 32px auto;
   color: #8E8E8E;
 }
@@ -118,4 +118,11 @@
   background: #161267;
   color: #ffffff;
   transition: all 1s ease-out;
+}
+
+/* small screen */
+@media screen and (max-width: 560px) {
+  .edit-profile {
+    padding: 16px;
+  }
 }

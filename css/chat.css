@@ -5,7 +5,7 @@
 ========================= */
 body {
   display: grid;
-  /* grid-template-columns:  250px 1fr; */
+  grid-template-columns:  250px 1fr;
   grid-template-areas: 
     "header header"
     "account account"
@@ -13,6 +13,12 @@ body {
     ".. footer";
 }
 
+/* small screen */
+@media screen and (max-width: 560px) {
+  body {
+    grid-template-columns: 32px 1fr;
+  }
+}
  
  /* =========================
             HEADER
@@ -27,35 +33,6 @@ body {
   overflow-x: hidden;
 }
 
- 
-
- /* =========================
-         USER MENU
-========================= */
-
-.user-menu-box {
-  width: 200px;
-  height: auto;
-  padding: 32px 16px;
-  position: absolute;
-  top: 16px;
-  right: 0;
-  text-align: left;
-  background: #ffffff;
-  box-shadow: 0px 3px 8px #707070;
-  font-size: 1.0rem;
-  z-index: 1;
-}
-
-.user-menu-list:not(:last-child) {
-  margin-bottom: 32px;
-}
-
-.user-menu-icon {
-  margin-right: 8px;
-}
-
- 
 
  /* =========================
             WINDOW
@@ -63,12 +40,18 @@ body {
 
 .chat-window {
   grid-area: main;
-  width: calc(100vw - 250px);
   height: calc(100vh - (60px + 80px));
   margin: 0 auto;
   padding: 32px;
   overflow-x: hidden;
   overflow-y: scroll;
+}
+
+/* small screen */
+@media screen and (max-width: 560px) {
+  .chat-window {
+    padding: 8px;
+  }
 }
 
  /* =========================
@@ -85,7 +68,6 @@ body {
   position: fixed;
   top: 60px;
   left: 0px;
-
 }
 
 .client-info__icon {
@@ -144,7 +126,6 @@ body {
 }
 
 .chat--left {
-  min-width: 250px;
   padding: 16px 24px;
   position: relative;
   background: #E8E9EB;
@@ -167,7 +148,6 @@ body {
 }
 
 .chat--right {
-  min-width: 250px;
   padding: 16px 24px;
   position: relative;
   background: #161267;
@@ -232,4 +212,45 @@ body {
   border-radius: calc(3em / 2);
   color: #ffffff;
   font-size: 1.4em;
+}
+
+
+/* small screen */
+@media screen and (max-width: 560px) {
+  .client-info {
+   display: none;
+  }
+
+  .chat--left {
+    padding: 8px 16px;
+  }
+
+  .chat--right {
+    padding: 8px 16px;
+  }
+
+
+  .chat__user-icon-wrap {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .chat-textarea {
+    width: 100%;
+    height: 60px;
+    padding: 8px;
+    border: 1px solid #161267;
+    font-size: 1.4em;
+  }
+  
+  .chat-submit {
+    width: 50px;
+    height: 2em;
+    padding: 0;
+    right: 8px;
+    bottom: 8px;
+    border-radius: calc(2em / 2);
+    font-size: 1.2em;
+  }
+  
 }
