@@ -116,10 +116,7 @@ class Profile extends \MyApp\Controller {
           track('アイコン画像が選択されています');
           //ファイルを保存先に移動し、保存先のパスを格納
           $iconFilePath = $uploadModel->save($_FILES['profile_img']);
-          //ファイルパスをセット(新しいファイルを優先)
-          $this->setProperties([
-            'profile_img' => $_FILES['profile_img']['tmp_name']
-          ], '_users');
+          
         } else if (isset($_SESSION['me']->profile_img)){
           //ファイルは選択されていないが、DBに保存がされている場合
           track('アイコン画像の変更はありません');

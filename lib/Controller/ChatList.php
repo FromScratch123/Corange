@@ -54,7 +54,7 @@ class ChatList extends \MyApp\Controller {
       for ($i = 0; isset($this->getProperties('_rooms')->$i); $i++) {
         $room_id = $this->getProperties('_rooms')->$i->id;
         track('room_id: ' . $room_id);
-        array_push($messages, $chatModel->getMsg($room_id, 'modified_date', 'DESC'));
+        array_push($messages, $chatModel->getMsgs($room_id, 'modified_date', 'DESC'));
       }
       track('メッセージ情報:' . print_r($messages, true));
     //_messagesにメッセージ情報をセット

@@ -35,9 +35,12 @@ class SearchFriend extends \MyApp\Controller {
   private function getProcess() {
     global $userModel;
     global $friendModel;
+    //空白文字を取り除く
+    $search = str_replace(array(" ", "　"), '', $_GET['search']);
+    track('検索ワード変更前:' . $_GET['search'] . '検索ワード変更後:' . $search);
     //検索結果を取得
     $users = $userModel->search([
-      'search' => $_GET['search'],
+      'search' => $search,
       'id' => $_SESSION['me']->id
     ]);
  

@@ -110,5 +110,20 @@ class Friend extends \MyApp\Model {
       }
   }
 
+  public function getNew($values, $order = 'create_date', $in = 'ASC') {
+    $stmt = $this->db->prepare("select friend.*, users.id, users.surname, users.givenname, users.profile, users.slogan, users.profile_img, users.banner_img from friend inner join users on friend.follow_user = users.id where followed_user = :followed_user and friend.accept_flg = 0 and friend.delete_flg = 0 and users.delete_flg = 0 order by " . $order . " " . $in);
+    track(print_r($stmt, true));
+    $res = $stmt->execute([
+      ':followed_user'  => $values['followed_user']
+    ]);
+    $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+    $friends = $stmt->fetchAll();
+    if (!$friends) {
+      return false;
+    } else {
+      return $friends;
+    }
+
+  }
 
 }

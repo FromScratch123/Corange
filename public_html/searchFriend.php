@@ -35,7 +35,7 @@ require_once(__DIR__ . '/aside.php');
   <div class="search-friend-window">
   <!-- search window -->
   <form class="search-friend__search-window--wrap" action="" method="get">
-    <input class="search-friend__search-window" type="text" name="search" placeholder="search users"><i class="search-friend__search-window--icon fas fa-search"></i>
+    <input class="search-friend__search-window" type="text" name="search" placeholder="search by surname or givenname..."><i class="search-friend__search-window--icon fas fa-search"></i>
   </form>
   <!-- NOTHING TO SHOW -->
   <?php if (!isset($app->getProperties('_friends')->{0})) : ?>
@@ -105,7 +105,7 @@ require_once(__DIR__ . '/aside.php');
             <a href="./profile.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">
             <!-- friend profile -->
               <p class="friend-summary__text margin--0">
-              <?= isset($app->getProperties('_friends')->$i->profile) ? mb_substr(h($app->getProperties('_friends')->$i->profile), 0, 50, "UTF-8") : "自己紹介文はありません。"  ?>
+              <?= isset($app->getProperties('_friends')->$i->profile) ? mb_substr(h($app->getProperties('_friends')->$i->profile), 0, 50, "UTF-8") . "..." : "自己紹介文はありません。"  ?>
               </p>
             </a>
             </td>

@@ -35,12 +35,17 @@ require_once(__DIR__ . '/aside.php');
         <tr>
          <td class="client-info__icon">
             <!-- user icon -->
+            <a href="./profile.php?u=<?= isset($app->getProperties('_clients')->id) ? h($app->getProperties('_clients')->id) : ""; ?>">
             <div class="chat__client-icon-wrap">
                       <img src="<?= isset($app->getProperties('_clients')->profile_img) ? h($app->getProperties('_clients')->profile_img) : './../images/default_user_icon.png' ?>" alt="ユーザーのアイコン画像" class="chat__client-icon">
             </div>
+            </a>
         </td>
         <td>
-          <p class="client-info__name"><?= isset($app->getProperties('_clients')->surname) && isset($app->getProperties('_clients')->givenname) ? h($app->getProperties('_clients')->surname) . " " . h($app->getProperties('_clients')->givenname) : "" ?>
+          <p class="client-info__name">
+          <a href="./profile.php?u=<?= isset($app->getProperties('_clients')->id) ? h($app->getProperties('_clients')->id) : ""; ?>">  
+          <?= isset($app->getProperties('_clients')->surname) && isset($app->getProperties('_clients')->givenname) ? h($app->getProperties('_clients')->surname) . " " . h($app->getProperties('_clients')->givenname) : "" ?>
+          </a>
           </p>
         </td> 
       </tr>
@@ -65,24 +70,28 @@ require_once(__DIR__ . '/aside.php');
           </td>
           <td class="time">
             <time><?= isset($app->getProperties('_messages')->{0}[$i]->modified_date) ? date('H:i', strtotime(h($app->getProperties('_messages')->{0}[$i]->modified_date))) : "" ?></time>
+            <p class="margin--0">
+          <?= $app->getProperties('_messages')->{0}[$i]->open_flg == 0 ? 'unread' : 'read'; ?>
+          </p>
           </td>
         </tr>
       </table>
     </div>
+
     <?php endif; ?>
     <?php if ($app->getProperties('_messages')->{0}[$i]->to_user === $_SESSION['me']->id) : ?>
     <!-- client use -->
     <div class="chat-box">
-      <table class="chat-table--right">
+      <table class="chat-table--right" data-message-id="<?= $app->getProperties('_messages')->{0}[$i]->id ?>">
         <!-- 1行目 -->
         <tr>
         <td class="time">
             <time datetime="hh:mm"><?= isset($app->getProperties('_messages')->{0}[$i]->modified_date) ? date('H:i', strtotime(h($app->getProperties('_messages')->{0}[$i]->modified_date))) : "" ?></time>
           </td>
-          <td class="chat--right">
+          <td class="chat--right" rowspan="2">
           <?= isset($app->getProperties('_messages')->{0}[$i]->msg) ? h($app->getProperties('_messages')->{0}[$i]->msg) : "" ?>
           </td>
-          <td class="user-icon">
+          <td class="user-icon" rowspan="2">
             <!-- user icon -->
             <div class="chat__user-icon-wrap">
                 <img src="<?= isset($app->getProperties('_clients')->profile_img) ? h($app->getProperties('_clients')->profile_img) : './../images/default_user_icon.png' ?>" alt="ユーザーのアイコン画像" class="chat__user-icon">
@@ -101,7 +110,7 @@ require_once(__DIR__ . '/aside.php');
       <p class="has-error margin--0"><?= $app->getErrors('empty'); ?></p>
       <!-- textarea -->
       <p>
-        <textarea class="chat-textarea" name="text" id="text"></textarea>
+        <textarea class="chat-textarea" name="text"></textarea>
       </p>
         <input class="chat-submit" type="submit" value="送信">
     </form>

@@ -77,7 +77,7 @@ class Chat extends \MyApp\Controller {
     //メッセージ情報を取得
     track('メッセージ情報取得');
       $messages = [];
-      array_push($messages, $chatModel->getMsg($_GET['r'], 'modified_date'));
+      array_push($messages, $chatModel->getMsgs($_GET['r'], 'create_date'));
     if (!$messages) {
     track('メッセージはまだありません');
       return;
@@ -160,7 +160,7 @@ class Chat extends \MyApp\Controller {
       //メッセージ情報を取得
       track('メッセージ情報取得');
       $messages = [];
-      array_push($messages, $chatModel->getMsg($_GET['r'], 'modified_date'));
+      array_push($messages, $chatModel->getMsgs($_GET['r'], 'modified_date'));
       if (!$messages) {
       track('メッセージはまだありません');
         return;

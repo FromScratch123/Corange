@@ -123,7 +123,7 @@ class Chat extends \MyApp\Model {
   }
 
 
-  public function getMsg($room_id, $orderby = 'id', $in = 'ASC' ) {
+  public function getMsgs($room_id, $orderby = 'id', $in = 'ASC' ) {
     $stmt = $this->db->prepare("select * from message where room_id = :room_id and delete_flg = 0 order by " . $orderby . " " . $in);
     $res = $stmt->execute([
         ':room_id' => $room_id,
@@ -138,8 +138,65 @@ class Chat extends \MyApp\Model {
       }
   }
 
-  
+  public function getMsg($values) {
+    $stmt = $this->db->prepare("select * from message where id = :id and delete_flg = 0");
+    $res = $stmt->execute([
+      'id' => $values['id']
+    ]);
+    $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+      $msg = $stmt->fetch();
+      if (!$msg) {
+        throw new \MyApp\Exception\Query();
+      } else {
+        return $msg;
+      }
+  }
 
-  
+
+  public function isRead($values) {
+    $stmt = $this->db->prepare("select count(id) from message where id = :id and open_flg = 1");
+    $res = $stmt->execute([
+      'id' => $values['id']
+    ]);
+
+    $count = $stmt->fetchColumn();
+    if ($count == 0) {
+      return false;
+    } else {
+      return true;
+    }
+
+  }
+
+  public function hasRead($values) {
+    $stmt = $this->db->prepare("update message set open_flg = 1, modified_date = now() where id = :id");
+    track(print_r($stmt, true));
+    $res = $stmt->execute([
+      ':id' => $values['id']
+    ]);
+
+    if (!$res) {
+      throw new \MyApp\Exception\Query();
+    } else {
+      return;
+    }
+
+  }
+
+  public function getNew($values, $order = 'create_date', $in = 'ASC') {
+    $stmt = $this->db->prepare("select message.*, users.id, users.surname, users.givenname, users.profile, users.slogan, users.profile_img, users.banner_img from message inner join users on message.from_user = users.id where to_user = :to_user and message.open_flg = 0 and message.delete_flg = 0 and users.delete_flg = 0 order by " . $order . " " . $in );
+    $res = $stmt->execute([
+      ':to_user'  => $values['to_user']
+    ]);
+
+    $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+    $messages = $stmt->fetchAll();
+    if (!$messages) {
+      return false;
+    } else {
+      return $messages;
+    }
+
+  }
 
 }

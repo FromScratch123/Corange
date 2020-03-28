@@ -3,9 +3,10 @@ $(function () {
   //chat-window下部へ移動
   setTimeout(function () {
     let $chatBoxPos = $('.chat-box').last().position();
-  $('.chat-window').scrollTop($chatBoxPos.top);
-  }, 0);
-  
+    let $chatWindow = $('.chat-window');
+    $chatWindow.animate({scrollTop : $chatBoxPos.top}, 1000, 'swing');
+  }, 100);
+
   
   // user-menuの表示
   let $userMenuIcon = $('#user-menu-trigger');
@@ -22,5 +23,30 @@ $(function () {
       $('.message').fadeOut(1000);
     }, 2500);
 
+    //既読の登録
+   let $chatTable = $('.chat-table--right') || null;
+   let $chatWindow = $('.chat-window');
+    $chatWindow.on('scroll', function () {
+        $chatTable.each(function () {
+          let targetOffset = $(this).offset();
+          let $chatWindowHight = $chatWindow.height();
+          if (targetOffset.top >= $chatWindow.scrollTop() + $chatWindowHight / 5) {
+            let $msgId = $(this).data('messageId') || null;
+          $.ajax({
+            type: "POST",
+            url: "./../public_html/chatRead.php",
+            data: { messageId : $msgId},
+            context: $(this)
+          }).done(function(data, textStatus, jqXHR){
+            
+          }).fail(function(jqXHR, textStatus, errorThrown){
+            return;
+          });
+        }
+        return;
+      });
+  });
+
 
 });
+

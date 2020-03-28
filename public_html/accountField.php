@@ -13,7 +13,7 @@
   <!-- bell icon -->
   <p class="account-field__icon margin--0">
   <a href="notification.php"><i class="icon--black bell-icon fas fa-bell">
-  <span class="notification">1</span>
+  <span class="notification-count">1</span>
   </i></a>
   </p>
   <!-- share btn -->
