@@ -20,7 +20,10 @@ crossorigin="anonymous"></script>
   crossorigin="anonymous"></script>
 <!-- JavaScript -->
 <script src="./../js/main.js"></script> 
-<script src="<?= $jsPath ?>"></script> 
+<script src="<?= $jsPath1 ?>"></script> 
+<script src="<?= $jsPath2 ?>"></script> 
+<script src="<?= $jsPath3 ?>"></script> 
+<script src="<?= $jsPath4 ?>"></script> 
 <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
 <!-- CSS -->
   <!-- Reset CSS -->
@@ -30,6 +33,7 @@ crossorigin="anonymous"></script>
   <link rel="stylesheet" href="<?= $CSSPath1 ?>"> 
   <link rel="stylesheet" href="<?= $CSSPath2 ?>"> 
   <link rel="stylesheet" href="<?= $CSSPath3 ?>"> 
+  <link rel="stylesheet" href="<?= $CSSPath4 ?>"> 
 <!-- CARD -->
   <meta property="og:url" content="">
   <meta property="og:title" content="Duplazy | もっと簡単に、もっと楽に。">

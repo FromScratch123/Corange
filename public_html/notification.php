@@ -6,10 +6,14 @@
   $app = new MyApp\Controller\Notification();
   $app->run();
   $requestPage = 'notification -';
-  $jsPath = './../js/notification.js';
+  $jsPath1 = './../js/notification.js';
+  $jsPath2 = './../js/aside.js';
+  $jsPath3 = './../js/uploadWork.js';
+  $jsPath4 = '';
   $CSSPath1 = './../CSS/notification.css';
   $CSSPath2 = './../CSS/accountField.css';
   $CSSPath3 = './../CSS/aside.css';
+  $CSSPath4 = './../CSS/uploadWork.css';
   
   require_once(__DIR__ . '/head.php');
 
@@ -21,7 +25,7 @@ $logoPath = './home.php';
 require_once(__DIR__ . '/header.php');
 require_once(__DIR__ . '/accountField.php');
 require_once(__DIR__ . '/aside.php');
- ?>
+?>
 
 <!-- message -->
 <?php if (!empty($_SESSION['messages']['notification'])) : ?>
@@ -33,7 +37,7 @@ require_once(__DIR__ . '/aside.php');
   
 <main>
   <div class="notification-window">
-
+  <?php require_once(__DIR__ . '/uploadWork.php'); ?>
   <!-- NOTHING TO SHOW -->
   <?php if (!isset($app->getProperties('_friends')->{0}) && !isset($app->getProperties('_messages')->{0})) : ?>
     <div class="no-show">
@@ -45,9 +49,9 @@ require_once(__DIR__ . '/aside.php');
 
   <!-- FRIENDS TO SHOW -->
   <?php if (isset($app->getProperties('_friends')->{0})) : ?>
+    <ul>
     <?php for ($i = 0; isset($app->getProperties('_friends')->$i); $i++) : ?>
       <p class="friend-index">New Friend</p>
-      <ul>
          <li>
            <div class="notification">
              <table class="notification__table">
@@ -121,16 +125,16 @@ require_once(__DIR__ . '/aside.php');
          </table>
       </div>
     </li>
-  </ul>
   <?php endfor; ?>
+  </ul>
   <?php endif; ?>
   
 
    <!-- MESSAGES TO SHOW -->
    <?php if (isset($app->getProperties('_messages')->{0})) : ?>
+    <ul>
       <?php for ($i = 0; isset($app->getProperties('_messages')->$i); $i++) : ?>
         <p class="message-index">New Message</p>
-        <ul>
           <li>
              <div class="notification">
                 <table class="notification__table">
@@ -177,8 +181,8 @@ require_once(__DIR__ . '/aside.php');
           </table>
        </div>
       </li>
-    </ul>
   <?php endfor; ?>
+  </ul>
   <?php endif; ?>
   </div>
 </main>

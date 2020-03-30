@@ -11,7 +11,10 @@ $app->run();
 //HTML 
 //head読込
 $requestPage = '';
-$jsPath = '';
+$jsPath1 = '';
+$jsPath2 = '';
+$jsPath3 = '';
+$jsPath4 = '';
 $CSSPath1 = '';
 $CSSPath2 = '';
 $CSSPath3 = '';

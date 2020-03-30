@@ -6,10 +6,14 @@
   $app = new MyApp\Controller\Chat();
   $app->run();
   $requestPage = 'CHAT -';
-  $jsPath = './../js/chat.js';
+  $jsPath1 = './../js/chat.js';
+  $jsPath2 = './../js/aside.js';
+  $jsPath3 = './../js/uploadWork.js';
+  $jsPath4 = '';
   $CSSPath1 = './../CSS/chat.css';
   $CSSPath2 = './../CSS/accountField.css';
   $CSSPath3 = './../CSS/aside.css';
+  $CSSPath4 = './../CSS/uploadWork.css';
   
   require_once(__DIR__ . '/head.php');
 
@@ -28,6 +32,7 @@ require_once(__DIR__ . '/aside.php');
 <main>
   <!-- host user -->
   <div class="chat-window">
+    <?php require_once(__DIR__ . '/uploadWork.php'); ?>
     <?php if (isset($app->getProperties('_clients')->profile_img)) : ?>
     <!-- client infomation -->
     <table class="client-info">
@@ -69,7 +74,7 @@ require_once(__DIR__ . '/aside.php');
             <?= isset($app->getProperties('_messages')->{0}[$i]->msg) ? h($app->getProperties('_messages')->{0}[$i]->msg) : "" ?>
           </td>
           <td class="time">
-            <time><?= isset($app->getProperties('_messages')->{0}[$i]->modified_date) ? date('H:i', strtotime(h($app->getProperties('_messages')->{0}[$i]->modified_date))) : "" ?></time>
+            <time><?= isset($app->getProperties('_messages')->{0}[$i]->create_date) ? date('H:i', strtotime(h($app->getProperties('_messages')->{0}[$i]->create_date))) : "" ?></time>
             <p class="margin--0">
           <?= $app->getProperties('_messages')->{0}[$i]->open_flg == 0 ? 'unread' : 'read'; ?>
           </p>
@@ -86,7 +91,7 @@ require_once(__DIR__ . '/aside.php');
         <!-- 1行目 -->
         <tr>
         <td class="time">
-            <time datetime="hh:mm"><?= isset($app->getProperties('_messages')->{0}[$i]->modified_date) ? date('H:i', strtotime(h($app->getProperties('_messages')->{0}[$i]->modified_date))) : "" ?></time>
+            <time datetime="hh:mm"><?= isset($app->getProperties('_messages')->{0}[$i]->create_date) ? date('H:i', strtotime(h($app->getProperties('_messages')->{0}[$i]->create_date))) : "" ?></time>
           </td>
           <td class="chat--right" rowspan="2">
           <?= isset($app->getProperties('_messages')->{0}[$i]->msg) ? h($app->getProperties('_messages')->{0}[$i]->msg) : "" ?>

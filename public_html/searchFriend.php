@@ -6,10 +6,14 @@
   $app = new MyApp\Controller\SearchFriend();
   $app->run();
   $requestPage = 'SEARCH -';
-  $jsPath = './../js/friendList.js';
+  $jsPath1 = './../js/friendList.js';
+  $jsPath2 = './../js/aside.js';
+  $jsPath3 = './../js/uploadWork.js';
+  $jsPath4 = '';
   $CSSPath1 = './../CSS/searchFriend.css';
   $CSSPath2 = './../CSS/accountField.css';
   $CSSPath3 = './../CSS/aside.css';
+  $CSSPath4 = './../CSS/uploadWork.css';
   
   require_once(__DIR__ . '/head.php');
 
@@ -21,6 +25,7 @@ $logoPath = './home.php';
 require_once(__DIR__ . '/header.php');
 require_once(__DIR__ . '/accountField.php');
 require_once(__DIR__ . '/aside.php');
+require_once(__DIR__ . '/uploadWork.php');
  ?>
 
 <!-- message -->

@@ -8,7 +8,10 @@ $app->run();
 
 //<head>
 $requestPage = 'Profile -';
-$jsPath = './../js/profile.js';
+$jsPath1 = './../js/profile.js';
+$jsPath2 = '';
+$jsPath3 = '';
+$jsPath4 = '';
 $CSSPath1 = './../css/profile.css';
 $CSSPath2 = '';
 $CSSPath3 = '';

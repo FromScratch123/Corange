@@ -55,6 +55,7 @@ define('UPLOAD_DIR', './../images/userPost');
 //ユーザーアイコンのデフォルトパス
 define('DEFAULT_USER_ICON', './../images/default_user_icon.png');
 define('DEFAULT_USER_BANNER', './../images/default_user_banner.jpg');
+define('DEFAULT_WORK_THUMBNAIL', './../images/default_work_thumbnail.jpg');
 //自動メールの送信メールアドレス
 define('MAIL_ADDRESS', 'hctarcsmorf@gmail.com');
 

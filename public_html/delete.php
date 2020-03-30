@@ -8,7 +8,10 @@ $app->run();
 
 //<head>
 $requestPage = 'delete -';
-$jsPath = './../js/delete.js';
+$jsPath1 = './../js/delete.js';
+$jsPath2 = '';
+$jsPath3 = '';
+$jsPath4 = '';
 $CSSPath1 = './../css/delete.css';
 $CSSPath2 = '';
 $CSSPath3 = '';

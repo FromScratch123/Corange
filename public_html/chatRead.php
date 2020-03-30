@@ -6,7 +6,10 @@
   $app = new MyApp\Controller\ChatRead();
   $app->run();
   $requestPage = 'CHAT -';
-  $jsPath = './../js/chat.js';
+  $jsPath1 = './../js/chat.js';
+  $jsPath2 = '';
+  $jsPath3 = '';
+  $jsPath4 = '';
   $CSSPath1 = './../CSS/chat.css';
   $CSSPath2 = './../CSS/accountField.css';
   $CSSPath3 = './../CSS/aside.css';

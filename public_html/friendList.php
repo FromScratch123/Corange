@@ -6,10 +6,14 @@
   $app = new MyApp\Controller\FriendList();
   $app->run();
   $requestPage = 'FRIEND LIST -';
-  $jsPath = './../js/friendList.js';
+  $jsPath1 = './../js/friendList.js';
+  $jsPath2 = './../js/aside.js';
+  $jsPath3 = './../js/uploadWork.js';
+  $jsPath4 = '';
   $CSSPath1 = './../CSS/friendList.css';
   $CSSPath2 = './../CSS/accountField.css';
   $CSSPath3 = './../CSS/aside.css';
+  $CSSPath4 = './../CSS/uploadWork.css';
   
   require_once(__DIR__ . '/head.php');
 
@@ -21,8 +25,7 @@ $logoPath = './home.php';
 require_once(__DIR__ . '/header.php');
 require_once(__DIR__ . '/accountField.php');
 require_once(__DIR__ . '/aside.php');
-$message = ['id' => 1];
- ?>
+?>
 
 <!-- message -->
 <?php if (!empty($_SESSION['messages']['friend-list'])) : ?>
@@ -34,6 +37,7 @@ $message = ['id' => 1];
   
 <main>
   <div class="friend-list-window">
+  <?php require_once(__DIR__ . '/uploadWork.php'); ?>
   <!-- search window -->
       <form class="search-friend__search-window--wrap" action="./searchFriend.php" method="get">
           <input class="search-friend__search-window" type="text" name="search" placeholder="search users..."><i class="search-friend__search-window--icon fas fa-search"></i>
@@ -45,8 +49,8 @@ $message = ['id' => 1];
        </div>
     <?php endif; ?>
   <!-- FRIENDS TO SHOW -->
+    <ul>
     <?php for ($i = 0; isset($app->getProperties('_friends')->$i); $i++) : ?>
-      <ul>
          <li>
            <div class="friend-list">
              <table class="friend-list__table">
@@ -121,8 +125,8 @@ $message = ['id' => 1];
                </table>
             </div>
           </li>
-        </ul>
     <?php endfor; ?>
+    </ul>
   </div>
 </main>
 </body>

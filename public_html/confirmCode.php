@@ -11,7 +11,10 @@ $app->run();
 //HTML 
 //head読込
 $requestPage = 'Confirm code -';
-$jsPath = './../js/confirmCode.js';
+$jsPath1 = './../js/confirmCode.js';
+$jsPath2 = '';
+$jsPath3 = '';
+$jsPath4 = '';
 $CSSPath1 = './../css/confirmCode.css';
 $CSSPath2 = '';
 $CSSPath3 = '';

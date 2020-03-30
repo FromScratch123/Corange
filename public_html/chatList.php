@@ -6,10 +6,14 @@
   $app = new MyApp\Controller\ChatList();
   $app->run();
   $requestPage = 'CHAT LIST -';
-  $jsPath = './../js/chatlist.js';
+  $jsPath1 = './../js/chatlist.js';
+  $jsPath2 = './../js/aside.js';
+  $jsPath3 = './../js/uploadWork.js';
+  $jsPath4 = '';
   $CSSPath1 = './../CSS/chatList.css';
   $CSSPath2 = './../CSS/accountField.css';
   $CSSPath3 = './../CSS/aside.css';
+  $CSSPath4 = './../CSS/uploadWork.css';
   
   require_once(__DIR__ . '/head.php');
 
@@ -21,13 +25,13 @@ $logoPath = './home.php';
 require_once(__DIR__ . '/header.php');
 require_once(__DIR__ . '/accountField.php');
 require_once(__DIR__ . '/aside.php');
-$message = ['id' => 1];
- ?>
+?>
 
 
   
 <main>
   <div class="chat-list-window">
+  <?php require_once(__DIR__ . '/uploadWork.php'); ?>
   <!-- NOTHING TO SHOW -->
      <?php if (!isset($app->getProperties('_rooms')->{0}->id)) : ?>
         <div class="no-show">
@@ -35,8 +39,8 @@ $message = ['id' => 1];
         </div>
      <?php endif; ?>
   <!-- MESSAGES TO SHOW -->
-     <?php for ($i = 0; isset($app->getProperties('_rooms')->$i); $i++) : ?>
       <ul>
+     <?php for ($i = 0; isset($app->getProperties('_rooms')->$i); $i++) : ?>
         <li>
          <div class="chat-list">
             <table class="chat-list__table">
@@ -75,17 +79,19 @@ $message = ['id' => 1];
                        <tr>
                           <td class="chat-summary">
                  <!-- chat -->
+                           <a href="./chat.php?r=<?= isset($app->getProperties('_rooms')->$i) ? h($app->getProperties('_rooms')->$i->id) : "" ?>">
                              <p class="chat-summary__text margin--0">
                                 <?= isset($app->getProperties('_messages')->$i[0]->msg) ? mb_substr(h($app->getProperties('_messages')->$i[0]->msg), 0, 50, "UTF-8") : "メッセージはありません。"  ?>
                              </p>
+                            </a>
                           </td>
                         </tr>
                    </tbody>
                </table>
             </div>
            </li>
-         </ul>
        <?php endfor; ?>
+        </ul>
   </div>
 </main>
 </body>

@@ -94,7 +94,7 @@ class Friend extends \MyApp\Model {
   }
 
   public function getFriend($id, $orderby = 'id', $in = 'ASC') {
-    $stmt = $this->db->prepare("select friend.follow_user, friend.followed_user, friend.accept_flg, users.id, users.surname, users.givenname, users.profile, users.slogan, users.profile_img, users.banner_img from friend inner join users on friend.follow_user = users.id or friend.followed_user = users.id where users.id not in (" . $id . ") and friend.follow_user = :follow_user and users.delete_flg = 0 or users.id not in (" . $id . ")and friend.followed_user = :followed_user and users.delete_flg = 0 order by " . $orderby . " " . $in);
+    $stmt = $this->db->prepare("select friend.follow_user, friend.followed_user, friend.accept_flg, users.id, users.surname, users.givenname, users.profile, users.slogan, users.profile_img, users.banner_img from friend inner join users on friend.follow_user = users.id or friend.followed_user = users.id where users.id not in (" . $id . ") and friend.follow_user = :follow_user and users.delete_flg = 0 or users.id not in (" . $id . ") and friend.followed_user = :followed_user and users.delete_flg = 0 order by " . $orderby . " " . $in);
     track(print_r($stmt,true));
     $res = $stmt->execute([
         ':follow_user' => $id,

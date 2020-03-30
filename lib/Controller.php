@@ -11,7 +11,11 @@ class Controller {
   private $_clients;
   private $_friends;
   private $_messages;
+  private $_myWorks;
+  private $_friendWorks;
+  private $_categories;
   private $_imageFileName;
+  private $_videoFileName;
 
   public function __construct() {
     if (!isset($_SESSION['token'])) {
@@ -24,7 +28,11 @@ class Controller {
     $this->_clients = new \stdClass();
     $this->_friends = new \stdClass();
     $this->_messages = new \stdClass();
+    $this->_myWorks = new \stdClass();
+    $this->_friendWorks = new \stdClass();
+    $this->_categories = new \stdClass();
     $this->_imageFileName = new \stdClass();
+    $this->_videoFileName = new \stdClass();
   }
 
   protected function setValues($array) {
@@ -71,7 +79,7 @@ class Controller {
   }
 
   // エラーの有無を確認
-  protected function hasError() {
+  public function hasError() {
     return !empty(get_object_vars($this->_errors));
   }
 

@@ -11,7 +11,10 @@ $app->run();
 //HTML 
 //head読込
 $requestPage = 'Issue code -';
-$jsPath = './../js/issueCode.js';
+$jsPath1 = './../js/issueCode.js';
+$jsPath2 = '';
+$jsPath3 = '';
+$jsPath4 = '';
 $CSSPath1 = './../css/issueCode.css';
 $CSSPath2 = '';
 $CSSPath3 = '';

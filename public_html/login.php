@@ -11,7 +11,10 @@ $app->run();
 //HTML 
 //head読込
 $requestPage = 'LOG IN -';
-$jsPath = './../js/login.js';
+$jsPath1 = './../js/login.js';
+$jsPath2 = '';
+$jsPath3 = '';
+$jsPath4 = '';
 $CSSPath1 = './../css/login.css';
 $CSSPath2 = '';
 $CSSPath3 = '';

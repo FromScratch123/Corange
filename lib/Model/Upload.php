@@ -32,6 +32,30 @@ public function save($file) {
   }
 }
 
+public function saveVideo($file) {
+  //拡張子取得
+  $ext = @pathinfo($file['name'],  PATHINFO_EXTENSION);
+  track('拡張子:' . $ext);
+  //ファイル名作成(現在時刻+一意の乱数)
+  $this->_videoFileName = sprintf(
+    '%s_%s.%s',
+    time(),
+    sha1(uniqid(mt_rand(), true)),
+    $ext
+  );
+  //ファイル保存先の指定
+  $savePath = UPLOAD_DIR . '/' . $this->_videoFileName;
+  //ファイルを一時保存先からファイル保存先へ移動
+  $res = move_uploaded_file($file['tmp_name'], $savePath);
+  if (!$res) {
+    throw new \MyApp\Exception\SaveFailure();
+  } else {
+    //権限の変更(所有者:rw- その他:r--)
+    chmod($savePath, 0644);
+    return $savePath;
+  }
+}
+
 public function upload($table, $column, $filePath, $id) {
   $stmt = $this->db->prepare('update ' . $table . ' set ' . $column . ' = :' . $filePath . ', modified_date = now()  where id = :id');
   $res = $stmt->execute([

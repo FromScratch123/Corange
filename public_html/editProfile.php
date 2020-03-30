@@ -6,7 +6,10 @@
   $app->run();
 
   $requestPage = 'PROFILE -';
-  $jsPath = './../js/editProfile.js';
+  $jsPath1 = './../js/editProfile.js';
+  $jsPath2 = '';
+  $jsPath3 = '';
+  $jsPath4 = '';
   $CSSPath1 = './../CSS/editProfile.css';
   $CSSPath2 = './../css/accountField.css';
   $CSSPath3 = '';
