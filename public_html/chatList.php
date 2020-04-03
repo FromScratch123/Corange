@@ -5,6 +5,8 @@
 
   $app = new MyApp\Controller\ChatList();
   $app->run();
+  $upload = new MyApp\Controller\UploadWork();
+  $upload->run();
   $requestPage = 'CHAT LIST -';
   $jsPath1 = './../js/chatlist.js';
   $jsPath2 = './../js/aside.js';

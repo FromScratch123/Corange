@@ -11,8 +11,8 @@ class Controller {
   private $_clients;
   private $_friends;
   private $_messages;
-  private $_myWorks;
-  private $_friendWorks;
+  private $_myProject;
+  private $_othersProject;
   private $_categories;
   private $_imageFileName;
   private $_videoFileName;
@@ -28,8 +28,8 @@ class Controller {
     $this->_clients = new \stdClass();
     $this->_friends = new \stdClass();
     $this->_messages = new \stdClass();
-    $this->_myWorks = new \stdClass();
-    $this->_friendWorks = new \stdClass();
+    $this->_myProject = new \stdClass();
+    $this->_othersProject = new \stdClass();
     $this->_categories = new \stdClass();
     $this->_imageFileName = new \stdClass();
     $this->_videoFileName = new \stdClass();

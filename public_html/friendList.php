@@ -5,6 +5,8 @@
 
   $app = new MyApp\Controller\FriendList();
   $app->run();
+  $upload = new MyApp\Controller\UploadWork();
+  $upload->run();
   $requestPage = 'FRIEND LIST -';
   $jsPath1 = './../js/friendList.js';
   $jsPath2 = './../js/aside.js';

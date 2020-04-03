@@ -5,6 +5,8 @@
 
   $app = new MyApp\Controller\SearchFriend();
   $app->run();
+  $upload = new MyApp\Controller\UploadWork();
+  $upload->run();
   $requestPage = 'SEARCH -';
   $jsPath1 = './../js/friendList.js';
   $jsPath2 = './../js/aside.js';

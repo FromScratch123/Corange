@@ -15,6 +15,7 @@ $jsPath4 = '';
 $CSSPath1 = './../css/profile.css';
 $CSSPath2 = '';
 $CSSPath3 = '';
+$CSSPath4 = '';
 require_once(__DIR__ . '/head.php');
 //</head>
 
@@ -38,7 +39,7 @@ require_once(__DIR__ . '/header.php');
     </p>
     <!-- chat icon -->
     <p class="chat-icon margin--0">
-    <a href="./chat.php?r=<?= isset($app->getProperties('_rooms')->id) ? h($app->getProperties('_rooms')->id) : "" ?>"><i class="icon--black fas fa-comment-dots"></i></a>
+    <a href="./createRoom.php?u=<?= isset($app->getProperties('_friends')->id) ? h($app->getProperties('_friends')->id) : "" ?>"><i class="icon--black fas fa-comment-dots"></i></a>
     </p>
   </div>
 </div>

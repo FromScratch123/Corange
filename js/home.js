@@ -10,10 +10,10 @@ $(function () {
    });
   });
 
-  //file-menuの表示
-  let $fileMenuIcon = $('.file-menu-trigger');
+  //ohters-menuの表示
+  let $fileMenuIcon = $('.others-menu-trigger');
   $fileMenuIcon.click(function (e) {
-    let target = $(this).children('.file-menu-box');
+    let target = $(this).children('.others-menu-box');
     target.toggleClass('js--hidden');
     e.stopPropagation(); //clickイベント中断
     $(window).click(function () {

@@ -3,12 +3,11 @@
   require_once(__DIR__ . '/../config/config.php');
   trackingStart();
 
-  $app = new MyApp\Controller\Home();
+  $app = new MyApp\Controller\SearchWork();
   $app->run();
   $upload = new MyApp\Controller\UploadWork();
   $upload->run();
-
-  $requestPage = 'HOME -';
+  $requestPage = 'SEARCH -';
   $jsPath1 = './../js/home.js';
   $jsPath2 = './../js/aside.js';
   $jsPath3 = './../js/uploadWork.js';
@@ -17,7 +16,6 @@
   $CSSPath2 = './../CSS/accountField.css';
   $CSSPath3 = './../CSS/aside.css';
   $CSSPath4 = './../CSS/uploadWork.css';
-
   
   require_once(__DIR__ . '/head.php');
 
@@ -25,11 +23,11 @@
 
 <body>
 <?php 
-$logoPath = '';
+$logoPath = './home.php';
 require_once(__DIR__ . '/header.php');
 require_once(__DIR__ . '/accountField.php');
 require_once(__DIR__ . '/aside.php');
- ?>
+?>
 
 <!-- message -->
 <?php if (!empty($_SESSION['messages'])) : ?>
@@ -41,17 +39,7 @@ require_once(__DIR__ . '/aside.php');
 <main>
   <div class="project-window">
   <?php require_once(__DIR__ . '/uploadWork.php'); ?>
-    <div class="my-project-area--flex flex-container">
-      <?php for ($i = 0; isset($app->getProperties('_myProject')->$i); $i++) : ?>
-      <div class="my-project">
-        <div class="project-img-wrap">
-          <img class="project__img" src="<?= isset($app->getProperties('_myProject')->$i->thumbnail) ? h($app->getProperties('_myProject')->$i->thumbnail) : '' ?>" alt="">
-        </div>
-        <p class="margin--0"><?= isset($app->getProperties('_myProject')->$i) ? mb_substr(h($app->getProperties('_myProject')->$i->title), 0, 10, "UTF-8") . "..." : ""; ?></p>
-        <p class="margin--0"><?= isset($app->getProperties('_myProject')->$i->modified_date) ? date('m月d日 H:i', strtotime(h($app->getProperties('_myProject')->$i->modified_date))) : "" ?></p>
-      </div>
-      <?php endfor; ?>
-    </div>
+
 
     <div id="tool-bar" class="tool-bar--flex flex-container">
       <div class="tool-bar__breadcrumbs">
@@ -66,6 +54,13 @@ require_once(__DIR__ . '/aside.php');
       </div>
     </div>
 
+    <!-- NOTHING TO SHOW -->
+    <?php if (!isset($app->getProperties('_othersProject')->{0})) : ?>
+       <div class="no-show">
+           <p>Nothing to show...</p>
+       </div>
+    <?php endif; ?>
+    
     <div class="others-project-area">
       <?php for ($i = 0; isset($app->getProperties('_othersProject')->$i); $i++) : ?>
       <div class="others-project--flex flex-container">

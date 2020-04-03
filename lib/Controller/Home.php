@@ -31,22 +31,34 @@ class Home extends \MyApp\Controller {
     global $workModel;
     $workModel = new \MyApp\Model\Work();
     //自分の投稿を取得
-    $myWorks = $workModel->getMyWork([
+    $myProject = $workModel->getMyProject([
       'me' => $_SESSION['me']->id
     ]);
-    //_myWorksに自分の投稿をセット
-    $this->setProperties($myWorks, '_myWorks');
+    track('My Project：' . print_r($myProject, true));
+    //_myProjectに自分の投稿をセット
+    $this->setProperties($myProject, '_myProject');
     //友達の投稿を取得
-     global $friendWorks;
+     $friendsId = [];
+     $othersProject = [];
+     $where = "";
     for ($i = 0; isset($this->getProperties('_friends')->$i); $i++) {
-      global $friendWorks;
-      $friendWorks[] = $workModel->getFriendWork([
-        'create_user' => $this->getProperties('_friends')->$i->id
-      ]);
+      array_push($friendsId, $this->getProperties('_friends')->$i->id);
     }
-    //_friendWorks友達の投稿をセット
-    $this->setProperties($friendWorks, '_friendWorks');
-    track('friendworks:' . print_r($friendWorks, true));
+    foreach ($friendsId as $value) {
+      $where .= ' work.create_user = ' . $value . ' or';
+    }
+      $where = substr_replace($where, "", -2);
+      track('置換後: ' . $where);
+      $friendProject = $workModel->getFriendProject([
+        'create_user' => $where
+      ]);
+
+      track('friendProject:' . print_r($friendProject, true));
+
+  
+    // _othersProjectに友達の投稿をセット
+    $this->setProperties($friendProject, '_othersProject');
+    track('othersProject:' . print_r($friendProject, true));
 
   }
 }

@@ -24,7 +24,7 @@
           <div class="thumbnail">
             <input type="hidden" name="MAX_FILE_SIZE" value="<?= h(MAX_FILE_SIZE) ?>">
             <input class ="thumbnail__input" type="file" name="thumbnail" >
-            <img class="thumbnail__img" src="<?= isset($upload->getProperties('_myWorks')->work) ? h($upload->getProperties('_myWorks')->work) : './../images/default_work_thumbnail.jpg'; ?>" alt="">
+            <img class="thumbnail__img" src="<?= isset($upload->getProperties('_myProject')->work) ? h($upload->getProperties('_myProject')->work) : './../images/default_work_thumbnail.jpg'; ?>" alt="">
             <div class="thumbnail__cover">
             <i class="thumbnail__camera-icon fas fa-camera"></i>
             </div>

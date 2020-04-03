@@ -34,26 +34,39 @@ public function getCategories() {
   return $categories;
 }
 
-public function getMyWork($values) {
-  $stmt = $this->db->prepare("select * from work where create_user = :me and delete_flg = 0");
+public function getMyProject($values, $order = 'modified_date', $in = 'ASC') {
+  $stmt = $this->db->prepare("select * from work where create_user = :me and delete_flg = 0 order by " . $order . " " . $in);
   $res = $stmt->execute([
     ':me' => $values['me']
   ]);
   $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
   $works = $stmt->fetchAll();
-  track('My Work：' . print_r($works, true));
   return $works;
 }
 
-public function getFriendWork($values) {
-  $stmt = $this->db->prepare("select work.*, users.id, users.surname, users.givenname, users.slogan, users.profile, users.profile_img, users.banner_img from work inner join users on work.create_user = users.id where work.create_user = :create_user and work.delete_flg = 0 and users.delete_flg = 0");
-  $res = $stmt->execute([
-    ':create_user' => $values['create_user']
-  ]);
+public function getFriendProject($values, $order = 'modified_date', $in = 'DESC') {
+  $stmt = $this->db->query("select work.*, users.id, users.surname, users.givenname, users.slogan, users.profile, users.profile_img, users.banner_img from work inner join users on work.create_user = users.id where " . $values['create_user'] . " and work.delete_flg = 0 and users.delete_flg = 0 order by " . $order . " " . $in);
+
   $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
   $works = $stmt->fetchAll();
-  track('Friend Work：' . print_r($works, true));
   return $works;
+}
+
+public function search($values, $order = 'modified_date', $in = 'DESC') {
+  $stmt = $this->db->prepare("select work.*, users.id, users.surname, users.givenname, users.slogan, users.profile, users.profile_img, users.banner_img from work inner join users on work.create_user = users.id where work.create_user like :search and work.delete_flg = 0 and users.delete_flg = 0 or work.title like :search and work.delete_flg = 0 and users.delete_flg = 0 or work.description like :search and work.delete_flg = 0 and users.delete_flg = 0 or users.surname like :search and work.delete_flg = 0 and users.delete_flg = 0 or users.givenname like :search and work.delete_flg = 0 and users.delete_flg = 0 order by " . $order . " " . $in);
+  $res = $stmt->execute([
+    ':search' => "%" . $values['search'] . "%",
+  ]);
+
+  track(print_r($stmt, true));
+
+  $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+    $works = $stmt->fetchAll();
+    if (!$works) {
+      return false;
+    } else {
+      return $works;
+    }
 }
 
 }

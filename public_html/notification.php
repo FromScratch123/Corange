@@ -5,6 +5,8 @@
 
   $app = new MyApp\Controller\Notification();
   $app->run();
+  $upload = new MyApp\Controller\UploadWork();
+  $upload->run();
   $requestPage = 'notification -';
   $jsPath1 = './../js/notification.js';
   $jsPath2 = './../js/aside.js';

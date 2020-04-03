@@ -5,6 +5,8 @@
 
   $app = new MyApp\Controller\Chat();
   $app->run();
+  $upload = new MyApp\Controller\UploadWork();
+  $upload->run();
   $requestPage = 'CHAT -';
   $jsPath1 = './../js/chat.js';
   $jsPath2 = './../js/aside.js';
