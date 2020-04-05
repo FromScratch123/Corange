@@ -154,7 +154,7 @@ class UploadWork extends \MyApp\Controller {
       exit;
     }
     //必須項目確認
-    if ($_POST['title'] === '' || $_POST['category'] === '') {
+    if ($_POST['title'] === '' || $_POST['category'] === 0) {
       throw new \MyApp\Exception\EmptyPost();
     }
     if (empty($_FILES['work']) || !empty($_FILES['work']['name'])) {

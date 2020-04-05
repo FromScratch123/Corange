@@ -34,6 +34,7 @@ crossorigin="anonymous"></script>
   <link rel="stylesheet" href="<?= $CSSPath2 ?>"> 
   <link rel="stylesheet" href="<?= $CSSPath3 ?>"> 
   <link rel="stylesheet" href="<?= $CSSPath4 ?>"> 
+  <link rel="stylesheet" href="<?= $CSSPath5 ?>"> 
 <!-- CARD -->
   <meta property="og:url" content="">
   <meta property="og:title" content="Duplazy | もっと簡単に、もっと楽に。">

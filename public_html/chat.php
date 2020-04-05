@@ -84,8 +84,8 @@ require_once(__DIR__ . '/aside.php');
         </tr>
       </table>
     </div>
-
     <?php endif; ?>
+
     <?php if ($app->getProperties('_messages')->{0}[$i]->to_user === $_SESSION['me']->id) : ?>
     <!-- client use -->
     <div class="chat-box">

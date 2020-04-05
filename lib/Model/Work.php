@@ -34,7 +34,7 @@ public function getCategories() {
   return $categories;
 }
 
-public function getMyProject($values, $order = 'modified_date', $in = 'ASC') {
+public function getMyWorks($values, $order = 'modified_date', $in = 'ASC') {
   $stmt = $this->db->prepare("select * from work where create_user = :me and delete_flg = 0 order by " . $order . " " . $in);
   $res = $stmt->execute([
     ':me' => $values['me']
@@ -44,12 +44,22 @@ public function getMyProject($values, $order = 'modified_date', $in = 'ASC') {
   return $works;
 }
 
-public function getFriendProject($values, $order = 'modified_date', $in = 'DESC') {
+public function getFriendWorks($values, $order = 'modified_date', $in = 'DESC') {
   $stmt = $this->db->query("select work.*, users.id, users.surname, users.givenname, users.slogan, users.profile, users.profile_img, users.banner_img from work inner join users on work.create_user = users.id where " . $values['create_user'] . " and work.delete_flg = 0 and users.delete_flg = 0 order by " . $order . " " . $in);
 
   $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
   $works = $stmt->fetchAll();
   return $works;
+}
+
+public function getWork($values) {
+  $stmt = $this->db->prepare("select work.*, categories.name from work inner join categories on work.category = categories.id where work_id = :work_id");
+  $res = $stmt->execute([
+    ':work_id' => $values['work_id']
+  ]);
+  $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+  $work = $stmt->fetch();
+  return $work;
 }
 
 public function search($values, $order = 'modified_date', $in = 'DESC') {

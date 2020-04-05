@@ -31,12 +31,12 @@ class Home extends \MyApp\Controller {
     global $workModel;
     $workModel = new \MyApp\Model\Work();
     //自分の投稿を取得
-    $myProject = $workModel->getMyProject([
+    $_myWork = $workModel->getMyWorks([
       'me' => $_SESSION['me']->id
     ]);
-    track('My Project：' . print_r($myProject, true));
-    //_myProjectに自分の投稿をセット
-    $this->setProperties($myProject, '_myProject');
+    track('My Project：' . print_r($_myWork, true));
+    //_myWorksに自分の投稿をセット
+    $this->setProperties($_myWork, '_myWorks');
     //友達の投稿を取得
      $friendsId = [];
      $othersProject = [];
@@ -49,16 +49,16 @@ class Home extends \MyApp\Controller {
     }
       $where = substr_replace($where, "", -2);
       track('置換後: ' . $where);
-      $friendProject = $workModel->getFriendProject([
+      $_friendWorks = $workModel->getFriendWorks([
         'create_user' => $where
       ]);
 
-      track('friendProject:' . print_r($friendProject, true));
+      track('_friendWorks:' . print_r($_friendWorks, true));
 
   
-    // _othersProjectに友達の投稿をセット
-    $this->setProperties($friendProject, '_othersProject');
-    track('othersProject:' . print_r($friendProject, true));
+    // _othersWorksに友達の投稿をセット
+    $this->setProperties($_friendWorks, '_othersWorks');
+    track('othersProject:' . print_r($_friendWorks, true));
 
   }
 }

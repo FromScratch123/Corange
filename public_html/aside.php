@@ -10,7 +10,7 @@
   <form class="side-menu__search-window--wrap" action="./searchWork.php" method="get">
     <input class="side-menu__search-window" type="text" name="search" placeholder="search..."><i class="side-menu__search-window--icon fas fa-search"></i>
   </form>
-  <!-- create project btn -->
+  <!-- create work btn -->
   <button class="side-menu__create-btn--large-screen">New Work</button>
   <button class="side-menu__create-btn--small-screen"><i class="create-icon fas fa-plus"></i></button>
 

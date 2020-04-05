@@ -1,0 +1,115 @@
+/* =========================
+        UPLOAD WORK
+========================= */
+
+/* upload work */
+
+.work-details {
+  width: 90%;
+  height: calc(100vh * 0.9);
+  padding: 32px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: scroll;
+  background: #ffffff;
+  box-shadow: 0px 3px 8px #707070;
+  z-index: 2;
+}
+
+.times {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 1.4em;
+  cursor: pointer;
+}
+
+.work-details-wrap--flex {
+  justify-content: space-around;
+  flex-flow: row wrap;
+}
+
+.flex-item1 {
+  width: 50%;
+  height: 100%;
+  align-self: center;
+  flex-grow: 1;
+}
+
+
+.work-details__img-wrap {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.work-details__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.flex-item2 {
+  width: 300px;
+  height: 100%;
+  padding: 0 16px;
+}
+
+.work-details__category {
+  margin: 8px 0;
+  text-align: right;
+  font-size: 1.4em;
+}
+
+.work-details__title {
+  width: 100%;
+  text-align: center;
+  font-size: 2em;
+  color: #161267;
+}
+
+.work-details__description {
+  width: 100%;
+  height: 300px;
+  padding: 8px;
+  margin: 0 0 8px;
+  border: 1px solid #161267;
+  font-size: 1.4em;
+  overflow: scroll;
+}
+
+.work-details__comment {
+  width: 100%;
+  height: 100px;
+  padding: 8px;
+  margin: 0 0 8px;
+  border: 1px solid #161267;
+  overflow: scroll;
+}
+
+.work__textarea {
+  width: 100%;
+  height: 50px;
+  padding: 8px;
+  margin: 0 0 8px;
+  border: 1px solid #161267;
+}
+
+.work-submit {
+  width: 100%;
+}
+
+
+.window-mask {
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: .8;
+  z-index: 1;
+}

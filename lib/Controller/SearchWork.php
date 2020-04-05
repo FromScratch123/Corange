@@ -49,8 +49,8 @@ class SearchWork extends \MyApp\Controller {
     if (!$works) {
       return;
     } else {
-      //検索結果を_othersProjectにセット
-      $this->setProperties($works, '_othersProject');
+      //検索結果を_othersWorksにセット
+      $this->setProperties($works, '_othersWorks');
     }
     track('検索結果:' . print_r($works, true));
   }

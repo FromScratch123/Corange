@@ -7,16 +7,20 @@
   $app->run();
   $upload = new MyApp\Controller\UploadWork();
   $upload->run();
+  $work = new MyApp\Controller\WorkDetails();
+  $work->run();
+
 
   $requestPage = 'HOME -';
   $jsPath1 = './../js/home.js';
   $jsPath2 = './../js/aside.js';
   $jsPath3 = './../js/uploadWork.js';
-  $jsPath4 = '';
+  $jsPath4 = './../js/workDetails.js';
   $CSSPath1 = './../CSS/home.css';
   $CSSPath2 = './../CSS/accountField.css';
   $CSSPath3 = './../CSS/aside.css';
   $CSSPath4 = './../CSS/uploadWork.css';
+  $CSSPath5 = './../CSS/workDetails.css';
 
   
   require_once(__DIR__ . '/head.php');
@@ -39,23 +43,31 @@ require_once(__DIR__ . '/aside.php');
 <?php endif; ?>
   
 <main>
-  <div class="project-window">
+  <div class="work-window">
   <?php require_once(__DIR__ . '/uploadWork.php'); ?>
-    <div class="my-project-area--flex flex-container">
-      <?php for ($i = 0; isset($app->getProperties('_myProject')->$i); $i++) : ?>
-      <div class="my-project">
-        <div class="project-img-wrap">
-          <img class="project__img" src="<?= isset($app->getProperties('_myProject')->$i->thumbnail) ? h($app->getProperties('_myProject')->$i->thumbnail) : '' ?>" alt="">
+  <?php require_once(__DIR__ . '/workDetails.php'); ?>
+    <div class="my-work-area--flex flex-container">
+      <?php for ($i = 0; isset($app->getProperties('_myWorks')->$i); $i++) : ?>
+      <div class="my-work">
+        <!-- work img -->
+        <div class="work-img-wrap">
+        <a href="./home.php?w=<?= isset($app->getProperties('_myWorks')->$i) ? h($app->getProperties('_myWorks')->$i->work_id) : "" ?>" class="work__link" data-work-id="<?= isset($app->getProperties('_myWorks')->$i->work_id) ? h($app->getProperties('_myWorks')->$i->work_id) : ""; ?>">
+          <img class="work__img" src="<?= isset($app->getProperties('_myWorks')->$i->thumbnail) ? h($app->getProperties('_myWorks')->$i->thumbnail) : '' ?>" alt="">
+        </a>
         </div>
-        <p class="margin--0"><?= isset($app->getProperties('_myProject')->$i) ? mb_substr(h($app->getProperties('_myProject')->$i->title), 0, 10, "UTF-8") . "..." : ""; ?></p>
-        <p class="margin--0"><?= isset($app->getProperties('_myProject')->$i->modified_date) ? date('m月d日 H:i', strtotime(h($app->getProperties('_myProject')->$i->modified_date))) : "" ?></p>
+        <!-- work title -->
+        <a href="./home.php?w=<?= isset($app->getProperties('_myWorks')->$i) ? h($app->getProperties('_myWorks')->$i->work_id) : "" ?>" class="work__link" data-work-id="<?= isset($app->getProperties('_myWorks')->$i->work_id) ? h($app->getProperties('_myWorks')->$i->work_id) : ""; ?>">
+        <p class="margin--0"><?= isset($app->getProperties('_myWorks')->$i) ? mb_substr(h($app->getProperties('_myWorks')->$i->title), 0, 10, "UTF-8") . "..." : ""; ?></p>
+        </a>
+        <!-- work time -->
+        <p class="margin--0"><?= isset($app->getProperties('_myWorks')->$i->modified_date) ? date('m月d日 H:i', strtotime(h($app->getProperties('_myWorks')->$i->modified_date))) : "" ?></p>
       </div>
       <?php endfor; ?>
     </div>
 
     <div id="tool-bar" class="tool-bar--flex flex-container">
       <div class="tool-bar__breadcrumbs">
-        <span>Home >> My Project >> 最近使用したファイル</span>
+        <span>Home >> My work >> 最近使用したファイル</span>
       </div>
       <div class="tool-bar__sort">
         <ul class="tool-bar__sort--flex flex-container">
@@ -66,46 +78,46 @@ require_once(__DIR__ . '/aside.php');
       </div>
     </div>
 
-    <div class="others-project-area">
-      <?php for ($i = 0; isset($app->getProperties('_othersProject')->$i); $i++) : ?>
-      <div class="others-project--flex flex-container">
-        <!-- project img -->
-        <div class="project-img-wrap">
-          <a href="">
-            <img src="<?= isset($app->getProperties('_othersProject')->$i->work) ? h($app->getProperties('_othersProject')->$i->work) : ''; ?>" alt="" class="project__img">
+    <div class="others-work-area">
+      <?php for ($i = 0; isset($app->getProperties('_othersWorks')->$i); $i++) : ?>
+      <div class="others-work--flex flex-container">
+        <!-- work img -->
+        <div class="work-img-wrap">
+          <a href="./home.php?w=<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : "" ?>" class="work__link" data-work-id="<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : ""; ?>">
+            <img src="<?= isset($app->getProperties('_othersWorks')->$i->work) ? h($app->getProperties('_othersWorks')->$i->work) : ''; ?>" alt="" class="work__img">
           </a>
         </div>
 
-        <div class="project-info-wrap">
-          <!-- project title -->
-          <div class="project-title">
-                <p class="project-title__text margin--0">
-                 <a href="">
-                  <?= isset($app->getProperties('_othersProject')->$i->title) ? h($app->getProperties('_othersProject')->$i->title) : '' ?>
+        <div class="work-info-wrap">
+          <!-- work title -->
+          <div class="work-title">
+                <p class="work-title__text margin--0">
+                 <a href="./home.php?w=<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : "" ?>" class="work__link" data-work-id="<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : ""; ?>">
+                  <?= isset($app->getProperties('_othersWorks')->$i->title) ? h($app->getProperties('_othersWorks')->$i->title) : '' ?>
                  </a>
                 </p>
           </div>
-           <!-- project description -->
-           <div class="project-description">
-              <p class="project-description__text margin--0">
-                 <a href="">
-                    <?= isset($app->getProperties('_othersProject')->$i->description) ? mb_substr(h($app->getProperties('_othersProject')->$i->description), 0, 100, "UTF-8") . "..." : "説明文はありません"  ?>
+           <!-- work description -->
+           <div class="work-description">
+              <p class="work-description__text margin--0">
+                 <a href="./home.php?w=<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : "" ?>" class="work__link" data-work-id="<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : ""; ?>">
+                    <?= isset($app->getProperties('_othersWorks')->$i->description) ? mb_substr(h($app->getProperties('_othersWorks')->$i->description), 0, 100, "UTF-8") . "..." : "説明文はありません"  ?>
                  </a>
               </p>
            </div>
            <!-- others icon -->
            <div class="others-info-wrap--flex flex-container">
              <div class="others-icon-wrap">
-              <a href="./profile.php?u=<?= isset($app->getProperties('_othersProject')->$i) ? h($app->getProperties('_othersProject')->$i->id) : "" ?>">
-                  <img class="others-icon__img" src="<?= isset($app->getProperties  ('_othersProject')->$i->profile_img) ? h($app->getProperties('_othersProject')->$i->profile_img) : './../images/default_user_icon.png' ?>" alt="ユーザーのアイコン画像">
+              <a href="./profile.php?u=<?= isset($app->getProperties('_othersWorks')->$i) ? h($app->getProperties('_othersWorks')->$i->id) : "" ?>">
+                  <img class="others-icon__img" src="<?= isset($app->getProperties  ('_othersWorks')->$i->profile_img) ? h($app->getProperties('_othersWorks')->$i->profile_img) : './../images/default_user_icon.png' ?>" alt="ユーザーのアイコン画像">
                1   </a>
                </div>
   
            <!-- ohters name -->
               <div class="others-name">
                 <p class="others-name__text">
-                  <a href="./profile.php?u=<?= isset($app->getProperties('_othersProject')->$i) ? h($app->getProperties('_othersProject')->$i->id) : "" ?>">
-                    <?= $app->getProperties('_othersProject')->$i->surname && $app->getProperties('_othersProject')->$i->givenname ? h($app->getProperties('_othersProject')->$i->surname) . " " . h($app->getProperties('_othersProject')->$i->givenname) : "" ?>
+                  <a href="./profile.php?u=<?= isset($app->getProperties('_othersWorks')->$i) ? h($app->getProperties('_othersWorks')->$i->id) : "" ?>">
+                    <?= $app->getProperties('_othersWorks')->$i->surname && $app->getProperties('_othersWorks')->$i->givenname ? h($app->getProperties('_othersWorks')->$i->surname) . " " . h($app->getProperties('_othersWorks')->$i->givenname) : "" ?>
                   </a>
                 </p>
               </div>
@@ -114,8 +126,9 @@ require_once(__DIR__ . '/aside.php');
 
         <div class="time">
           <p class="time__text margin--0">
-             <?= isset($app->getProperties('_othersProject')->$i->modified_date) ? date('m月d日 H:i', strtotime(h($app->getProperties('_othersProject')->$i->modified_date))) : "" ?>
+             <?= isset($app->getProperties('_othersWorks')->$i->modified_date) ? date('m月d日 H:i', strtotime(h($app->getProperties('_othersWorks')->$i->modified_date))) : "" ?>
           </p>
+          <i class="thumbs-up fas fa-thumbs-up"></i><span class="good-count">12</span>
         </div>
 
         <!-- others menu -->

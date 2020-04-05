@@ -41,12 +41,12 @@ body {
 }
 
  /* =========================
-        PROFECT WINDOW
+        WORK WINDOW
 ========================= */
 
-/* ======= my project area  ======= */
+/* ======= my work area  ======= */
 
-.project-window {
+.work-window {
   grid-area: main;
   width: calc(100vw - 250px);
   height: calc(100vh - (60px + 80px));
@@ -56,7 +56,7 @@ body {
   overflow-y: scroll;
 }
 
-.my-project-area--flex {
+.my-work-area--flex {
   width: 100%;
   min-width: 200px;
   height: 250px;
@@ -68,7 +68,7 @@ body {
   overflow-y: hidden;
 }
 
-.my-project {
+.my-work {
   padding: 0 16px;
   align-self: center;
   text-align: center;
@@ -76,17 +76,22 @@ body {
 }
 
 
-.project-img-wrap {
+.work-img-wrap {
   width: 180px;
   height: 130px;
   overflow: hidden;
   flex-grow: 0;
 }
 
-.project__img {
+.work__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.work__img:hover {
+  transform: scale(1.1, 1.1);
+  transition: transform 0.7s ease;
 }
 
 /* ======= tool bar ======= */
@@ -107,7 +112,7 @@ body {
   margin-right: 16px;
 }
 
-/* ======= others project area ======= */
+/* ======= others work area ======= */
 
 .no-show {
   text-align: center;
@@ -115,11 +120,11 @@ body {
 }
 
 
-.others-project-area {
+.others-work-area {
   height: calc(100% - 200px);
 }
 
-.others-project--flex {
+.others-work--flex {
   width: 100%;
   padding: 16px;
   margin-bottom: 16px;
@@ -130,7 +135,7 @@ body {
 }
 
 
-.project-info-wrap {
+.work-info-wrap {
   width: auto;
   height: auto;
   padding: 8px 0px;
@@ -138,19 +143,19 @@ body {
   flex-grow: 1;
 }
 
-.project-title {
+.work-title {
   width: 100%;
 }
 
-.project-title__text {
+.work-title__text {
   font-size: 1.8em;
 }
 
-.project-description {
+.work-description {
   width: 100%;
 }
 
-.project-description__text {
+.work-description__text {
   font-size: 1.4em;
 }
 
@@ -190,6 +195,17 @@ body {
   font-size: 1.2em;
 }
 
+.thumbs-up {
+  font-size: 1.6em;
+  margin: 8px;
+}
+
+.good-count {
+  font-size: 1.4em;
+  color: #161267;
+}
+
+
 .others-menu {
   margin: 8px;
   flex-grow: 0;
@@ -198,12 +214,12 @@ body {
 
 /* small screen */
 @media screen and (max-width: 560px) {
-  .project-window {
+  .work-window {
     width: calc(100vw - 32px);
     padding: 8px;
   }
 
-  .project-img-wrap {
+  .work-img-wrap {
     margin: 0 auto;
   }
 }
