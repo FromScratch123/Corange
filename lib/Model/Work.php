@@ -53,13 +53,26 @@ public function getFriendWorks($values, $order = 'modified_date', $in = 'DESC') 
 }
 
 public function getWork($values) {
-  $stmt = $this->db->prepare("select work.*, categories.name from work inner join categories on work.category = categories.id where work_id = :work_id");
+  $stmt = $this->db->prepare("select work.*, categories.name from work inner join categories on work.category = categories.id where work.work_id = :work_id");
   $res = $stmt->execute([
     ':work_id' => $values['work_id']
   ]);
   $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
   $work = $stmt->fetch();
   return $work;
+}
+
+public function getComment($values) {
+  $stmt = $this->db->prepare("select comment.comment, comment.post_user, users.id, users.surname, users.givenname, users.profile_img from comment inner join users on comment.post_user = users.id where work_id = :work_id and comment.delete_flg = 0 and users.delete_flg = 0");
+  $res = $stmt->execute([
+    ':work_id' => $values['work_id']
+  ]);
+  if (!$res) {
+    return false;
+  } 
+  $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+  $comment = $stmt->fetchAll();
+  return $comment;
 }
 
 public function search($values, $order = 'modified_date', $in = 'DESC') {
@@ -76,6 +89,63 @@ public function search($values, $order = 'modified_date', $in = 'DESC') {
       return false;
     } else {
       return $works;
+    }
+}
+
+public function insertComment($values) {
+  $stmt = $this->db->prepare("insert into comment (work_id, comment, post_user, modified_date, create_date) values (:work_id, :comment, :post_user, now(), now())");
+  $res = $stmt->execute([
+    ':work_id' => $values['work_id'],
+    ':comment' => $values['comment'],
+    ':post_user' => $values['post_user']
+  ]);
+  track(print_r($stmt, true));
+  if (!$res) {
+    throw new \MyApp\Exception\Query();
+  }
+  return;
+}
+
+public function insertFavorite($values) {
+  $stmt = $this->db->prepare("insert into favorite (register_user, create_user, work_id, create_date, modified_date) values (:register_user, :create_user, :work_id, now(), now())");
+  $res = $stmt->execute([
+    ':register_user' => $values['register_user'],
+    ':create_user' => $values['create_user'],
+    ':work_id' => $values['work_id']
+  ]);
+  track(print_r($stmt, true));
+  if (!$res) {
+    throw new \MyApp\Exception\Query();
+  }
+  return;
+}
+
+public function deleteFavorite($values) {
+  $stmt = $this->db->prepare("delete from favorite where register_user = :register_user and create_user = :create_user and work_id = :work_id");
+  $res = $stmt->execute([
+    ':register_user' => $values['register_user'],
+    ':create_user' => $values['create_user'],
+    ':work_id' => $values['work_id']
+  ]);
+  track(print_r($stmt, true));
+  if (!$res) {
+    throw new \MyApp\Exception\Query();
+  }
+  return;
+}
+
+public function isFavorite($values) {
+  $stmt = $this->db->prepare("select count(id) from favorite where register_user = :me and work_id = :work_id");
+  $res = $stmt->execute([
+    ':me' => $values['me'],
+    ':work_id' => $values['work_id']
+  ]);
+    
+    $count = $stmt->fetchColumn();
+    if ($count == 0) {
+      return false;
+    } else {
+      return true;
     }
 }
 

@@ -7,8 +7,7 @@
   $app->run();
   $upload = new MyApp\Controller\UploadWork();
   $upload->run();
-  $work = new MyApp\Controller\WorkDetails();
-  $work->run();
+
 
 
   $requestPage = 'HOME -';
@@ -45,20 +44,16 @@ require_once(__DIR__ . '/aside.php');
 <main>
   <div class="work-window">
   <?php require_once(__DIR__ . '/uploadWork.php'); ?>
-  <?php require_once(__DIR__ . '/workDetails.php'); ?>
+
     <div class="my-work-area--flex flex-container">
       <?php for ($i = 0; isset($app->getProperties('_myWorks')->$i); $i++) : ?>
       <div class="my-work">
         <!-- work img -->
         <div class="work-img-wrap">
-        <a href="./home.php?w=<?= isset($app->getProperties('_myWorks')->$i) ? h($app->getProperties('_myWorks')->$i->work_id) : "" ?>" class="work__link" data-work-id="<?= isset($app->getProperties('_myWorks')->$i->work_id) ? h($app->getProperties('_myWorks')->$i->work_id) : ""; ?>">
           <img class="work__img" src="<?= isset($app->getProperties('_myWorks')->$i->thumbnail) ? h($app->getProperties('_myWorks')->$i->thumbnail) : '' ?>" alt="">
-        </a>
         </div>
         <!-- work title -->
-        <a href="./home.php?w=<?= isset($app->getProperties('_myWorks')->$i) ? h($app->getProperties('_myWorks')->$i->work_id) : "" ?>" class="work__link" data-work-id="<?= isset($app->getProperties('_myWorks')->$i->work_id) ? h($app->getProperties('_myWorks')->$i->work_id) : ""; ?>">
         <p class="margin--0"><?= isset($app->getProperties('_myWorks')->$i) ? mb_substr(h($app->getProperties('_myWorks')->$i->title), 0, 10, "UTF-8") . "..." : ""; ?></p>
-        </a>
         <!-- work time -->
         <p class="margin--0"><?= isset($app->getProperties('_myWorks')->$i->modified_date) ? date('m月d日 H:i', strtotime(h($app->getProperties('_myWorks')->$i->modified_date))) : "" ?></p>
       </div>
@@ -83,7 +78,7 @@ require_once(__DIR__ . '/aside.php');
       <div class="others-work--flex flex-container">
         <!-- work img -->
         <div class="work-img-wrap">
-          <a href="./home.php?w=<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : "" ?>" class="work__link" data-work-id="<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : ""; ?>">
+          <a href="./workDetails.php?w=<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : "" ?>" class="work__link" data-work-id="<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : ""; ?>">
             <img src="<?= isset($app->getProperties('_othersWorks')->$i->work) ? h($app->getProperties('_othersWorks')->$i->work) : ''; ?>" alt="" class="work__img">
           </a>
         </div>
@@ -92,7 +87,7 @@ require_once(__DIR__ . '/aside.php');
           <!-- work title -->
           <div class="work-title">
                 <p class="work-title__text margin--0">
-                 <a href="./home.php?w=<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : "" ?>" class="work__link" data-work-id="<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : ""; ?>">
+                 <a href="./workDetails.php?w=<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : "" ?>" class="work__link" data-work-id="<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : ""; ?>">
                   <?= isset($app->getProperties('_othersWorks')->$i->title) ? h($app->getProperties('_othersWorks')->$i->title) : '' ?>
                  </a>
                 </p>
@@ -100,7 +95,7 @@ require_once(__DIR__ . '/aside.php');
            <!-- work description -->
            <div class="work-description">
               <p class="work-description__text margin--0">
-                 <a href="./home.php?w=<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : "" ?>" class="work__link" data-work-id="<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : ""; ?>">
+                 <a href="./workDetails.php?w=<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : "" ?>" class="work__link" data-work-id="<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : ""; ?>">
                     <?= isset($app->getProperties('_othersWorks')->$i->description) ? mb_substr(h($app->getProperties('_othersWorks')->$i->description), 0, 100, "UTF-8") . "..." : "説明文はありません"  ?>
                  </a>
               </p>
@@ -110,7 +105,7 @@ require_once(__DIR__ . '/aside.php');
              <div class="others-icon-wrap">
               <a href="./profile.php?u=<?= isset($app->getProperties('_othersWorks')->$i) ? h($app->getProperties('_othersWorks')->$i->id) : "" ?>">
                   <img class="others-icon__img" src="<?= isset($app->getProperties  ('_othersWorks')->$i->profile_img) ? h($app->getProperties('_othersWorks')->$i->profile_img) : './../images/default_user_icon.png' ?>" alt="ユーザーのアイコン画像">
-               1   </a>
+                  </a>
                </div>
   
            <!-- ohters name -->
@@ -128,7 +123,8 @@ require_once(__DIR__ . '/aside.php');
           <p class="time__text margin--0">
              <?= isset($app->getProperties('_othersWorks')->$i->modified_date) ? date('m月d日 H:i', strtotime(h($app->getProperties('_othersWorks')->$i->modified_date))) : "" ?>
           </p>
-          <i class="thumbs-up fas fa-thumbs-up"></i><span class="good-count">12</span>
+            <i class="thumbs-up fas fa-thumbs-up" data-work-id="<?= isset($app->getProperties('_othersWorks')->$i) ? h($app->getProperties('_othersWorks')->$i->work_id) : "" ?>" data-create-user="<?= isset($app->getProperties('_othersWorks')->$i) ? h($app->getProperties('_othersWorks')->$i->id) : "" ?>"></i>
+          <span class="good-count">12</span>
         </div>
 
         <!-- others menu -->

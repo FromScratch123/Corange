@@ -14,6 +14,7 @@ class Controller {
   private $_myWorks;
   private $_othersWorks;
   private $_work;
+  private $_comment;
   private $_categories;
   private $_imageFileName;
   private $_videoFileName;
@@ -32,6 +33,7 @@ class Controller {
     $this->_myWorks = new \stdClass();
     $this->_othersWorks = new \stdClass();
     $this->_work = new \stdClass();
+    $this->_comment = new \stdClass();
     $this->_categories = new \stdClass();
     $this->_imageFileName = new \stdClass();
     $this->_videoFileName = new \stdClass();

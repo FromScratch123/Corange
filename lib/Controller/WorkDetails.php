@@ -51,6 +51,16 @@ class WorkDetails extends \MyApp\Controller {
     track('work情報: ' . print_r($work, true));
     //作品情報を_othersWorksにセット
     $this->setProperties($work, '_work');
+    $comment = $workModel->getComment([
+      'work_id' => $_GET['w']
+    ]);
+    if (!$comment) {
+      return;
+    } else {
+      track('comment情報: ' . print_r($comment, true));
+      //コメント情報を_commentにセット
+    $this->setProperties($comment, '_comment');
+    }
   }
 
   protected function postProcess() {
@@ -75,7 +85,21 @@ class WorkDetails extends \MyApp\Controller {
     } else {
       track('バリデーションクリア');
       track('コメント保存処理開始');
-
+      try {
+        $workModel->insertComment([
+          'work_id' => $_GET['w'],
+          'comment' => $_POST['comment'],
+          'post_user' => $_SESSION['me']->id
+        ]);
+      } catch (\MyApp\Exception\Query $e) {
+        track('クエリ実行に失敗しました');
+          track('Exception:' . $e->getMessage());
+          $this->setErrors('common', $e->getMessage());
+          return;
+        }
+        track('workDetails.phpへ遷移します');
+        header('Location:' . SITE_URL . '/Duplazy/public_html/workDetails.php?w=' . $_GET['w']);
+        exit;
     }
 
   }
@@ -88,7 +112,7 @@ class WorkDetails extends \MyApp\Controller {
       exit;
     }
     //必須項目確認
-    if ($_POST['title'] === '' || $_POST['category'] === '') {
+    if ($_POST['comment'] === '') {
       throw new \MyApp\Exception\EmptyPost();
     }
    
