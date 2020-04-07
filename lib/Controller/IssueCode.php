@@ -7,7 +7,7 @@ class IssueCode extends \MyApp\Controller {
   public function run() {
     if ($this->isLoggedIn()) {
       track('【ログイン済】home.phpへ遷移します');
-      header('Location:' . SITE_URL . '/Duplazy/public_html/home.php');
+      header('Location:' . SITE_URL . '/Corange/public_html/home.php');
       exit;
     }
 
@@ -66,7 +66,7 @@ class IssueCode extends \MyApp\Controller {
       //メールの内容を格納
       $from = MAIL_ADDRESS;
       $to = $email;
-      $subject = '【認証コード発行】 | Duplazy';
+      $subject = '【認証コード発行】 | Corange';
       $text = <<<EOM
       $surname $givenname 様
       
@@ -80,7 +80,7 @@ class IssueCode extends \MyApp\Controller {
       ※認証コード有効期限は発行日時より30分間です。
 
       認証コード入力ページ: 
-      localhost:8888/Duplazy/public_html/confirmCode.php
+      localhost:8888/Corange/public_html/confirmCode.php
       
       何かご不明点等ございましたら、お気軽にお問い合わせください。
       
@@ -89,9 +89,9 @@ class IssueCode extends \MyApp\Controller {
       ※自動送信メールですのでこちらのメールに返信は出来ません。
       
       *==============================*
-      Duplazy Co.,Ltd.
+      Corange Co.,Ltd.
       Tel: 00-0000-0000
-      Email: duplazy@gmail.com
+      Email: Corange@gmail.com
       営業時間: 平日 10時00分~19時00分
       *==============================*
 EOM;
@@ -116,7 +116,7 @@ EOM;
       $_SESSION['messages']['welcome'] = SENDCODE;
       track('セッションの中身:' . print_r($_SESSION, true));
       track('confirmCode.phpへ遷移します');
-      header('Location:' . SITE_URL . '/Duplazy/public_html/confirmCode.php');
+      header('Location:' . SITE_URL . '/Corange/public_html/confirmCode.php');
       exit;
     }
   }

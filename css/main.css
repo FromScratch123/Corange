@@ -179,7 +179,7 @@ select {
 .header {
   width: 100%;
   height: 60px;
-  background: #161267;
+  /* background: #161267; */
   position: fixed;
   top: 0;
   left: 0;
@@ -238,7 +238,7 @@ select {
 .hero {
   width: 100vw;
   height: 100vh;
-  background-image: url(./../images/hero_img.png);
+  background-image: url(./../images/hero_img.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

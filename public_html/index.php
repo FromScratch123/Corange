@@ -37,7 +37,7 @@ require_once(__DIR__ . '/head.php');
       <p class="hero__text">Make work easy<br>let you lazy</p>
     <!-- btn -->
     <button class="hero__signup-btn"><a href="signup.php">Sign Up Now!</a></button>
-    <button class="hero__about-btn">About Duplazy</button>
+    <button class="hero__about-btn">About Corange</button>
 
 <!-- signup drawer -->    
     <div class="signup-drawer">
@@ -87,7 +87,7 @@ require_once(__DIR__ . '/head.php');
              <p class="has-error margin--0"><?= $app->getErrors('agree'); ?></p>
             <p class="fz--small">
               <input class="agree" type="checkbox" name="agree">
-              I agree to <span class="color--blue"><a href=""> Duplazy terms</a></span>
+              I agree to <span class="color--blue"><a href=""> Corange terms</a></span>
             </p>
           </label>
           <!-- token -->

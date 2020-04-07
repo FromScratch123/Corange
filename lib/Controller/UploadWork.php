@@ -72,7 +72,7 @@ class UploadWork extends \MyApp\Controller {
           //ファイル形式の確認
           $workFileType = @pathinfo($_FILES['work']['name'], PATHINFO_EXTENSION);
           track('拡張子:' . $workFileType);
-          if ($workFileType === 'gif' || $workFileType === 'jpg' || $workFileType === 'jpeg' || $workFileType === 'png') {
+          if ($workFileType === 'gif' || $workFileType === 'jpg' || $workFileType === 'jpeg' || $workFileType === 'png' || $workFileType === 'GIF' || $workFileType === 'JPG' || $workFileType === 'PNG') {
             //画像ファイルの場合
             track('画像ファイルが選択されています');
             $isImage = true;

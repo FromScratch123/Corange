@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="description" 
-  content="あなたの仕事を効率化させる為のツールです。無料で誰でも簡単に使え、重複したデータ入力を最適化します。">
+  content="様々な世界で活躍するクリエイターを繋げ、新しい価値を創造する場を提供しています。">
   <meta rel="canonical" href="">
-  <title><?= $requestPage . ' Duplazy | もっと簡単に、もっと楽に。' ?></title>
+  <title><?= $requestPage . ' Corange | 創造が繋がる世界へ。' ?></title>
 <!-- jQuery CDN -->
 <script
 src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -38,14 +38,14 @@ crossorigin="anonymous"></script>
   <link rel="stylesheet" href="<?= $CSSPath5 ?>"> 
 <!-- CARD -->
   <meta property="og:url" content="">
-  <meta property="og:title" content="Duplazy | もっと簡単に、もっと楽に。">
+  <meta property="og:title" content="Corange | 創造が繋がる世界へ。">
   <meta property="og:type" content="website">
-  <meta property="og:description" content="あなたの仕事を効率化させる為のツールです。無料で誰でも簡単に使え、重複したデータ入力を最適化します。">
+  <meta property="og:description" content="様々な世界で活躍するクリエイターを繋げ、新しい価値を創造する場を提供しています。">
   <meta property="og:image" content="img/home_hero.jpg">
   <meta property="twitter:card" 
   content="summary">
   <meta name="twitter:site" content="@">
-  <meta property="og:site_name" content="Duplazy | もっと簡単に、もっと楽に。">
+  <meta property="og:site_name" content="Corange | 創造が繋がる世界へ。">
   <meta property="og:locale" content="ja_JP">
   <meta property="fb:app_id" content="">
 <!-- Fonts & Icons -->

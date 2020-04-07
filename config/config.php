@@ -24,7 +24,7 @@ require_once(__DIR__ . '/autoload.php');
 //================================
 
 //*********** データべース情報 ***********
-define('DSN', 'mysql:dbhost=localhost;dbname=Duplazy;charset=utf8');
+define('DSN', 'mysql:dbhost=localhost;dbname=Corange;charset=utf8');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', 'root');
 define('OPTIONS', array(
@@ -38,8 +38,8 @@ define('OPTIONS', array(
 ));
 
 //*********** メッセージ ***********
-define('WELCOME', 'Welcome to Duplazy!');
-define('WELCOMEBACK', 'Welcomeback to Duplazy!');
+define('WELCOME', 'Welcome to Corange!');
+define('WELCOMEBACK', 'Welcomeback to Corange!');
 define('MODIFIEDPROFILE', 'プロフィールを変更しました。');
 define('CHANGEPASS', 'パスワードを変更しました。');
 define('SENDCODE', '認証コードをご登録のメールアドレスへ送信しました。');

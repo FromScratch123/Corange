@@ -34,8 +34,18 @@ public function getCategories() {
   return $categories;
 }
 
+public function getAllWorks($values, $offset = 0, $order = 'modified_date', $in = 'ASC') {
+  $stmt = $this->db->prepare("select work.*, users.id, users.surname, users.givenname, users.profile_img from work inner join users on work.create_user = users.id where create_user not in(:me) and work.delete_flg = 0 and users.delete_flg = 0 order by " . $order . " " . $in . " limit 10 offset " . $offset);
+  $res = $stmt->execute([
+    ':me' => $values['me']
+  ]);
+  $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+  $works = $stmt->fetchAll();
+  return $works;
+}
+
 public function getMyWorks($values, $order = 'modified_date', $in = 'ASC') {
-  $stmt = $this->db->prepare("select * from work where create_user = :me and delete_flg = 0 order by " . $order . " " . $in);
+  $stmt = $this->db->prepare("select work.*, users.id, users.surname, users.givenname, users.profile_img from work inner join users on work.create_user = users.id where create_user = :me and work.delete_flg = 0 and users.delete_flg = 0 order by " . $order . " " . $in);
   $res = $stmt->execute([
     ':me' => $values['me']
   ]);
@@ -149,6 +159,16 @@ public function isFavorite($values) {
     }
 }
 
+public function getMyFavorite($values, $order = 'modified_date', $in = 'DESC') {
+  $stmt = $this->db->prepare("select work.*, users.id, users.surname, users.givenname, users.profile_img from work inner join favorite on work.work_id = favorite.work_id inner join users on work.create_user = users.id where favorite.register_user = :me and work.delete_flg = 0 and users.delete_flg = 0 order by " . $order . " " . $in);
+  $res = $stmt->execute([
+    ':me' => $values['me']
+  ]);
+  $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+  $works = $stmt->fetchAll();
+  return $works;
+}
+
 public function favoriteNum($values) {
   $stmt = $this->db->prepare("select count(favorite_id) from favorite where work_id = :work_id");
   $res = $stmt->execute([
@@ -190,6 +210,16 @@ public function getNewComment($values) {
     } else {
       return $comments;
     }
+}
+
+public function getTrash($values, $order = 'modified_date', $in = 'DESC') {
+  $stmt = $this->db->prepare("select work.*, users.id, users.surname, users.givenname, users.profile_img from work inner join users on work.create_user = users.id where create_user = :me and work.delete_flg = 1 and users.delete_flg = 0 order by " . $order . " " . $in);
+  $res = $stmt->execute([
+    'me' => $values['me']
+  ]);
+  $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+  $works = $stmt->fetchAll();
+  return $works;
 }
 
 public function checkedCommentNote($values) {

@@ -18,11 +18,7 @@
   <?php endif; ?>
   </i></a>
   </p>
-  <!-- share btn -->
-  <button class="account-field__btn">
-    <span class=account-field__btn--share>SHARE</span>
-    <i class="account-field__icon account-field__icon--share icon--white fas fa-share-alt"></i>
-  </button>
+
   <!-- account menu -->
   <i id="user-menu-trigger" class="user-menu-trigger menu fas fa-ellipsis-h">
   <!-- menu list -->

@@ -8,7 +8,7 @@ class SearchWork extends \MyApp\Controller {
   public function run() {
     if (!$this->isLoggedIn()) {
       track('【ログイン未】index.phpへ遷移します');
-      header('Location:' . SITE_URL . '/Duplazy/public_html/index.php');
+      header('Location:' . SITE_URL . '/Corange/public_html/index.php');
       exit;
     } 
       
@@ -39,20 +39,67 @@ class SearchWork extends \MyApp\Controller {
     global $userModel;
     global $friendModel;
     global $workModel;
-    //空白文字を取り除く
-    $search = str_replace(array(" ", "　"), '', $_GET['search']);
-    track('検索ワード変更前:' . $_GET['search'] . '検索ワード変更後:' . $search);
-    //検索結果を取得
-    $works = $workModel->search([
-      'search' => $search,
-    ]);     
-    if (!$works) {
-      return;
-    } else {
-      //検索結果を_othersWorksにセット
+
+    //My Work
+    if (isset($_GET['my'])) {
+      track('My Workの絞り込みを行います');
+      $works = $workModel->getMyWorks([
+        'me' => $_SESSION['me']->id
+      ]);
+      //結果を_othersWorksにセット
       $this->setProperties($works, '_othersWorks');
     }
-    track('検索結果:' . print_r($works, true));
+    
+    //All Work
+    if (isset($_GET['all'])) {
+      track('All Workの絞り込みを行います');
+      $works = $workModel->getAllWorks([
+        'me' => $_SESSION['me']->id
+      ]);
+      //結果を_othersWorksにセット
+      $this->setProperties($works, '_othersWorks');
+      track('検索結果:' . print_r($works, true));
+    }
+
+    //My Favorite
+    if (isset($_GET['favorite'])) {
+      track('Favoriteの絞り込みを行います');
+      $works = $workModel->getMyfavorite([
+        'me' => $_SESSION['me']->id
+      ]);
+      //結果を_othersWorksにセット
+      $this->setProperties($works, '_othersWorks');
+      track('検索結果:' . print_r($works, true));
+    }
+
+    //Trash
+    if (isset($_GET['trash'])) {
+      track('Trachの絞り込みを行います');
+      $works = $workModel->getTrash([
+        'me' => $_SESSION['me']->id
+      ]);
+      //結果を_othersWorksにセット
+      $this->setProperties($works, '_othersWorks');
+      track('検索結果:' . print_r($works, true));
+    }
+
+    //Search
+    if (isset($_GET['search'])) {
+      //空白文字を取り除く
+      $search = str_replace(array(" ", "　"), '', $_GET['search']);
+      track('検索ワード変更前:' . $_GET['search'] . '検索ワード変更後:' . $search);
+      //検索結果を取得
+      $works = $workModel->search([
+        'search' => $search,
+      ]);     
+      if (!$works) {
+        return;
+      } else {
+        //検索結果を_othersWorksにセット
+        $this->setProperties($works, '_othersWorks');
+      }
+      track('検索結果:' . print_r($works, true));
+    }
   }
   
 

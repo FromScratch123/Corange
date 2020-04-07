@@ -9,7 +9,7 @@ class WorkDetails extends \MyApp\Controller {
 
     if (!$this->isLoggedIn()) {
       track('【ログイン未】index.phpへ遷移します');
-      header('Location:' . SITE_URL . '/Duplazy/public_html/index.php');
+      header('Location:' . SITE_URL . '/Corange/public_html/index.php');
       exit;
     } 
 
@@ -111,7 +111,7 @@ class WorkDetails extends \MyApp\Controller {
           return;
         }
         track('workDetails.phpへ遷移します');
-        header('Location:' . SITE_URL . '/Duplazy/public_html/workDetails.php?w=' . $_GET['w']);
+        header('Location:' . SITE_URL . '/Corange/public_html/workDetails.php?w=' . $_GET['w']);
         exit;
     }
 

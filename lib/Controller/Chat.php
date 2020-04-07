@@ -9,7 +9,7 @@ class Chat extends \MyApp\Controller {
   public function run() {
     if (!$this->isLoggedIn()) {
       track('【ログイン未】index.phpへ遷移します');
-      header('Location:' . SITE_URL . '/Duplazy/public_html/index.php');
+      header('Location:' . SITE_URL . '/Corange/public_html/index.php');
       exit;
     } 
       
@@ -52,7 +52,7 @@ class Chat extends \MyApp\Controller {
     if ($isBelonged == false) {
       track('GETパラメーターが不正です');
       track('home.phpへ遷移します');
-      header('Location:' . SITE_URL . '/Duplazy/public_html/home.php');
+      header('Location:' . SITE_URL . '/Corange/public_html/home.php');
       exit;
     }
 

@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   session_destroy();
 
 
-header('Location:' . SITE_URL . '/Duplazy/public_html/index.php');
+header('Location:' . SITE_URL . '/Corange/public_html/index.php');
 
 ?>
 

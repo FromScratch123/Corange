@@ -8,7 +8,7 @@ class EditProfile extends \MyApp\Controller {
   public function run() {
     if (!$this->isLoggedIn()) {
       track('【ログイン未】index.phpへ遷移します');
-      header('Location:' . SITE_URL . '/Duplazy/public_html/index.php');
+      header('Location:' . SITE_URL . '/Corange/public_html/index.php');
       exit;
     }
 
@@ -159,7 +159,7 @@ class EditProfile extends \MyApp\Controller {
           track('変更箇所がありません');
           $_SESSION['messages'] = [];
           track('HOMEへ遷移します');
-          header('Location:' . SITE_URL . '/Duplazy/public_html/home.php');
+          header('Location:' . SITE_URL . '/Corange/public_html/home.php');
           exit;
         }
 
@@ -193,7 +193,7 @@ class EditProfile extends \MyApp\Controller {
       $_SESSION['messages'] = [];
       $_SESSION['messages']['modifiedProfile'] = MODIFIEDPROFILE;
       track('HOMEへ遷移します');
-      header('Location:' . SITE_URL . '/Duplazy/public_html/home.php');
+      header('Location:' . SITE_URL . '/Corange/public_html/home.php');
       exit;
     }
   }

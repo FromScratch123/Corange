@@ -1,10 +1,10 @@
 <aside class="side-menu">
   <ul class="categories">
-    <li class="categories__list"><a href="./searchWork.php?search=<?= $_SESSION['me']->id ?>"><i class="categories-icon fas fa-folder-open"></i></a><a class="categories__list-text" href="./searchWork.php?search=<?= $_SESSION['me']->id ?>">My Work</a></li>
-    <li class="categories__list"><a href=""><i class="categories-icon fab fa-slideshare"></i></a><a class="categories__list-text" href="">All Work
-    <li class="categories__list"><a href=""><i class="categories-icon fas fa-clock"></i></a><a class="categories__list-text" href="">Recent</a></li>
-    <li class="categories__list"><a href=""><i class="categories-icon fas fa-thumbs-up"></i></a><a class="categories__list-text" href="">Favorite</a></li>
-    <li class="categories__list"><a href=""><i class="categories-icon fas fa-trash-alt"></i></a><a class="categories__list-text" href="">Trash</a></li>
+    <li class="categories__list"><a href="./searchWork.php?my=<?= $_SESSION['me']->id ?>"><i class="categories-icon fas fa-folder-open"></i></a><a class="categories__list-text" href="./searchWork.php?my=<?= $_SESSION['me']->id ?>">My Work</a></li>
+    <li class="categories__list"><a href="./searchWork.php?all=<?= $_SESSION['me']->id ?>"><i class="categories-icon fab fa-slideshare"></i></a><a class="categories__list-text" href="./searchWork.php?all=<?= $_SESSION['me']->id ?>">All Work</a></li>
+    
+    <li class="categories__list"><a href="./searchWork.php?favorite=<?= $_SESSION['me']->id ?>"><i class="categories-icon fas fa-thumbs-up"></i></a><a class="categories__list-text" href="./searchWork.php?favorite=<?= $_SESSION['me']->id ?>">Favorite</a></li>
+    <li class="categories__list"><a href="./searchWork.php?trash=<?= $_SESSION['me']->id ?>"><i class="categories-icon fas fa-trash-alt"></i></a><a class="categories__list-text" href="./searchWork.php?trash=<?= $_SESSION['me']->id ?>">Trash</a></li>
   </ul>
   <!-- search window -->
   <form class="side-menu__search-window--wrap" action="./searchWork.php" method="get">

@@ -7,13 +7,13 @@ class ConfirmCode extends \MyApp\Controller {
   public function run() {
     if ($this->isLoggedIn()) {
       track('【ログイン済】home.phpへ遷移します');
-      header('Location:' . SITE_URL . '/Duplazy/public_html/home.php');
+      header('Location:' . SITE_URL . '/Corange/public_html/home.php');
       exit;
     }
 
     if (!isset($_SESSION['auth_code']) || empty($_SESSION['auth_code'])) {
       track('【認証コード発行未】issueCode.phpへ遷移します');
-      header('Location:' . SITE_URL . '/Duplazy/public_html/issueCode.php');
+      header('Location:' . SITE_URL . '/Corange/public_html/issueCode.php');
       exit;
     }
 
@@ -68,7 +68,7 @@ class ConfirmCode extends \MyApp\Controller {
       //メール送信
       $from = MAIL_ADDRESS;
       $to = $email;
-      $subject = '【パスワード発行】 | Duplazy';
+      $subject = '【パスワード発行】 | Corange';
       $text = <<<EOM
       $surname $givenname 様
       
@@ -81,7 +81,7 @@ class ConfirmCode extends \MyApp\Controller {
       パスワード: $password
       ※必ずご自身で任意のパスワードへ変更してください。
 
-      ログインページ: localhost:8888/Duplazy/public_html/login.php
+      ログインページ: localhost:8888/Corange/public_html/login.php
       
       何かご不明点等ございましたら、お気軽にお問い合わせください。
       
@@ -90,9 +90,9 @@ class ConfirmCode extends \MyApp\Controller {
       ※自動送信メールですのでこちらのメールに返信は出来ません。
       
       *==============================*
-      Duplazy Co.,Ltd.
+      Corange Co.,Ltd.
       Tel: 00-0000-0000
-      Email: duplazy@gmail.com
+      Email: Corange@gmail.com
       営業時間: 平日 10時00分~19時00分
       *==============================*
 EOM;
@@ -117,7 +117,7 @@ EOM;
       
 
       track('login.phpへ遷移します');
-      header('Location:' . SITE_URL . '/Duplazy/public_html/login.php');
+      header('Location:' . SITE_URL . '/Corange/public_html/login.php');
       exit;
     }
   }

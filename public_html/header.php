@@ -1,6 +1,6 @@
 <header class="header">
   <!-- logo -->
-  <p class="header__logo"><a href="<?= $logoPath ?>">Duplazy</a></p>
+  <p class="header__logo"><a href="<?= $logoPath ?>">Corange</a></p>
 
   <!-- sign up / sign in -->
   <?php if (!isset($_SESSION['me']) && empty($_SESSION['me'])) : ?> 

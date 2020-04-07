@@ -79,7 +79,7 @@ require_once(__DIR__ . '/header.php');
       <p class="has-error margin--0"><?= $app->getErrors('agree'); ?></p>
         <p class="fz--small">
           <input class="agree" type="checkbox" name="agree">
-          I agree to <span class="color--blue"><a href=""> Duplazy terms</a></span>
+          I agree to <span class="color--blue"><a href=""> Corange terms</a></span>
         </p>
       </label>
       <!-- token -->

@@ -8,7 +8,7 @@ class AcceptFriend extends \MyApp\Controller {
   public function run() {
     if (!$this->isLoggedIn()) {
       track('【ログイン未】index.phpへ遷移します');
-      header('Location:' . SITE_URL . '/Duplazy/public_html/index.php');
+      header('Location:' . SITE_URL . '/Corange/public_html/index.php');
       exit;
     } 
       
@@ -47,7 +47,7 @@ class AcceptFriend extends \MyApp\Controller {
       }
       track('友達申請承諾処理完了');
       track('friendList.phpへ遷移します');
-      header('Location:' .SITE_URL . '/Duplazy/public_html/friendList.php');
+      header('Location:' .SITE_URL . '/Corange/public_html/friendList.php');
   }  
 
 }
