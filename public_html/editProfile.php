@@ -4,6 +4,8 @@
   trackingStart();
   $app = new MyApp\Controller\EditProfile();
   $app->run();
+  $notification = new MyApp\Controller\accountField();
+  $notification->run();
 
   $requestPage = 'PROFILE -';
   $jsPath1 = './../js/editProfile.js';

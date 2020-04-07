@@ -49,10 +49,10 @@ crossorigin="anonymous"></script>
   <meta property="og:locale" content="ja_JP">
   <meta property="fb:app_id" content="">
 <!-- Fonts & Icons -->
-  <link rel="icon" href="favicon.ico" sizes="16x16" type="image/mage/vnd.microsoft.icon">
-  <link rel="icon" href="favicon.ico" sizes="32x32" type="image/mage/vnd.microsoft.icon">
-  <link rel="icon" href="favicon.ico" sizes="48x48" type="image/mage/vnd.microsoft.icon">
-  <link rel="icon" href="favicon.ico" sizes="62x62" type="image/mage/vnd.microsoft.icon"> 
+  <link rel="icon" href="favicon.ico" sizes="16x16" type="image/icon/vnd.microsoft.icon">
+  <link rel="icon" href="favicon.ico" sizes="32x32" type="image/icon/vnd.microsoft.icon">
+  <link rel="icon" href="favicon.ico" sizes="48x48" type="image/icon/vnd.microsoft.icon">
+  <link rel="icon" href="favicon.ico" sizes="62x62" type="image/icon/vnd.microsoft.icon"> 
   <!-- windows icon-->
   <meta name="msapplication-TileImage" content="img/icons/windows_icon.png"> 
   <meta name="msapplication-TileColor" content="#8A4DA5">
@@ -63,7 +63,7 @@ crossorigin="anonymous"></script>
   <!--FontAwesome -->
   <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet"> 
 <!-- favicon -->
-  <link rel="icon" type="image/x-icon" href="./favicon.ico">
+  <link rel="icon" type="image/x-icon" href="./../favicon.ico">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" sizes="180x180">
   
 </head>

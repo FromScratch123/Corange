@@ -200,6 +200,10 @@ body {
   margin: 8px;
 }
 
+.thumbs-up:hover {
+  cursor: pointer;
+}
+
 .thumbs-up--true {
   color: #e6376c;
 }
