@@ -12,9 +12,12 @@ $jsPath1 = './../js/delete.js';
 $jsPath2 = '';
 $jsPath3 = '';
 $jsPath4 = '';
+$jsPath5 = '';
 $CSSPath1 = './../css/delete.css';
 $CSSPath2 = '';
 $CSSPath3 = '';
+$CSSPath4 = '';
+$CSSPath5 = '';
 require_once(__DIR__ . '/head.php');
 //</head>
 

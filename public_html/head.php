@@ -24,6 +24,7 @@ crossorigin="anonymous"></script>
 <script src="<?= $jsPath2 ?>"></script> 
 <script src="<?= $jsPath3 ?>"></script> 
 <script src="<?= $jsPath4 ?>"></script> 
+<script src="<?= $jsPath5 ?>"></script> 
 <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
 <!-- CSS -->
   <!-- Reset CSS -->

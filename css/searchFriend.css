@@ -76,8 +76,11 @@ body {
 
 .search-friend {
   padding: 8px;
-  margin-bottom: 16px;
   border-bottom: 1px solid #cfcfcf;
+}
+
+.search-friend:hover {
+  background: rgba(247, 244, 244, 0.7);
 }
 
 .search-friend__table {

@@ -48,6 +48,19 @@ class WorkDetails extends \MyApp\Controller {
     $work = $workModel->getWork([
       'work_id' => $_GET['w']
     ]);
+    //お気に入り状況追加
+      $isFavorite = $workModel->isFavorite([
+        'me' => $_SESSION['me']->id,
+        'work_id' => $work->work_id
+      ]);
+       $work->isFavorite = $isFavorite;
+
+    //お気に入りの数を追加
+      $favoriteNum = $workModel->favoriteNum([
+        'work_id' => $work->work_id
+      ]);
+      $work->favoriteNum = $favoriteNum;
+  
     track('work情報: ' . print_r($work, true));
     //作品情報を_othersWorksにセット
     $this->setProperties($work, '_work');

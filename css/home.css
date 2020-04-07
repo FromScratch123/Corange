@@ -200,13 +200,12 @@ body {
   margin: 8px;
 }
 
-.thumbs-up--active {
-  color: #161267;
+.thumbs-up--true {
+  color: #e6376c;
 }
 
 .good-count {
   font-size: 1.4em;
-  color: #161267;
 }
 
 

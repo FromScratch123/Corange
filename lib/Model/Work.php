@@ -17,7 +17,7 @@ public function upload($values) {
   ]);
 
   $lastInsertId = $this->db->lastInsertId();
-  $stmt2 = $this->db->query("select * from work where id =" . $lastInsertId);
+  $stmt2 = $this->db->query("select * from work where work_id =" . $lastInsertId);
   $stmt2->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
   $work = $stmt2->fetch();
 
@@ -135,7 +135,7 @@ public function deleteFavorite($values) {
 }
 
 public function isFavorite($values) {
-  $stmt = $this->db->prepare("select count(id) from favorite where register_user = :me and work_id = :work_id");
+  $stmt = $this->db->prepare("select count(favorite_id) from favorite where register_user = :me and work_id = :work_id");
   $res = $stmt->execute([
     ':me' => $values['me'],
     ':work_id' => $values['work_id']
@@ -143,10 +143,109 @@ public function isFavorite($values) {
     
     $count = $stmt->fetchColumn();
     if ($count == 0) {
+      return 0;
+    } else {
+      return $count;
+    }
+}
+
+public function favoriteNum($values) {
+  $stmt = $this->db->prepare("select count(favorite_id) from favorite where work_id = :work_id");
+  $res = $stmt->execute([
+    ':work_id' => $values['work_id']
+  ]);
+  $count = $stmt->fetchColumn();
+  if ($count == 0) {
+    return 0;
+  } else {
+    return $count;
+  }
+}
+
+public function getNewFavorite($values) {
+  $stmt = $this->db->prepare("select work.work_id, work.work, work.thumbnail, work.title, work.category, work.description, work.create_user, favorite.favorite_id, favorite.register_user, favorite.create_user, favorite.work_id, favorite.open_flg, favorite.create_date, users.id, users.surname, users.givenname, users.profile_img from work inner join favorite on work.work_id = favorite.work_id inner join users on favorite.register_user = users.id where work.create_user = :me and work.delete_flg = 0 and favorite.open_flg = 0 and users.delete_flg = 0");
+  $res = $stmt->execute([
+    ':me' => $values['me']
+  ]);
+  track(print_r($stmt, true));
+  $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+    $favorites = $stmt->fetchAll();
+    if (!$favorites) {
       return false;
     } else {
-      return true;
+      return $favorites;
     }
+}
+
+public function getNewComment($values) {
+  $stmt = $this->db->prepare("select work.work_id, work.work, work.thumbnail, work.title, work.category, work.description, work.create_user, comment.comment_id, comment.work_id, comment.comment, comment.post_user, comment.open_flg, comment.modified_date, comment.create_date, users.id, users.surname, users.givenname, users.profile_img, users.banner_img from work inner join comment on work.work_id = comment.work_id inner join users on comment.post_user = users.id where work.create_user = :me and work.delete_flg = 0 and comment.open_flg = 0 and comment.delete_flg = 0 and users.delete_flg = 0");
+  $res = $stmt->execute([
+    ':me' => $values['me']
+  ]);
+  track(print_r($stmt, true));
+  $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+    $comments = $stmt->fetchAll();
+    if (!$comments) {
+      return false;
+    } else {
+      return $comments;
+    }
+}
+
+public function checkedCommentNote($values) {
+  $stmt = $this->db->prepare("update comment set open_flg = 1, modified_date = now() where comment_id = :comment_id");
+  track(print_r($stmt, true));
+  $res = $stmt->execute([
+    ':comment_id' => $values['comment_id']
+  ]);
+
+  if (!$res) {
+    throw new \MyApp\Exception\Query();
+  } else {
+    return;
+  }
+
+}
+
+public function checkedFavoritetNote($values) {
+  $stmt = $this->db->prepare("update favorite set open_flg = 1, modified_date = now() where favorite_id = :favorite_id");
+  track(print_r($stmt, true));
+  $res = $stmt->execute([
+    ':favorite_id' => $values['favorite_id']
+  ]);
+
+  if (!$res) {
+    throw new \MyApp\Exception\Query();
+  } else {
+    return;
+  }
+
+}
+
+public function getNewCommentNum($values) {
+  $stmt = $this->db->prepare("select count(comment_id) from comment inner join work on comment.work_id = work.work_id where work.create_user = :me and work.delete_flg = 0 and comment.open_flg = 0 and comment.delete_flg = 0" );
+  $res = $stmt->execute([
+    ':me'  => $values['me']
+  ]);
+  $count = $stmt->fetchColumn();
+  if ($count == 0) {
+    return 0;
+  } else {
+    return $count;
+  }
+}
+
+public function getNewFavoriteNum($values) {
+  $stmt = $this->db->prepare("select count(favorite_id) from favorite where create_user = :me and open_flg = 0" );
+  $res = $stmt->execute([
+    ':me'  => $values['me']
+  ]);
+  $count = $stmt->fetchColumn();
+  if ($count == 0) {
+    return 0;
+  } else {
+    return $count;
+  }
 }
 
 }

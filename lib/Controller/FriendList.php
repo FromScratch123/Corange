@@ -26,7 +26,7 @@ class FriendList extends \MyApp\Controller {
     try {
     //掲示板情報を取得
       track('友達情報取得');
-      $friends = $friendModel->getFriend($_SESSION['me']->id, 'surname');
+      $friends = $friendModel->getFriend($_SESSION['me']->id, 'surname', 'DESC');
       track('友達情報:' . print_r($friends, true));
     //_friendsに友達情報をセット
       $this->setProperties($friends, '_friends');

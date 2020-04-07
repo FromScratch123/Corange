@@ -5,17 +5,21 @@
 
   $app = new MyApp\Controller\Chat();
   $app->run();
+  $notification = new MyApp\Controller\accountField();
+  $notification->run();
   $upload = new MyApp\Controller\UploadWork();
   $upload->run();
   $requestPage = 'CHAT -';
   $jsPath1 = './../js/chat.js';
-  $jsPath2 = './../js/aside.js';
-  $jsPath3 = './../js/uploadWork.js';
-  $jsPath4 = '';
+  $jsPath2 = './../js/accountField.js';
+  $jsPath3 = './../js/aside.js';
+  $jsPath4 = './../js/uploadWork.js';
+  $jsPath5 = '';
   $CSSPath1 = './../CSS/chat.css';
   $CSSPath2 = './../CSS/accountField.css';
   $CSSPath3 = './../CSS/aside.css';
   $CSSPath4 = './../CSS/uploadWork.css';
+  $CSSPath5 = './../CSS/uploadWork.css';
   
   require_once(__DIR__ . '/head.php');
 

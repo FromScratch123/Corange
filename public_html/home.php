@@ -5,6 +5,8 @@
 
   $app = new MyApp\Controller\Home();
   $app->run();
+  $notification = new MyApp\Controller\accountField();
+  $notification->run();
   $upload = new MyApp\Controller\UploadWork();
   $upload->run();
 
@@ -12,9 +14,10 @@
 
   $requestPage = 'HOME -';
   $jsPath1 = './../js/home.js';
-  $jsPath2 = './../js/aside.js';
-  $jsPath3 = './../js/uploadWork.js';
-  $jsPath4 = './../js/workDetails.js';
+  $jsPath2 = './../js/accountField.js';
+  $jsPath3 = './../js/aside.js';
+  $jsPath4 = './../js/uploadWork.js';
+  $jsPath5 = './../js/workDetails.js';
   $CSSPath1 = './../CSS/home.css';
   $CSSPath2 = './../CSS/accountField.css';
   $CSSPath3 = './../CSS/aside.css';
@@ -50,10 +53,16 @@ require_once(__DIR__ . '/aside.php');
       <div class="my-work">
         <!-- work img -->
         <div class="work-img-wrap">
+        <a href="./workDetails.php?w=<?= isset($app->getProperties('_myWorks')->$i->work_id) ? h($app->getProperties('_myWorks')->$i->work_id) : "" ?>" class="work__link" data-work-id="<?= isset($app->getProperties('_myWorks')->$i->work_id) ? h($app->getProperties('_myWorks')->$i->work_id) : ""; ?>">
           <img class="work__img" src="<?= isset($app->getProperties('_myWorks')->$i->thumbnail) ? h($app->getProperties('_myWorks')->$i->thumbnail) : '' ?>" alt="">
+        </a>
         </div>
         <!-- work title -->
-        <p class="margin--0"><?= isset($app->getProperties('_myWorks')->$i) ? mb_substr(h($app->getProperties('_myWorks')->$i->title), 0, 10, "UTF-8") . "..." : ""; ?></p>
+        <p class="margin--0">
+        <a href="./workDetails.php?w=<?= isset($app->getProperties('_myWorks')->$i->work_id) ? h($app->getProperties('_myWorks')->$i->work_id) : "" ?>" class="work__link" data-work-id="<?= isset($app->getProperties('_myWorks')->$i->work_id) ? h($app->getProperties('_myWorks')->$i->work_id) : ""; ?>">
+        <?= isset($app->getProperties('_myWorks')->$i) ? mb_substr(h($app->getProperties('_myWorks')->$i->title), 0, 10, "UTF-8") . "..." : ""; ?>
+       </a>
+      </p>
         <!-- work time -->
         <p class="margin--0"><?= isset($app->getProperties('_myWorks')->$i->modified_date) ? date('m月d日 H:i', strtotime(h($app->getProperties('_myWorks')->$i->modified_date))) : "" ?></p>
       </div>
@@ -123,8 +132,8 @@ require_once(__DIR__ . '/aside.php');
           <p class="time__text margin--0">
              <?= isset($app->getProperties('_othersWorks')->$i->modified_date) ? date('m月d日 H:i', strtotime(h($app->getProperties('_othersWorks')->$i->modified_date))) : "" ?>
           </p>
-            <i class="thumbs-up fas fa-thumbs-up" data-work-id="<?= isset($app->getProperties('_othersWorks')->$i) ? h($app->getProperties('_othersWorks')->$i->work_id) : "" ?>" data-create-user="<?= isset($app->getProperties('_othersWorks')->$i) ? h($app->getProperties('_othersWorks')->$i->id) : "" ?>"></i>
-          <span class="good-count">12</span>
+            <i class="thumbs-up fas fa-thumbs-up <?= isset($app->getProperties('_othersWorks')->$i->isFavorite) && $app->getProperties('_othersWorks')->$i->isFavorite > 0 ? 'thumbs-up--true' : "" ?>" data-work-id="<?= isset($app->getProperties('_othersWorks')->$i) ? h($app->getProperties('_othersWorks')->$i->work_id) : "" ?>" data-create-user="<?= isset($app->getProperties('_othersWorks')->$i->create_user) ? h($app->getProperties('_othersWorks')->$i->create_user) : "" ?>"></i>
+          <span class="good-count"><?= isset($app->getProperties('_othersWorks')->$i->favoriteNum) ? h($app->getProperties('_othersWorks')->$i->favoriteNum) : "" ?></span>
         </div>
 
         <!-- others menu -->

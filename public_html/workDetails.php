@@ -5,6 +5,8 @@
 
   $app = new MyApp\Controller\Home();
   $app->run();
+  $notification = new MyApp\Controller\accountField();
+  $notification->run();
   $work = new MyApp\Controller\WorkDetails();
   $work->run();
 
@@ -16,6 +18,7 @@
   $jsPath2 = './../js/aside.js';
   $jsPath3 = './../js/uploadWork.js';
   $jsPath4 = './../js/workDetails.js';
+  $jsPath5 = '';
   $CSSPath1 = './../CSS/home.css';
   $CSSPath2 = './../CSS/accountField.css';
   $CSSPath3 = './../CSS/aside.css';
@@ -51,6 +54,11 @@ require_once(__DIR__ . '/aside.php');
         <div class="work-details__img-wrap">
           <img src="<?= isset($work->getProperties('_work')->work) ? h($work->getProperties('_work')->work) : './../images/default_work_thumbnail.jpg'; ?>" alt="" class="work-details__img">
         </div>
+        <!-- favorite -->
+        <p class="work-details__favorite">
+        <i class="thumbs-up fas fa-thumbs-up <?= isset($work->getProperties('_work')->isFavorite) && $work->getProperties('_work')->isFavorite > 0 ? 'thumbs-up--true' : "" ?>" data-work-id="<?= isset($work->getProperties('_work')->work_id) ? h($work->getProperties('_work')->work_id) : "" ?>" data-create-user="<?= isset($work->getProperties('_work')->create_user) ? h($work->getProperties('_work')->create_user) : "" ?>"></i>
+          <span class="good-count"><?= isset($work->getProperties('_work')->favoriteNum) ? h($work->getProperties('_work')->favoriteNum) : "" ?></span>
+        </p>
       </div>
       <div class="flex-item2">
       <p class="has-error margin--0"><?= $work->getErrors('common'); ?></p>
@@ -62,6 +70,7 @@ require_once(__DIR__ . '/aside.php');
         <p class="work-details__category">
           <?= isset($work->getProperties('_work')->name) ? h($work->getProperties('_work')->name) : ""; ?>
         </p>
+        
         <!-- description -->
         <p class="work-details__description">
           <?= isset($work->getProperties('_work')->description) ? h($work->getProperties('_work')->description) : ""; ?>

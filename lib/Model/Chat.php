@@ -199,4 +199,17 @@ class Chat extends \MyApp\Model {
 
   }
 
+  public function getNewNum($values) {
+    $stmt = $this->db->prepare("select count(id) from message where to_user = :me and open_flg = 0 and delete_flg = 0" );
+    $res = $stmt->execute([
+      ':me'  => $values['me']
+    ]);
+    $count = $stmt->fetchColumn();
+    if ($count == 0) {
+      return 0;
+    } else {
+      return $count;
+    }
+  }
+
 }

@@ -26,4 +26,29 @@ $(function () {
     });
   });
 
+  //notification既読の登録
+  let $notificationTable = $('.notification__table') || null;
+  let $notificationWindow = $('.notification-window');
+   $(window).on('load scroll', function () {
+       $notificationTable.each(function () {
+         let targetOffset = $(this).offset();
+         let $notificationWindowHight = $notificationWindow.height();
+         if (targetOffset.top >= $notificationWindow.scrollTop() + $notificationWindowHight / 5) {
+           let commentId = $(this).data('commentId') || null;
+           let favoriteId = $(this).data('favoriteId') || null;
+         $.ajax({
+           type: "POST",
+           url: "./../public_html/notificationRead.php",
+           data: { favorite_id : favoriteId,
+                   comment_id : commentId},
+           context: $(this)
+         }).done(function(data, textStatus, jqXHR){
+         }).fail(function(jqXHR, textStatus, errorThrown){
+           return;
+         });
+       }
+       return;
+     });
+ });
+
 });

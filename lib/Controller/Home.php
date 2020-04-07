@@ -48,18 +48,27 @@ class Home extends \MyApp\Controller {
       $where .= ' work.create_user = ' . $value . ' or';
     }
       $where = substr_replace($where, "", -2);
-      track('置換後: ' . $where);
-      $_friendWorks = $workModel->getFriendWorks([
+      $friendWorks = $workModel->getFriendWorks([
         'create_user' => $where
       ]);
+           //お気に入り状況追加
+           for ($i = 0; isset($friendWorks[$i]); $i++) {
+             $isFavorite = $workModel->isFavorite([
+               'me' => $_SESSION['me']->id,
+               'work_id' => $friendWorks[$i]->work_id
+             ]);
+              $friendWorks[$i]->isFavorite = $isFavorite;
+            //お気に入りの数を追加
+             $favoriteNum = $workModel->favoriteNum([
+               'work_id' => $friendWorks[$i]->work_id
+             ]);
+              $friendWorks[$i]->favoriteNum = $favoriteNum;
+           }
+              track('friendWorks:' . print_r($friendWorks, true));
 
-
-      track('_friendWorks:' . print_r($_friendWorks, true));
-
-  
     // _othersWorksに友達の投稿をセット
-    $this->setProperties($_friendWorks, '_othersWorks');
-    track('othersProject:' . print_r($_friendWorks, true));
-
+    $this->setProperties($friendWorks, '_othersWorks');
+    track('othersWorks:' . print_r($friendWorks, true));
   }
+
 }

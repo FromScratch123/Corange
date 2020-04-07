@@ -1,3 +1,4 @@
+
 <div class="account-field">
   <div class="account-field__icons-flex-container flex-container">
   <!-- friend icon -->
@@ -12,7 +13,9 @@
   <!-- bell icon -->
   <p class="account-field__icon margin--0">
   <a href="notification.php"><i class="icon--black bell-icon fas fa-bell">
-  <span class="notification-count">1</span>
+  <?php if (isset($notification->getProperties('_notifications')->notification_total) && $notification->getProperties('_notifications')->notification_total > 0) : ?>
+  <span class="notification-count"><?= isset($notification->getProperties('_notifications')->notification_total) ? h($notification->getProperties('_notifications')->notification_total) : "" ?></span>
+  <?php endif; ?>
   </i></a>
   </p>
   <!-- share btn -->

@@ -15,9 +15,12 @@ $jsPath1 = './../js/issueCode.js';
 $jsPath2 = '';
 $jsPath3 = '';
 $jsPath4 = '';
+$jsPath5 = '';
 $CSSPath1 = './../css/issueCode.css';
 $CSSPath2 = '';
 $CSSPath3 = '';
+$CSSPath4 = '';
+$CSSPath5 = '';
 require_once(__DIR__ . '/head.php');
 
 ?>

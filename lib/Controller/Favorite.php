@@ -42,7 +42,7 @@ class Favorite extends \MyApp\Controller {
     ]);
 
     try {
-    if ($isFavorite) {
+    if ($isFavorite > 0) {
       //お気に入り登録されている場合(お気に入り解除)
       track('お気に入り登録されています');
       $workModel->deleteFavorite([

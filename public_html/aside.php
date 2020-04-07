@@ -1,9 +1,9 @@
 <aside class="side-menu">
   <ul class="categories">
     <li class="categories__list"><a href="./searchWork.php?search=<?= $_SESSION['me']->id ?>"><i class="categories-icon fas fa-folder-open"></i></a><a class="categories__list-text" href="./searchWork.php?search=<?= $_SESSION['me']->id ?>">My Work</a></li>
-    <li class="categories__list"><a href=""><i class="categories-icon fab fa-slideshare"></i></a><a class="categories__list-text" href="">Share
+    <li class="categories__list"><a href=""><i class="categories-icon fab fa-slideshare"></i></a><a class="categories__list-text" href="">All Work
     <li class="categories__list"><a href=""><i class="categories-icon fas fa-clock"></i></a><a class="categories__list-text" href="">Recent</a></li>
-    <li class="categories__list"><a href=""><i class="categories-icon fas fa-flag"></i></a><a class="categories__list-text" href="">Flag</a></li>
+    <li class="categories__list"><a href=""><i class="categories-icon fas fa-thumbs-up"></i></a><a class="categories__list-text" href="">Favorite</a></li>
     <li class="categories__list"><a href=""><i class="categories-icon fas fa-trash-alt"></i></a><a class="categories__list-text" href="">Trash</a></li>
   </ul>
   <!-- search window -->

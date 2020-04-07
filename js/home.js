@@ -29,11 +29,16 @@ $(function () {
     //お気に入り登録
     let $thumbsUp = $('.thumbs-up');
     $thumbsUp.on('click', function () {
-      $(this).toggleClass('thumbs-up--active');
+      $(this).toggleClass('thumbs-up--true');
+      if ($(this).hasClass('thumbs-up--true')) {
+        goodNum = $(this).siblings('.good-count').text();
+        $(this).siblings('.good-count').text(parseInt(goodNum) + 1);
+      } else {
+        goodNum = $(this).siblings('.good-count').text();
+        $(this).siblings('.good-count').text(parseInt(goodNum) - 1);
+      }
       let workId = $(this).data('workId') || null;
       let createUser = $(this).data('createUser') || null;
-     console.log(workId);
-     console.log(createUser);
       $.ajax({
         type: "POST",
         url: "./../public_html/favorite.php",
@@ -41,7 +46,6 @@ $(function () {
                 create_user : createUser},
         context: $(this)
       }).done(function(data, textStatus, jqXHR){
-        console.log('Ajaxは成功しました');
       }).fail(function(jqXHR, textStatus, errorThrown){
         return;
       });

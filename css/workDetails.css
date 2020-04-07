@@ -1,8 +1,8 @@
 /* =========================
-        UPLOAD WORK
+        WORK DETAILS 
 ========================= */
 
-/* upload work */
+/* WORK DETAILS */
 
 .work-details {
   width: 90%;
@@ -58,9 +58,29 @@
   padding: 0 16px;
 }
 
+
+
 .work-details__category {
   margin: 8px 0;
   text-align: right;
+  font-size: 1.4em;
+}
+
+.work-details__favorite {
+  text-align: right;
+  cursor: pointer;
+}
+
+.thumbs-up {
+  font-size: 1.6em;
+  margin: 8px;
+}
+
+.thumbs-up--true {
+  color: #e6376c;
+}
+
+.good-count {
   font-size: 1.4em;
 }
 

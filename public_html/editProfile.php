@@ -10,9 +10,12 @@
   $jsPath2 = '';
   $jsPath3 = '';
   $jsPath4 = '';
+  $jsPath5 = '';
   $CSSPath1 = './../CSS/editProfile.css';
   $CSSPath2 = './../css/accountField.css';
   $CSSPath3 = '';
+  $CSSPath4 = '';
+  $CSSPath5 = '';
   require_once(__DIR__ . '/head.php');
 
   ?>

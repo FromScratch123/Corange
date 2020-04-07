@@ -23,6 +23,9 @@ class Notification extends \MyApp\Controller {
     //Chatクラスをインスタンス化
     global $chatModel;
     $chatModel = new \MyApp\Model\Chat();
+    //Workクラスをインスタンス化
+    global $workModel;
+    $workModel = new \MyApp\Model\Work();
     //_usersにユーザーの属性をセット
     $this->setProperties($_SESSION['me'], '_users');
 
@@ -54,14 +57,35 @@ class Notification extends \MyApp\Controller {
         $this->setProperties($messages, '_messages');
       }
 
-
+    //新規コメントを取得
+      track('新規コメント取得');
+      $comments = $workModel->getNewComment([
+        'me' => $_SESSION['me']->id
+      ]);
+      if (!$comments) {
+        track('新規コメントはありません');
+      } else {
+        track('新規コメントがあります');
+        track('新規コメント情報:' . print_r($comments, true));
+        //_commentsに新規コメント情報をセット
+        $this->setProperties($comments, '_comments');
+      }
     
-
-
+    //新規お気に入りを取得
+      track('新規お気に入り登録を取得');
+      $favorites = $workModel->getNewFavorite([
+        'me' => $_SESSION['me']->id
+        ]);
+        if (!$favorites) {
+          track('新規お気に入り登録はありません');
+        } else {
+          track('新規お気に入り登録があります');
+          track('新規お気に入り登録情報:' . print_r($favorites, true));
+          //_favoritesに新規コメント情報をセット
+          $this->setProperties($favorites, '_favorites');
   }
 
 
-
-  
+  }
 
 }

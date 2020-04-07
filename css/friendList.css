@@ -63,8 +63,11 @@ body {
 
 .friend-list {
   padding: 8px;
-  margin-bottom: 16px;
   border-bottom: 1px solid #cfcfcf;
+}
+
+.friend-list:hover {
+  background: rgba(247, 244, 244, 0.7);
 }
 
 .friend-list__table {
