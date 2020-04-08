@@ -163,7 +163,7 @@ select {
   line-height: 60px;
   background: rgba(22, 18, 103, 1);
   color: #ffffff;
-  z-index: 2;
+  z-index: 3;
 }
 
 .message__text {

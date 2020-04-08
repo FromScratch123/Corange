@@ -28,14 +28,25 @@ public function upload($values) {
 }
 
 public function modifiedWork($values) {
-  $stmt = $this->db->prepare("update work set title = :title, category = :category, description = :description, modified_date = now() where work_id = :me and delete_flg = 0 ");
+  $stmt = $this->db->prepare("update work set title = :title, category = :category, description = :description, modified_date = now() where work_id = :work_id and delete_flg = 0 ");
   $res = $stmt->execute([
     ':title' => $values['title'],
     ':category' => $values['category'],
     ':description' => $values['description'],
-    ':me' => $values['me']
+    ':work_id' => $values['work_id']
   ]);
 
+  if (!$res) {
+    throw new \MyApp\Exception\Query();
+  }
+}
+
+public function delete($values) {
+  $stmt = $this->db->prepare("update work set delete_flg = 1 and modified_date = now() where work_id = :work_id and create_user = :me");
+  $res = $stmt->execute([
+    ':work_id' => $values['work_id'],
+    ':me' => $values['me']
+  ]);
   if (!$res) {
     throw new \MyApp\Exception\Query();
   }

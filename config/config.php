@@ -44,6 +44,10 @@ define('MODIFIEDPROFILE', 'プロフィールを変更しました。');
 define('CHANGEPASS', 'パスワードを変更しました。');
 define('SENTCODE', '認証コードをご登録のメールアドレスへ送信しました。');
 define('SENTPASS', 'パスワードをご登録のメールアドレスへ送信しました。');
+define('SENTCOMMENT', 'コメントを送信しました。');
+define('MODIFIEDWORK', '作品情報を更新しました。');
+define('DELETEFRIEND', '友達関係を解除しました。');
+define('DELETEWORK', '作品を削除しました。');
 
 //*********** その他 ***********
 //サイトURL

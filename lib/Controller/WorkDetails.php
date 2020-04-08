@@ -77,8 +77,9 @@ class WorkDetails extends \MyApp\Controller {
       $work->favoriteNum = $favoriteNum;
   
     track('work情報: ' . print_r($work, true));
-    //作品情報を_othersWorksにセット
+    //作品情報を_othersWorksと_valuesにセット
     $this->setProperties($work, '_work');
+    $this->setValues($work);
     $comment = $workModel->getComment([
       'work_id' => $_GET['w']
     ]);
@@ -107,7 +108,6 @@ class WorkDetails extends \MyApp\Controller {
     } 
     //POSTされた値を保持(変更前の値ではなくPOSTの値を優先)
     $this->setValues($_POST);
-    $this->setProperties($_POST, '_work');
 
     if ($this->hasError()) {
       return;
@@ -115,17 +115,20 @@ class WorkDetails extends \MyApp\Controller {
       track('バリデーションクリア');
       
       if (!empty($_POST['title']) || !empty($_POST['category']) || !empty($_POST['description']))  {
+
           //変更箇所確認
-          if ($this->getProperties('_work')->title !== $_POST['title'] || $this->getProperties('_work')->category !== $_POST['category'] || $this->getProperties('_work')->description !== $_POST['description']) {
+          if ($this->getProperties('_work')->title != $_POST['title'] || $this->getProperties('_work')->category != $_POST['category'] || $this->getProperties('_work')->description != $_POST['description']) {
+         
             track('作品情報に変更箇所があります');
             try {
               track('作品情報更新処理開始');
               $workModel->modifiedWork([
               'title' => $_POST['title'],
               'category' => $_POST['category'],
-              'description' => $_POST['description']
+              'description' => $_POST['description'],
+              'work_id' => $this->getProperties('_work')->work_id
             ]);
-  
+          
           } catch (\MyApp\Exception\Query $e) {
             track('クエリ実行に失敗しました');
               track('Exception:' . $e->getMessage());
@@ -134,7 +137,14 @@ class WorkDetails extends \MyApp\Controller {
             }
           } else {
             track('作品情報に変更はありません');
+            return;
           }
+          track('作品情報更新処理終了');
+          $_SESSION['messages'] = [];
+          $_SESSION['messages']['work-details'] = MODIFIEDWORK;
+          track('workDetails.phpへ遷移します');
+          header('Location:' . SITE_URL . '/Corange/public_html/workDetails.php?w=' . $_GET['w']);
+          exit;
       }
 
       if (!empty($_POST['comment'])) {
@@ -151,10 +161,12 @@ class WorkDetails extends \MyApp\Controller {
             $this->setErrors('common', $e->getMessage());
             return;
           }
+          $_SESSION['messages'] = [];
+          $_SESSION['messages']['work-details'] = SENTCOMMENT;
+          track('workDetails.phpへ遷移します');
+          header('Location:' . SITE_URL . '/Corange/public_html/workDetails.php?w=' . $_GET['w']);
+          exit;
         }
-        track('workDetails.phpへ遷移します');
-        header('Location:' . SITE_URL . '/Corange/public_html/workDetails.php?w=' . $_GET['w']);
-        exit;
       }
 
   }
@@ -167,24 +179,14 @@ class WorkDetails extends \MyApp\Controller {
       exit;
     }
 
-    if (!empty($_POST['title'])) {
       //必須項目確認
       if ($_POST['title'] === '') {
         throw new \MyApp\Exception\EmptyPost();
       }
-    }
-    if (!empty($_POST['category'])) {
       //必須項目確認
       if ($_POST['category'] === '') {
         throw new \MyApp\Exception\EmptyPost();
       }
-    }
-    if (!empty($_POST['comment'])) {
-      //必須項目確認
-      if ($_POST['comment'] === '') {
-        throw new \MyApp\Exception\EmptyPost();
-      }
-    }
    
 
     

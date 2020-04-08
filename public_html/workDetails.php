@@ -38,6 +38,12 @@ require_once(__DIR__ . '/accountField.php');
 require_once(__DIR__ . '/aside.php');
  ?>
 
+<!-- message -->
+<?php if (!empty($_SESSION['messages']['work-details'])) : ?>
+  <div class="message">
+    <p class="message__text"><?= !empty($app->getMessage('work-details')) ? h($app->getMessage('work-details')) : "" ?></p>
+  </div>
+<?php endif; ?>
   
 <main>
   <!-- 他者の作品画面 -->
@@ -48,28 +54,28 @@ require_once(__DIR__ . '/aside.php');
     <div class="work-details-wrap--flex flex-container">
       <div class="flex-item1">
         <div class="work-details__img-wrap">
-          <img src="<?= isset($work->getProperties('_work')->work) ? h($work->getProperties('_work')->work) : './../images/default_work_thumbnail.jpg'; ?>" alt="" class="work-details__img">
+          <img src="<?= isset($work->getValues()->work) ? h($work->getValues()->work) : './../images/default_work_thumbnail.jpg'; ?>" alt="" class="work-details__img">
         </div>
         <!-- favorite -->
         <p class="work-details__favorite">
-        <i class="thumbs-up fas fa-thumbs-up <?= isset($work->getProperties('_work')->isFavorite) && $work->getProperties('_work')->isFavorite > 0 ? 'thumbs-up--true' : "" ?>" data-work-id="<?= isset($work->getProperties('_work')->work_id) ? h($work->getProperties('_work')->work_id) : "" ?>" data-create-user="<?= isset($work->getProperties('_work')->create_user) ? h($work->getProperties('_work')->create_user) : "" ?>"></i>
-          <span class="good-count"><?= isset($work->getProperties('_work')->favoriteNum) ? h($work->getProperties('_work')->favoriteNum) : "" ?></span>
+        <i class="thumbs-up fas fa-thumbs-up <?= isset($work->getValues()->isFavorite) && $work->getValues()->isFavorite > 0 ? 'thumbs-up--true' : "" ?>" data-work-id="<?= isset($work->getValues()->work_id) ? h($work->getValues()->work_id) : "" ?>" data-create-user="<?= isset($work->getValues()->create_user) ? h($work->getValues()->create_user) : "" ?>"></i>
+          <span class="good-count"><?= isset($work->getValues()->favoriteNum) ? h($work->getValues()->favoriteNum) : "" ?></span>
         </p>
       </div>
       <div class="flex-item2">
       <p class="has-error margin--0"><?= $work->getErrors('common'); ?></p>
         <!-- title -->
         <p class="work-details__title margin--0">
-          <?= isset($work->getProperties('_work')->title) ? h($work->getProperties('_work')->title) : ""; ?>
+          <?= isset($work->getValues()->title) ? h($work->getValues()->title) : ""; ?>
         </p>
         <!-- category -->
         <p class="work-details__category">
-          <?= isset($work->getProperties('_work')->name) ? h($work->getProperties('_work')->name) : ""; ?>
+          <?= isset($work->getValues()->name) ? h($work->getValues()->name) : ""; ?>
         </p>
         
         <!-- description -->
         <p class="work-details__description">
-          <?= isset($work->getProperties('_work')->description) ? h($work->getProperties('_work')->description) : ""; ?>
+          <?= isset($work->getValues()->description) ? h($work->getValues()->description) : ""; ?>
         </p>
         <!-- comment -->
         <p class="has-error margin--0"><?= $work->getErrors('empty'); ?></p>
@@ -118,12 +124,12 @@ require_once(__DIR__ . '/aside.php');
     <div class="work-details-wrap--flex flex-container">
       <div class="flex-item1">
         <div class="work-details__img-wrap">
-          <img src="<?= isset($work->getProperties('_work')->work) ? h($work->getProperties('_work')->work) : './../images/default_work_thumbnail.jpg'; ?>" alt="" class="work-details__img">
+          <img src="<?= isset($work->getValues()->work) ? h($work->getValues()->work) : './../images/default_work_thumbnail.jpg'; ?>" alt="" class="work-details__img">
         </div>
         <!-- favorite -->
         <p class="work-details__favorite">
-        <i class="thumbs-up fas fa-thumbs-up <?= isset($work->getProperties('_work')->isFavorite) && $work->getProperties('_work')->isFavorite > 0 ? 'thumbs-up--true' : "" ?>" data-work-id="<?= isset($work->getProperties('_work')->work_id) ? h($work->getProperties('_work')->work_id) : "" ?>" data-create-user="<?= isset($work->getProperties('_work')->create_user) ? h($work->getProperties('_work')->create_user) : "" ?>"></i>
-          <span class="good-count"><?= isset($work->getProperties('_work')->favoriteNum) ? h($work->getProperties('_work')->favoriteNum) : "" ?></span>
+        <i class="thumbs-up fas fa-thumbs-up <?= isset($work->getValues()->isFavorite) && $work->getValues()->isFavorite > 0 ? 'thumbs-up--true' : "" ?>" data-work-id="<?= isset($work->getValues()->work_id) ? h($work->getValues()->work_id) : "" ?>" data-create-user="<?= isset($work->getValues()->create_user) ? h($work->getValues()->create_user) : "" ?>"></i>
+          <span class="good-count"><?= isset($work->getValues()->favoriteNum) ? h($work->getValues()->favoriteNum) : "" ?></span>
         </p>
       </div>
       <div class="flex-item2">
@@ -131,7 +137,7 @@ require_once(__DIR__ . '/aside.php');
         <form action="" method="post">
         <!-- title -->
         <p class="work-details__title margin--0">
-        <input name="title" type="text" value="<?= isset($work->getProperties('_work')->title) ? h($work->getProperties('_work')->title) : ""; ?>" class="work-details__title--input">
+        <input name="title" type="text" value="<?= isset($work->getValues()->title) ? h($work->getValues()->title) : ""; ?>" class="work-details__title--input">
         </p>
         <!-- category -->
         <label for="categories">
@@ -139,14 +145,14 @@ require_once(__DIR__ . '/aside.php');
               <select name="category" id="" class="work-details__category--select">
                 <option value="0">選択してください</option>
                 <?php for ($i = 0; isset($work->getProperties('_categories')->$i); $i++) : ?>
-                  <option value="<?= $work->getProperties('_categories')->$i->id ?>" <?= isset($work->getProperties('_work')->category) && $work->getProperties('_work')->category === $work->getProperties('_categories')->$i->id ? 'selected' : '' ?>><?= $work->getProperties('_categories')->$i->name ?></option>
+                  <option value="<?= $work->getProperties('_categories')->$i->id ?>" <?= isset($work->getValues()->category) && $work->getValues()->category === $work->getProperties('_categories')->$i->id ? 'selected' : '' ?>><?= $work->getProperties('_categories')->$i->name ?></option>
                 <?php endfor; ?>
               </select>
             </p>
           </label>
         <!-- description -->
         <p class="work-details__description">
-          <textarea type="text" name="description" class="work-details__description--input"><?= isset($work->getProperties('_work')->description) ? h($work->getProperties('_work')->description) : ""; ?></textarea>
+          <textarea type="text" name="description" class="work-details__description--input"><?= isset($work->getValues()->description) ? h($work->getValues()->description) : ""; ?></textarea>
         </p>
         <!-- comment -->
         <p class="has-error margin--0"><?= $work->getErrors('empty'); ?></p>
@@ -177,6 +183,11 @@ require_once(__DIR__ . '/aside.php');
          <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
             <input class="work-submit" type="submit" value="submit" class="work-submit">
         </form>
+        <p class="delete-work">
+          <a href="./deleteWork.php?w=<?= isset($work->getProperties('_work')->work_id) ? h($work->getProperties('_work')->work_id) : "" ?>">
+              作品を削除する
+          </a>
+        </p>
       </div>
     </div>
   </div>
