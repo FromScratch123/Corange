@@ -20,6 +20,12 @@ class SearchFriend extends \MyApp\Controller {
     //friendクラスをインスタンス化
     global $friendModel;
     $friendModel = new \MyApp\Model\Friend();
+    //Workクラスをインスタンス化
+    global $workModel;
+    $workModel = new \MyApp\Model\Work();
+    //カテゴリーを_categoriesにセット
+    $categories = $workModel->getCategories();
+    $this->setProperties($categories, '_categories');
     //_usersにユーザーの属性をセット
     $this->setProperties($_SESSION['me'], '_users');
 

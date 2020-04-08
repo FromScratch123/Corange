@@ -26,6 +26,16 @@
   margin-right: 8px;
 }
 
+.side-menu__category {
+  width: 100%;
+}
+
+.side-menu__category--select {
+  width: 100%;
+  background: none;
+  font-size: 1.2em;
+}
+
 .side-menu__search-window--wrap {
   position: relative;
   margin-bottom: 24px;
@@ -33,7 +43,7 @@
 
 .side-menu__search-window {
   margin-bottom: 0;
-  padding: 16px;
+  padding: 8px;
   border: solid 1px #707070;
   border-radius: calc(2.5em / 2);
 }
@@ -48,6 +58,21 @@
   right: 16px;
   transform: translateY(-50%);
   font-size: 1.6em;
+}
+
+.side-menu__submit{
+  width: 100%;
+  margin: 0;
+  background: #ffffff;
+  border: 1px solid #161267;
+  border-radius: calc(250px / 2);
+  color: #161267;
+}
+
+.side-menu__submit:hover {
+  background: #161267;
+  color: #ffffff;
+  transition: all .5s ease-out;
 }
 
 .side-menu__create-btn--large-screen {

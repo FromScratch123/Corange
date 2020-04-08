@@ -13,4 +13,14 @@ $(function () {
     $windowCover.removeClass('js--hidden');
   });
 
+  //submitの表示
+  let $select = $('.side-menu__category--select');
+  let $search = $('.side-menu__search-window');
+  let $submit = $('.side-menu__submit');
+  $select.on('change', function() {
+    $submit.fadeIn(1000);
+  });
+  $search.on('keyup', function() {
+    $submit.fadeIn(1000);
+  }); 
 });

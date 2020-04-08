@@ -22,6 +22,12 @@ class Home extends \MyApp\Controller {
     //friendクラスをインスタンス化
     global $friendModel;
     $friendModel = new \MyApp\Model\Friend();
+    //Workクラスをインスタンス化
+    global $workModel;
+    $workModel = new \MyApp\Model\Work();
+    //カテゴリーを_categoriesにセット
+    $categories = $workModel->getCategories();
+    $this->setProperties($categories, '_categories');
     //友達情報を取得
     $friends = $friendModel->getFriend($_SESSION['me']->id);
     if (!empty($friends)) {

@@ -241,6 +241,16 @@ public function getNewFavorite($values) {
     }
 }
 
+public function getWorkByCategory($values, $offset = 0, $order = 'work.modified_date', $in = 'ASC') {
+  $stmt = $this->db->prepare("select categories.id, categories.name, work.*, users.id, users.surname, users.givenname, users.profile_img from categories inner join work on categories.id = work.category inner join users on work.create_user = users.id where categories.id = :id and categories.delete_flg = 0 and work.delete_flg = 0 order by " . $order . " " . $in . " limit 10 offset " . $offset);
+  $res = $stmt->execute([
+    ':id' => $values['id']
+  ]);
+  $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+  $works = $stmt->fetchAll();
+  return $works;
+}
+
 public function getNewComment($values) {
   $stmt = $this->db->prepare("select work.work_id, work.work, work.thumbnail, work.title, work.category, work.description, work.create_user, comment.comment_id, comment.work_id, comment.comment, comment.post_user, comment.open_flg, comment.modified_date, comment.create_date, users.id, users.surname, users.givenname, users.profile_img, users.banner_img from work inner join comment on work.work_id = comment.work_id inner join users on comment.post_user = users.id where work.create_user = :me and work.delete_flg = 0 and comment.open_flg = 0 and comment.delete_flg = 0 and users.delete_flg = 0");
   $res = $stmt->execute([

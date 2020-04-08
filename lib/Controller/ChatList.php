@@ -20,6 +20,12 @@ class ChatList extends \MyApp\Controller {
     //Chatクラスをインスタンス化
     global $chatModel;
     $chatModel = new \MyApp\Model\Chat();
+    //Workクラスをインスタンス化
+    global $workModel;
+    $workModel = new \MyApp\Model\Work();
+    //カテゴリーを_categoriesにセット
+    $categories = $workModel->getCategories();
+    $this->setProperties($categories, '_categories');
     //_usersにユーザーの属性をセット
     $this->setProperties($_SESSION['me'], '_users');
 
