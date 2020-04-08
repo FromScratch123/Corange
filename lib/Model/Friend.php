@@ -103,7 +103,7 @@ class Friend extends \MyApp\Model {
 
     $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
       $friends = $stmt->fetchAll();
-      if (!$friends) {
+      if (!$res) {
         throw new \MyApp\Exception\Query();
       } else {
         return $friends;

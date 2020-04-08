@@ -32,9 +32,9 @@ require_once(__DIR__ . '/header.php');
 ?>
 
 <!-- message -->
-<?php if (!empty($_SESSION['messages'])) : ?>
+<?php if (!empty($_SESSION['messages']['confirm-code'])) : ?>
   <div class="message">
-    <p class="message__text"><?= h($app->getMessage($_SESSION['messages']))  ?></p>
+    <p class="message__text"><?= !empty($app->getMessage('confirm-code')) ? h($app->getMessage('confirm-code')) : "";  ?></p>
   </div>
 <?php endif; ?>
   

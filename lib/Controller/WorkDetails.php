@@ -30,7 +30,22 @@ class WorkDetails extends \MyApp\Controller {
     if(!empty($_GET)) {
       track('GET送信がありました');
       track('GET内容:' . print_r($_GET, true));
-      $this->getProcess();
+      //自身の作品か確認
+      $res = $workModel->isMyWork([
+        'work_id' => $_GET['w'],
+        'me' => $_SESSION['me']->id
+      ]);
+      
+      if ($res == 1) {
+        track('自身の作品画面です');
+        $this->setProperties([
+          'myself' => true
+        ], '_users');
+        $this->getProcess();
+      } else {
+        track('他のユーザーの作品画面です');
+        $this->getProcess();
+      }
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -92,28 +107,55 @@ class WorkDetails extends \MyApp\Controller {
     } 
     //POSTされた値を保持(変更前の値ではなくPOSTの値を優先)
     $this->setValues($_POST);
+    $this->setProperties($_POST, '_work');
 
     if ($this->hasError()) {
       return;
     } else {
       track('バリデーションクリア');
-      track('コメント保存処理開始');
-      try {
-        $workModel->insertComment([
-          'work_id' => $_GET['w'],
-          'comment' => $_POST['comment'],
-          'post_user' => $_SESSION['me']->id
-        ]);
-      } catch (\MyApp\Exception\Query $e) {
-        track('クエリ実行に失敗しました');
-          track('Exception:' . $e->getMessage());
-          $this->setErrors('common', $e->getMessage());
-          return;
+      
+      if (!empty($_POST['title']) || !empty($_POST['category']) || !empty($_POST['description']))  {
+          //変更箇所確認
+          if ($this->getProperties('_work')->title !== $_POST['title'] || $this->getProperties('_work')->category !== $_POST['category'] || $this->getProperties('_work')->description !== $_POST['description']) {
+            track('作品情報に変更箇所があります');
+            try {
+              track('作品情報更新処理開始');
+              $workModel->modifiedWork([
+              'title' => $_POST['title'],
+              'category' => $_POST['category'],
+              'description' => $_POST['description']
+            ]);
+  
+          } catch (\MyApp\Exception\Query $e) {
+            track('クエリ実行に失敗しました');
+              track('Exception:' . $e->getMessage());
+              $this->setErrors('common', $e->getMessage());
+              return;
+            }
+          } else {
+            track('作品情報に変更はありません');
+          }
+      }
+
+      if (!empty($_POST['comment'])) {
+        track('コメント保存処理開始');
+        try {
+          $workModel->insertComment([
+            'work_id' => $_GET['w'],
+            'comment' => $_POST['comment'],
+            'post_user' => $_SESSION['me']->id
+          ]);
+        } catch (\MyApp\Exception\Query $e) {
+          track('クエリ実行に失敗しました');
+            track('Exception:' . $e->getMessage());
+            $this->setErrors('common', $e->getMessage());
+            return;
+          }
         }
         track('workDetails.phpへ遷移します');
         header('Location:' . SITE_URL . '/Corange/public_html/workDetails.php?w=' . $_GET['w']);
         exit;
-    }
+      }
 
   }
 
@@ -124,9 +166,24 @@ class WorkDetails extends \MyApp\Controller {
       echo "Invalid Token!";
       exit;
     }
-    //必須項目確認
-    if ($_POST['comment'] === '') {
-      throw new \MyApp\Exception\EmptyPost();
+
+    if (!empty($_POST['title'])) {
+      //必須項目確認
+      if ($_POST['title'] === '') {
+        throw new \MyApp\Exception\EmptyPost();
+      }
+    }
+    if (!empty($_POST['category'])) {
+      //必須項目確認
+      if ($_POST['category'] === '') {
+        throw new \MyApp\Exception\EmptyPost();
+      }
+    }
+    if (!empty($_POST['comment'])) {
+      //必須項目確認
+      if ($_POST['comment'] === '') {
+        throw new \MyApp\Exception\EmptyPost();
+      }
     }
    
 

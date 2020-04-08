@@ -38,9 +38,9 @@ require_once(__DIR__ . '/aside.php');
  ?>
 
 <!-- message -->
-<?php if (!empty($_SESSION['messages'])) : ?>
+<?php if (!empty($_SESSION['messages']['home'])) : ?>
   <div class="message">
-    <p class="message__text"><?= h($app->getMessage($_SESSION['messages']))  ?></p>
+    <p class="message__text"><?= !empty($app->getMessage('home')) ? h($app->getMessage('home')) : "" ?></p>
   </div>
 <?php endif; ?>
   

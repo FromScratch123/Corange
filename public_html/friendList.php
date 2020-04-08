@@ -36,7 +36,7 @@ require_once(__DIR__ . '/aside.php');
 <!-- message -->
 <?php if (!empty($_SESSION['messages']['friend-list'])) : ?>
   <div class="message">
-      <p class="message__text"><?= h($app->getMessage($_SESSION['messages']['friend-list']))  ?></p>
+      <p class="message__text"><?= !empty($app->getMessage('friend-list')) ? h($app->getMessage('friend-list')) : ""; ?></p>
   </div>
 <?php endif; ?>
 

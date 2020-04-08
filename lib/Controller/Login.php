@@ -58,7 +58,7 @@ class Login extends \MyApp\Controller {
       session_regenerate_id(true);
       $_SESSION['me'] = $user;
       $_SESSION['messages'] = [];
-      $_SESSION['messages']['welcomeback'] = WELCOMEBACK;
+      $_SESSION['messages']['home'] = WELCOMEBACK;
       track('home.phpへ遷移します');
       header('Location:' . SITE_URL . '/Corange/public_html/home.php');
       exit;

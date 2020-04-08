@@ -60,7 +60,7 @@ class Signup extends \MyApp\Controller {
       session_regenerate_id(true);
       $_SESSION['me'] = $user;
       $_SESSION['messages'] = [];
-      $_SESSION['messages']['welcome'] = WELCOME;
+      $_SESSION['messages']['home'] = WELCOME;
       track('HOMEへ遷移します');
       header('Location:' . SITE_URL . '/Corange/public_html/home.php');
       exit;

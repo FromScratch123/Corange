@@ -113,7 +113,7 @@ EOM;
       
       session_unset();
       $_SESSION['messages'] = [];
-      $_SESSION['messages']['send-pass'] = SENDPASS;
+      $_SESSION['messages']['login'] = SENTPASS;
       
 
       track('login.phpへ遷移します');

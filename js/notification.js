@@ -10,10 +10,6 @@ $(function () {
     });
     });
 
-    //messageの削除
-    setTimeout(function () {
-      $('.message').fadeOut(1000);
-    }, 2500);
 
     //friend-menuの表示
   let $friendMenuIcon = $('.friend-menu-trigger');

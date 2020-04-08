@@ -34,12 +34,12 @@ require_once(__DIR__ . '/aside.php');
 ?>
 
 <!-- message -->
-<?php if (!empty($_SESSION['messages'])) : ?>
+<?php if (!empty($_SESSION['messages']['search-work'])) : ?>
   <div class="message">
-    <p class="message__text"><?= h($app->getMessage($_SESSION['messages']))  ?></p>
+      <p class="message__text"><?= !empty($app->getMessage('search-work')) ? h($app->getMessage('search-work')) : ""; ?></p>
   </div>
 <?php endif; ?>
-  
+
 <main>
   <div class="work-window">
   <?php require_once(__DIR__ . '/uploadWork.php'); ?>

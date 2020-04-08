@@ -35,5 +35,14 @@ $(function () {
   $($setting).on('mouseleave', function() {
     $($settingMenu).addClass('js--hidden');
   });
-  
+
+  //messageの削除
+  $(window).on('load', function () {
+    setTimeout(function() {
+      $('.message').fadeOut(1000);
+    }, 3000);
+    setTimeout(function() {
+      $('.message').text("");
+    }, 4000);
+  });
 });

@@ -11,7 +11,7 @@ class Home extends \MyApp\Controller {
       header('Location:' . SITE_URL . '/Corange/public_html/index.php');
       exit;
     } 
-      
+    try {
     //messageをセット
     $this->setValues($_SESSION['messages']);
     //Userクラスをインスタンス化
@@ -24,19 +24,23 @@ class Home extends \MyApp\Controller {
     $friendModel = new \MyApp\Model\Friend();
     //友達情報を取得
     $friends = $friendModel->getFriend($_SESSION['me']->id);
-    //_friendsに友達情報をセット
-    $this->setProperties($friends, '_friends');
-    track('友達情報:' . print_r($friends, true));
+    if (!empty($friends)) {
+      //_friendsに友達情報をセット
+      $this->setProperties($friends, '_friends');
+      track('友達情報:' . print_r($friends, true));
+    }
     //Workクラスをインスタンス化
     global $workModel;
     $workModel = new \MyApp\Model\Work();
     //自分の投稿を取得
-    $_myWork = $workModel->getMyWorks([
+    $myWork = $workModel->getMyWorks([
       'me' => $_SESSION['me']->id
     ]);
-    track('My Project：' . print_r($_myWork, true));
-    //_myWorksに自分の投稿をセット
-    $this->setProperties($_myWork, '_myWorks');
+    if (!empty($myWork)) {
+      //_myWorksに自分の投稿をセット
+      $this->setProperties($myWork, '_myWorks');
+      track('My Project：' . print_r($myWork, true));
+    }
     //友達の投稿を取得
      $friendsId = [];
      $othersProject = [];
@@ -66,9 +70,17 @@ class Home extends \MyApp\Controller {
            }
               track('friendWorks:' . print_r($friendWorks, true));
 
-    // _othersWorksに友達の投稿をセット
-    $this->setProperties($friendWorks, '_othersWorks');
-    track('othersWorks:' . print_r($friendWorks, true));
+    if (!empty($friendWorks)) {
+      // _othersWorksに友達の投稿をセット
+      $this->setProperties($friendWorks, '_othersWorks');
+      track('othersWorks:' . print_r($friendWorks, true));
+    }
+  } catch (\MyApp\Exception\Query $e) {
+    track('クエリ実行に失敗しました');
+    track('Exception:' . $e->getMessage());
+    $this->setErrors('common', $e->getMessage());
+    exit;
   }
+ }
 
 }

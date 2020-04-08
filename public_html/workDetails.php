@@ -38,14 +38,10 @@ require_once(__DIR__ . '/accountField.php');
 require_once(__DIR__ . '/aside.php');
  ?>
 
-<!-- message -->
-<?php if (!empty($_SESSION['messages'])) : ?>
-  <div class="message">
-    <p class="message__text"><?= h($app->getMessage($_SESSION['messages']))  ?></p>
-  </div>
-<?php endif; ?>
   
 <main>
+  <!-- 他者の作品画面 -->
+  <?php if (!isset($work->getProperties('_users')->myself)) : ?>
   <div class="work-window">
   <div class="work-details">
     <span class="times"><i class="close-icon fas fa-times"></i></span>
@@ -103,7 +99,7 @@ require_once(__DIR__ . '/aside.php');
          <textarea name="comment" class="work__textarea" placeholder="leave a comment"></textarea>
          <!-- token -->
          <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
-            <input class="work-submit" type="submit" value="work" class="work-submit">
+            <input class="work-submit" type="submit" value="submit" class="work-submit">
         </form>
       </div>
     </div>
@@ -112,6 +108,83 @@ require_once(__DIR__ . '/aside.php');
   <div class="window-mask"></div>
 
 </div>
+<?php endif; ?>
+
+<!-- 自身の作品 -->
+<?php if (isset($work->getProperties('_users')->myself) && $work->getProperties('_users')->myself == true) : ?>
+<div class="work-window">
+  <div class="work-details">
+    <span class="times"><i class="close-icon fas fa-times"></i></span>
+    <div class="work-details-wrap--flex flex-container">
+      <div class="flex-item1">
+        <div class="work-details__img-wrap">
+          <img src="<?= isset($work->getProperties('_work')->work) ? h($work->getProperties('_work')->work) : './../images/default_work_thumbnail.jpg'; ?>" alt="" class="work-details__img">
+        </div>
+        <!-- favorite -->
+        <p class="work-details__favorite">
+        <i class="thumbs-up fas fa-thumbs-up <?= isset($work->getProperties('_work')->isFavorite) && $work->getProperties('_work')->isFavorite > 0 ? 'thumbs-up--true' : "" ?>" data-work-id="<?= isset($work->getProperties('_work')->work_id) ? h($work->getProperties('_work')->work_id) : "" ?>" data-create-user="<?= isset($work->getProperties('_work')->create_user) ? h($work->getProperties('_work')->create_user) : "" ?>"></i>
+          <span class="good-count"><?= isset($work->getProperties('_work')->favoriteNum) ? h($work->getProperties('_work')->favoriteNum) : "" ?></span>
+        </p>
+      </div>
+      <div class="flex-item2">
+      <p class="has-error margin--0"><?= $work->getErrors('common'); ?></p>
+        <form action="" method="post">
+        <!-- title -->
+        <p class="work-details__title margin--0">
+        <input name="title" type="text" value="<?= isset($work->getProperties('_work')->title) ? h($work->getProperties('_work')->title) : ""; ?>" class="work-details__title--input">
+        </p>
+        <!-- category -->
+        <label for="categories">
+            <p class="work-details__category margin--0">
+              <select name="category" id="" class="work-details__category--select">
+                <option value="0">選択してください</option>
+                <?php for ($i = 0; isset($work->getProperties('_categories')->$i); $i++) : ?>
+                  <option value="<?= $work->getProperties('_categories')->$i->id ?>" <?= isset($work->getProperties('_work')->category) && $work->getProperties('_work')->category === $work->getProperties('_categories')->$i->id ? 'selected' : '' ?>><?= $work->getProperties('_categories')->$i->name ?></option>
+                <?php endfor; ?>
+              </select>
+            </p>
+          </label>
+        <!-- description -->
+        <p class="work-details__description">
+          <textarea type="text" name="description" class="work-details__description--input"><?= isset($work->getProperties('_work')->description) ? h($work->getProperties('_work')->description) : ""; ?></textarea>
+        </p>
+        <!-- comment -->
+        <p class="has-error margin--0"><?= $work->getErrors('empty'); ?></p>
+        <div class="work-details__comment">
+            <?php for($i = 0; isset($work->getProperties('_comment')->$i); $i++) : ?>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="comment-user-icon-wrap">
+                        <a href="./profile.php?u=<?= isset($work->getProperties('_comment')->$i) ? h($work->getProperties('_comment')->$i->id) : "" ?>">
+                        <img class="comment-user-icon__img" src="<?= isset($work->getProperties  ('_comment')->$i->profile_img) ? h($work->getProperties('_comment')->$i->profile_img) : './../images/default_user_icon.png' ?>" alt="ユーザーのアイコン画像">
+                      </a>
+                      </div>
+                    </td>
+                    <td>
+                       <p class="work-details__comment-text">
+                       <?= h($work->getProperties('_comment')->$i->comment) ?>
+                       </p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            <?php endfor; ?>
+        </div>
+         <textarea name="comment" class="work__textarea" placeholder="leave a comment"></textarea>
+         <!-- token -->
+         <input type="hidden" name="token" value="<?= h($_SESSION['token']); ?>">
+            <input class="work-submit" type="submit" value="submit" class="work-submit">
+        </form>
+      </div>
+    </div>
+  </div>
+        
+  <div class="window-mask"></div>
+
+</div>
+<?php endif; ?>
 </main>
 </body>
 </html>

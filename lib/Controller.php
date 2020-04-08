@@ -45,6 +45,7 @@ class Controller {
     $this->_videoFileName = new \stdClass();
   }
 
+  // 値をセット
   protected function setValues($array) {
     foreach($array as $key => $value) {
       if ($key === 'password') {
@@ -55,7 +56,7 @@ class Controller {
     }
   }
 
-  // 値を配列形式でセット
+
   public function getValues() {
     return $this->_values;
   }
@@ -81,11 +82,14 @@ class Controller {
   }
 
   //messageを表示
-  public function getMessage($messages) {
-    foreach ($messages as $key => $value) {
-      $message = isset($this->_values->$key) ? $this->_values->$key : '';
-    }
+  public function getMessage($key) {
+    $message = isset($this->_values->$key) ? $this->_values->$key : "";
+    $this->deleteMessage($key);
     return $message;
+  }
+
+  public function deleteMessage($key) {
+    $_SESSION['messages'][$key] = "";
   }
 
   // エラーの有無を確認

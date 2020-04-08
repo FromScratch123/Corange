@@ -12,8 +12,6 @@ class ChangePass extends \MyApp\Controller {
       exit;
     }
 
-    //messageを初期化
-    $_SESSION['messages'] = [];
     //Userクラスをインスタンス化
     global $userModel;
     $userModel = new \MyApp\Model\User();
@@ -74,7 +72,7 @@ class ChangePass extends \MyApp\Controller {
       track('パスワード変更処理完了');
       $_SESSION['me'] = $user;
       $_SESSION['messages'] = [];
-      $_SESSION['messages']['change-password'] = CHANGEPASS;
+      $_SESSION['messages']['home'] = CHANGEPASS;
       track('HOMEへ遷移します');
       header('Location:' . SITE_URL . '/Corange/public_html/home.php');
       exit;

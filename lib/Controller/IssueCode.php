@@ -113,7 +113,7 @@ EOM;
       $_SESSION['code_limit'] = time() + (60 * 30);
       $_SESSION['email'] = $email;
       $_SESSION['messages'] = [];
-      $_SESSION['messages']['welcome'] = SENDCODE;
+      $_SESSION['messages']['confirm-code'] = SENTCODE;
       track('セッションの中身:' . print_r($_SESSION, true));
       track('confirmCode.phpへ遷移します');
       header('Location:' . SITE_URL . '/Corange/public_html/confirmCode.php');

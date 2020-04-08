@@ -161,7 +161,7 @@ select {
   left: 0;
   text-align: center;
   line-height: 60px;
-  background: #161267;
+  background: rgba(22, 18, 103, 1);
   color: #ffffff;
   z-index: 2;
 }
@@ -185,6 +185,7 @@ select {
   left: 0;
   z-index: 2;
 }
+
 
 .header__logo {
   float: left;

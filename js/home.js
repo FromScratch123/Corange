@@ -21,11 +21,6 @@ $(function () {
     });
   });
 
-    //messageの削除
-    setTimeout(function () {
-      $('.message').fadeOut(1000);
-    }, 2500);
-
     //お気に入り登録
     let $thumbsUp = $('.thumbs-up');
     $thumbsUp.on('click', function () {

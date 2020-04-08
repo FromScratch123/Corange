@@ -12,8 +12,6 @@ class EditProfile extends \MyApp\Controller {
       exit;
     }
 
-    //messageを初期化
-    $_SESSION['messages'] = [];
     //Userクラスをインスタンス化
     global $userModel;
     $userModel = new \MyApp\Model\User();
@@ -191,7 +189,7 @@ class EditProfile extends \MyApp\Controller {
       track('変更後:' . print_r($_SESSION['me'], true));
       //メッセージの格納
       $_SESSION['messages'] = [];
-      $_SESSION['messages']['modifiedProfile'] = MODIFIEDPROFILE;
+      $_SESSION['messages']['home'] = MODIFIEDPROFILE;
       track('HOMEへ遷移します');
       header('Location:' . SITE_URL . '/Corange/public_html/home.php');
       exit;

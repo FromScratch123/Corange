@@ -13,8 +13,6 @@ class ChatRead extends \MyApp\Controller {
       exit;
     } 
       
-    //messageをセット
-    $this->setValues($_SESSION['messages']);
     //Userクラスをインスタンス化
     global $userModel;
     $userModel = new \MyApp\Model\User();

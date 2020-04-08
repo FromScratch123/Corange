@@ -139,7 +139,7 @@ class UploadWork extends \MyApp\Controller {
      
       //メッセージの格納
       $_SESSION['messages'] = [];
-      $_SESSION['messages']['work'] = "新規登録を完了しました";
+      $_SESSION['messages']['home'] = "新規登録を完了しました";
       track('home.phpへ遷移します');
       header('Location:' . './home.php');
       exit;

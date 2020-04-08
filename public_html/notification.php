@@ -36,7 +36,7 @@ require_once(__DIR__ . '/aside.php');
 <!-- message -->
 <?php if (!empty($_SESSION['messages']['notification'])) : ?>
   <div class="message">
-    <p class="message__text"><?= h($app->getMessage($_SESSION['messages']['notification']))  ?></p>
+      <p class="message__text"><?= !empty($app->getMessage('notification')) ? h($app->getMessage('notification')) : ""; ?></p>
   </div>
 <?php endif; ?>
 
@@ -47,7 +47,7 @@ require_once(__DIR__ . '/aside.php');
   <!-- NOTHING TO SHOW -->
   <?php if (!isset($app->getProperties('_friends')->{0}) && !isset($app->getProperties('_messages')->{0}) && !isset($app->getProperties('_comments')->{0}) && !isset($app->getProperties('_favorites')->{0})) : ?>
     <div class="no-show">
-      <p>You've all caught up...</p>
+      <p>You're all caught up...</p>
     </div>
   <?php endif; ?>
 

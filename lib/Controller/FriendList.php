@@ -38,11 +38,7 @@ class FriendList extends \MyApp\Controller {
         return;
     }
 
-
   }
 
-
-
-  
 
 }

@@ -37,7 +37,7 @@ require_once(__DIR__ . '/uploadWork.php');
 <!-- message -->
 <?php if (!empty($_SESSION['messages']['search-friend'])) : ?>
   <div class="message">
-    <p class="message__text"><?= h($app->getMessage($_SESSION['messages']['search-friend']))  ?></p>
+      <p class="message__text"><?= !empty($app->getMessage('search-friend')) ? h($app->getMessage('search-friend')) : ""; ?></p>
   </div>
 <?php endif; ?>
 

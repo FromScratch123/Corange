@@ -27,6 +27,20 @@ public function upload($values) {
   return $work;
 }
 
+public function modifiedWork($values) {
+  $stmt = $this->db->prepare("update work set title = :title, category = :category, description = :description, modified_date = now() where work_id = :me and delete_flg = 0 ");
+  $res = $stmt->execute([
+    ':title' => $values['title'],
+    ':category' => $values['category'],
+    ':description' => $values['description'],
+    ':me' => $values['me']
+  ]);
+
+  if (!$res) {
+    throw new \MyApp\Exception\Query();
+  }
+}
+
 public function getCategories() {
   $stmt = $this->db->query("select * from categories where delete_flg = 0");
   $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
@@ -57,9 +71,13 @@ public function getMyWorks($values, $order = 'modified_date', $in = 'ASC') {
 public function getFriendWorks($values, $order = 'modified_date', $in = 'DESC') {
   $stmt = $this->db->query("select work.*, users.id, users.surname, users.givenname, users.slogan, users.profile, users.profile_img, users.banner_img from work inner join users on work.create_user = users.id where " . $values['create_user'] . " and work.delete_flg = 0 and users.delete_flg = 0 order by " . $order . " " . $in);
 
-  $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
-  $works = $stmt->fetchAll();
-  return $works;
+  if ($stmt) {
+    $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
+    $works = $stmt->fetchAll();
+    return $works;
+  } else {
+    return false;
+  }
 }
 
 public function getWork($values) {
@@ -70,6 +88,21 @@ public function getWork($values) {
   $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
   $work = $stmt->fetch();
   return $work;
+}
+
+public function isMyWork($values) {
+  $stmt = $this->db->prepare("select count(work_id) from work where work_id = :work_id and create_user = :me and delete_flg = 0");
+  $res = $stmt->execute([
+    ':work_id' => $values['work_id'],
+    ':me' => $values['me']
+  ]);
+
+  $count = $stmt->fetchColumn();
+  if ($count == 0) {
+    return 0;
+  } else {
+    return 1;
+  }
 }
 
 public function getComment($values) {

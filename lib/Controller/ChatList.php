@@ -69,12 +69,6 @@ class ChatList extends \MyApp\Controller {
         return;
     }
 
-
-    
-
   }
-
-  
-  
 
 }

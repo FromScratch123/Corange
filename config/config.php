@@ -42,14 +42,14 @@ define('WELCOME', 'Welcome to Corange!');
 define('WELCOMEBACK', 'Welcomeback to Corange!');
 define('MODIFIEDPROFILE', 'プロフィールを変更しました。');
 define('CHANGEPASS', 'パスワードを変更しました。');
-define('SENDCODE', '認証コードをご登録のメールアドレスへ送信しました。');
-define('SENDPASS', 'パスワードをご登録のメールアドレスへ送信しました。');
+define('SENTCODE', '認証コードをご登録のメールアドレスへ送信しました。');
+define('SENTPASS', 'パスワードをご登録のメールアドレスへ送信しました。');
 
 //*********** その他 ***********
 //サイトURL
 define('SITE_URL', 'http://' . $_SERVER['HTTP_HOST']);
 //最大ファイルサイズ
-define('MAX_FILE_SIZE', 3 * 1024 * 1024); //3MB
+define('MAX_FILE_SIZE', 5 * 1024 * 1024); //3MB
 //ファイル保存先
 define('UPLOAD_DIR', './../images/userPost');
 //ユーザーアイコンのデフォルトパス
