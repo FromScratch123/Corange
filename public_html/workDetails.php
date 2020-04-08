@@ -184,7 +184,7 @@ require_once(__DIR__ . '/aside.php');
             <input class="work-submit" type="submit" value="submit" class="work-submit">
         </form>
         <p class="delete-work">
-          <a href="./deleteWork.php?w=<?= isset($work->getProperties('_work')->work_id) ? h($work->getProperties('_work')->work_id) : "" ?>">
+          <a href="./deleteWork.php?w=<?= isset($work->getProperties('_work')->work_id) ? h($work->getProperties('_work')->work_id) : "" ?>" class="delete-work__link">
               作品を削除する
           </a>
         </p>

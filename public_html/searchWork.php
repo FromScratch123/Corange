@@ -70,7 +70,7 @@ require_once(__DIR__ . '/aside.php');
       <div class="others-work--flex flex-container">
         <!-- work img -->
         <div class="work-img-wrap">
-          <a href="">
+          <a href="./workDetails.php?w=<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : "" ?>">
             <img src="<?= isset($app->getProperties('_othersWorks')->$i->work) ? h($app->getProperties('_othersWorks')->$i->work) : ''; ?>" alt="" class="work__img">
           </a>
         </div>
@@ -79,7 +79,7 @@ require_once(__DIR__ . '/aside.php');
           <!-- work title -->
           <div class="work-title">
                 <p class="work-title__text margin--0">
-                 <a href="">
+                 <a href="./workDetails.php?w=<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : "" ?>">
                   <?= isset($app->getProperties('_othersWorks')->$i->title) ? h($app->getProperties('_othersWorks')->$i->title) : '' ?>
                  </a>
                 </p>
@@ -87,11 +87,12 @@ require_once(__DIR__ . '/aside.php');
            <!-- work description -->
            <div class="work-description">
               <p class="work-description__text margin--0">
-                 <a href="">
-                    <?= isset($app->getProperties('_othersWorks')->$i->description) ? mb_substr(h($app->getProperties('_othersWorks')->$i->description), 0, 100, "UTF-8") . "..." : "説明文はありません"  ?>
+                 <a href="./workDetails.php?w=<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : "" ?>">
+                    <?= isset($app->getProperties('_othersWorks')->$i->description) ? substr_replace(mb_substr(h($app->getProperties('_othersWorks')->$i->description), 0, 30, "UTF-8"), '...', -3) : "説明文はありません"  ?>
                  </a>
               </p>
            </div>
+           <?php if (isset($app->getProperties('_othersWorks')->$i->delete_flg) && $app->getProperties('_othersWorks')->$i->delete_flg == 0) : ?>
            <!-- others icon -->
            <div class="others-info-wrap--flex flex-container">
              <div class="others-icon-wrap">
@@ -109,13 +110,21 @@ require_once(__DIR__ . '/aside.php');
                 </p>
               </div>
            </div>
+           <?php endif; ?>
          </div>
+
+         <!-- thumbs up -->
+         <i class="thumbs-up fas fa-thumbs-up <?= isset($app->getProperties('_othersWorks')->$i->isFavorite) && $app->getProperties('_othersWorks')->$i->isFavorite > 0 ? 'thumbs-up--true' : "" ?>" data-work-id="<?= isset($app->getProperties('_othersWorks')->$i) ? h($app->getProperties('_othersWorks')->$i->work_id) : "" ?>" data-create-user="<?= isset($app->getProperties('_othersWorks')->$i->create_user) ? h($app->getProperties('_othersWorks')->$i->create_user) : "" ?>"></i>
+          <span class="good-count"><?= isset($app->getProperties('_othersWorks')->$i->favoriteNum) ? h($app->getProperties('_othersWorks')->$i->favoriteNum) : "" ?></span>
 
         <div class="time">
           <p class="time__text margin--0">
              <?= isset($app->getProperties('_othersWorks')->$i->modified_date) ? date('m月d日 H:i', strtotime(h($app->getProperties('_othersWorks')->$i->modified_date))) : "" ?>
           </p>
         </div>
+        
+
+
 
         <!-- others menu -->
         <div class="others-menu">

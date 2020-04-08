@@ -97,4 +97,15 @@ $(function () {
     $profileCount.text(count);
   });
 
+  //workにホバー時にimgのscaleアップさせる
+  let $imgWrap = $('.work-img-wrap');
+
+    $imgWrap.on('mouseover', function() {
+      $(this).children('.work__img').css({'transform' : 'scale(1.1, 1.1)', 'transition' : 'transform 0.7s ease-in-out'});
+  });
+    $imgWrap.on('mouseleave', function() {
+      $(this).children('.work__img').css({'transform' : 'scale(1.0, 1.0)', 'transition' : 'transform 0.7s ease'});
+    });
+
+
 });

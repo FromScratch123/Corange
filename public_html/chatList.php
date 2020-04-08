@@ -87,7 +87,7 @@ require_once(__DIR__ . '/aside.php');
                  <!-- chat -->
                            <a href="./chat.php?r=<?= isset($app->getProperties('_rooms')->$i) ? h($app->getProperties('_rooms')->$i->id) : "" ?>">
                              <p class="chat-summary__text margin--0">
-                                <?= isset($app->getProperties('_messages')->$i[0]->msg) ? mb_substr(h($app->getProperties('_messages')->$i[0]->msg), 0, 50, "UTF-8") : "メッセージはありません。"  ?>
+                                <?= isset($app->getProperties('_messages')->$i[0]->msg) ? substr_replace(mb_substr(h($app->getProperties('_messages')->$i[0]->msg), 0, 30, "UTF-8"), '...', -3) : "メッセージはありません。"  ?>
                              </p>
                             </a>
                           </td>

@@ -46,6 +46,22 @@ class SearchWork extends \MyApp\Controller {
       $works = $workModel->getMyWorks([
         'me' => $_SESSION['me']->id
       ]);
+
+      for ($i = 0; isset($works->$i->work_id); $i++) {
+  
+        //お気に入り状況追加
+          $isFavorite = $workModel->isFavorite([
+            'me' => $_SESSION['me']->id,
+            'work_id' => $works->$i->work_id
+          ]);
+           $works->$i->isFavorite = $isFavorite;
+    
+        //お気に入りの数を追加
+          $favoriteNum = $workModel->favoriteNum([
+            'work_id' => $works->$i->work_id
+          ]);
+          $works->$i->favoriteNum = $favoriteNum;
+      }
       //結果を_othersWorksにセット
       $this->setProperties($works, '_othersWorks');
     }
@@ -56,6 +72,21 @@ class SearchWork extends \MyApp\Controller {
       $works = $workModel->getAllWorks([
         'me' => $_SESSION['me']->id
       ]);
+      for ($i = 0; isset($works[$i]); $i++) {
+        track('お気に入り状況確認');
+        //お気に入り状況追加
+          $isFavorite = $workModel->isFavorite([
+            'me' => $_SESSION['me']->id,
+            'work_id' => $works[$i]->work_id
+          ]);
+           $works[$i]->isFavorite = $isFavorite;
+        track('お気に入り数を確認');
+        //お気に入りの数を追加
+          $favoriteNum = $workModel->favoriteNum([
+            'work_id' => $works[$i]->work_id
+          ]);
+          $works[$i]->favoriteNum = $favoriteNum;
+      }
       //結果を_othersWorksにセット
       $this->setProperties($works, '_othersWorks');
       track('検索結果:' . print_r($works, true));
@@ -67,6 +98,21 @@ class SearchWork extends \MyApp\Controller {
       $works = $workModel->getMyfavorite([
         'me' => $_SESSION['me']->id
       ]);
+      for ($i = 0; isset($works[$i]); $i++) {
+  
+        //お気に入り状況追加
+          $isFavorite = $workModel->isFavorite([
+            'me' => $_SESSION['me']->id,
+            'work_id' => $works[$i]->work_id
+          ]);
+           $works[$i]->isFavorite = $isFavorite;
+    
+        //お気に入りの数を追加
+          $favoriteNum = $workModel->favoriteNum([
+            'work_id' => $works[$i]->work_id
+          ]);
+          $works[$i]->favoriteNum = $favoriteNum;
+      }
       //結果を_othersWorksにセット
       $this->setProperties($works, '_othersWorks');
       track('検索結果:' . print_r($works, true));
@@ -78,6 +124,21 @@ class SearchWork extends \MyApp\Controller {
       $works = $workModel->getTrash([
         'me' => $_SESSION['me']->id
       ]);
+      for ($i = 0; isset($works[$i]); $i++) {
+  
+        //お気に入り状況追加
+          $isFavorite = $workModel->isFavorite([
+            'me' => $_SESSION['me']->id,
+            'work_id' => $works[$i]->work_id
+          ]);
+           $works[$i]->isFavorite = $isFavorite;
+    
+        //お気に入りの数を追加
+          $favoriteNum = $workModel->favoriteNum([
+            'work_id' => $works[$i]->work_id
+          ]);
+          $works[$i]->favoriteNum = $favoriteNum;
+      }
       //結果を_othersWorksにセット
       $this->setProperties($works, '_othersWorks');
       track('検索結果:' . print_r($works, true));
@@ -95,6 +156,23 @@ class SearchWork extends \MyApp\Controller {
       if (!$works) {
         return;
       } else {
+        for ($i = 0; isset($works[$i]); $i++) {
+          $work = $workModel->getWork([
+            'work_id' => $works[$i]->work_id
+          ]);
+          //お気に入り状況追加
+            $isFavorite = $workModel->isFavorite([
+              'me' => $_SESSION['me']->id,
+              'work_id' => $works[$i]->work_id
+            ]);
+             $works[$i]->isFavorite = $isFavorite;
+      
+          //お気に入りの数を追加
+            $favoriteNum = $workModel->favoriteNum([
+              'work_id' => $works[$i]->work_id
+            ]);
+            $works[$i]->favoriteNum = $favoriteNum;
+        }
         //検索結果を_othersWorksにセット
         $this->setProperties($works, '_othersWorks');
       }

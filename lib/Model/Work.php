@@ -42,7 +42,7 @@ public function modifiedWork($values) {
 }
 
 public function delete($values) {
-  $stmt = $this->db->prepare("update work set delete_flg = 1 and modified_date = now() where work_id = :work_id and create_user = :me");
+  $stmt = $this->db->prepare("update work set delete_flg = 1, modified_date = now() where work_id = :work_id and create_user = :me");
   $res = $stmt->execute([
     ':work_id' => $values['work_id'],
     ':me' => $values['me']

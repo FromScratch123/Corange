@@ -60,7 +60,7 @@ require_once(__DIR__ . '/aside.php');
         <!-- work title -->
         <p class="margin--0">
         <a href="./workDetails.php?w=<?= isset($app->getProperties('_myWorks')->$i->work_id) ? h($app->getProperties('_myWorks')->$i->work_id) : "" ?>" class="work__link" data-work-id="<?= isset($app->getProperties('_myWorks')->$i->work_id) ? h($app->getProperties('_myWorks')->$i->work_id) : ""; ?>">
-        <?= isset($app->getProperties('_myWorks')->$i) ? mb_substr(h($app->getProperties('_myWorks')->$i->title), 0, 10, "UTF-8") . "..." : ""; ?>
+        <?= isset($app->getProperties('_myWorks')->$i) ? substr_replace(mb_substr(h($app->getProperties('_myWorks')->$i->title), 0, 15, "UTF-8"), '...', -3) : ""; ?>
        </a>
       </p>
         <!-- work time -->
@@ -105,7 +105,7 @@ require_once(__DIR__ . '/aside.php');
            <div class="work-description">
               <p class="work-description__text margin--0">
                  <a href="./workDetails.php?w=<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : "" ?>" class="work__link" data-work-id="<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : ""; ?>">
-                    <?= isset($app->getProperties('_othersWorks')->$i->description) ? mb_substr(h($app->getProperties('_othersWorks')->$i->description), 0, 100, "UTF-8") . "..." : "説明文はありません"  ?>
+                    <?= isset($app->getProperties('_othersWorks')->$i->description) ? substr_replace(mb_substr(h($app->getProperties('_othersWorks')->$i->description), 0, 30, "UTF-8"), '...', -3) : "説明文はありません"  ?>
                  </a>
               </p>
            </div>

@@ -20,12 +20,28 @@ class Profile extends \MyApp\Controller {
     //friendクラスをインスタンス化
     global $friendModel;
     $friendModel = new \MyApp\Model\Friend();
+    //Uploadクラスをインスタンス化
     global $uploadModel;
     $uploadModel = new \MyApp\Model\Upload();
+    global $workModel;
+    //Workクラスをインスタンス化
+    $workModel = new \MyApp\Model\Work();
+
     //_usersにユーザーの属性をセット
     $this->setProperties($_SESSION['me'], '_users');
     //ユーザーの属性をValuesにセット
     $this->setValues($_SESSION['me']);
+
+    //自分の投稿を取得
+    $myWork = $workModel->getMyWorks([
+      'me' => $_SESSION['me']->id
+    ]);
+
+    if (!empty($myWork)) {
+      //_myWorksに自分の投稿をセット
+      $this->setProperties($myWork, '_myWorks');
+      track('My Work：' . print_r($myWork, true));
+    }
 
     if (isset($_GET['u'])) {
       track('GET送信がありました');

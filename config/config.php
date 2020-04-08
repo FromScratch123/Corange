@@ -48,12 +48,13 @@ define('SENTCOMMENT', 'コメントを送信しました。');
 define('MODIFIEDWORK', '作品情報を更新しました。');
 define('DELETEFRIEND', '友達関係を解除しました。');
 define('DELETEWORK', '作品を削除しました。');
+define('UPLOADWORK', '作品をアップロードしました。');
 
 //*********** その他 ***********
 //サイトURL
 define('SITE_URL', 'http://' . $_SERVER['HTTP_HOST']);
 //最大ファイルサイズ
-define('MAX_FILE_SIZE', 5 * 1024 * 1024); //3MB
+define('MAX_FILE_SIZE', 10 * 1024 * 1024); //10MB
 //ファイル保存先
 define('UPLOAD_DIR', './../images/userPost');
 //ユーザーアイコンのデフォルトパス

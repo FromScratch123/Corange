@@ -79,6 +79,18 @@ require_once(__DIR__ . '/header.php');
     <div class="profile-summary">
       <p class="profile-summary__text"><?= isset($app->getProperties('_friends')->profile) ? h($app->getProperties('_friends')->profile) : "自己紹介文はありません" ?></p>
     </div>
+
+    <?php for ($i = 0; isset($app->getProperties('_myWorks')->$i); $i++) : ?>
+    <div class="work-display--flex flex-container">
+      <div class="work-img-wrap">
+        <img src="<?= isset($app->getProperties('_myWorks')->$i->thumbnail) ? h($app->getProperties('_myWorks')->$i->thumbnail) : "" ?>" alt="" class="work__img"> 
+        <div class="work-img-cover">
+          <p class="work-title"><?= isset($app->getProperties('_myWorks')->$i->title) ? h($app->getProperties('_myWorks')->$i->title) : "" ?></p>
+        </div>
+      </div>
+    </div>
+    <?php endfor; ?>
+
   </section>
 <?php endif; ?>
 
@@ -148,6 +160,19 @@ require_once(__DIR__ . '/header.php');
       <input class="profile-submit js--hidden" type="submit" value="Modify">
     </p>
     </form>
+
+    <h1 class="work-dispaly__title">Works</h1>
+    <div class="work-display--flex flex-container">
+      <?php for ($i = 0; isset($app->getProperties('_myWorks')->$i); $i++) : ?>
+      <div class="work-img-wrap">
+        <img src="<?= isset($app->getProperties('_myWorks')->$i->thumbnail) ? h($app->getProperties('_myWorks')->$i->thumbnail) : "" ?>" alt="" class="work__img"> 
+        <div class="work-img-cover">
+          <p class="work-title margin--0"><?= isset($app->getProperties('_myWorks')->$i->title) ? h($app->getProperties('_myWorks')->$i->title) : "" ?></p>
+        </div>
+      </div>
+      <?php endfor; ?>
+    </div>
+
   </section>
 <?php endif; ?>
   

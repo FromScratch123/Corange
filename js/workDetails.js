@@ -8,5 +8,14 @@ $(function () {
     location.href="./home.php";
    });
 
+   //削除選択時にアラート表示
+   $('.delete-work__link').on('click', function (e) {
+      if (!confirm('Are you sure to delete the work?')) {
+         e.preventDefault();
+         return false;
+      } else {
+         return true;
+      }
+    }); 
 
   });
