@@ -123,7 +123,7 @@ require_once(__DIR__ . '/aside.php');
                        <a href="./profile.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">
                 <!-- friend profile -->
                           <p class="summary__text margin--0">
-                            <?= !empty($app->getProperties('_friends')->$i->profile) ? substr(mb_substr(h($app->getProperties('_friends')->$i->profile), 0, 50, "UTF-8"), '...', -3) : "自己紹介文はありません。"  ?>
+                            <?= !empty($app->getProperties('_friends')->$i->profile) ? substr_replace(mb_substr(h($app->getProperties('_friends')->$i->profile), 0, 50, "UTF-8"), '...', -3) : "自己紹介文はありません。"  ?>
                           </p>
                        </a>
                    </td>
@@ -284,7 +284,7 @@ require_once(__DIR__ . '/aside.php');
                      <!-- work title -->
                          <p class="work__title margin--0">
                            <a href="./workDetails.php?w=<?= isset($app->getProperties('_favorites')->$i->work_id) ? h($app->getProperties('_favorites')->$i->work_id) : "" ?>">
-                             <?= !empty($app->getProperties('_favorites')->$i) ? substr(mb_substr(h($app->getProperties('_favorites')->$i->title), 0, 15, "UTF-8"), '...', -3) : ""; ?>
+                             <?= !empty($app->getProperties('_favorites')->$i) ? substr_replace(mb_substr(h($app->getProperties('_favorites')->$i->title), 0, 15, "UTF-8"), '...', -3) : ""; ?>
                           </a>
                         </p>
                        </td>

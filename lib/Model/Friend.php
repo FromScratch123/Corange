@@ -33,6 +33,21 @@ class Friend extends \MyApp\Model {
       }
   }
 
+  public function hasAskedBeFriend($values) {
+    $stmt = $this->db->prepare("select count(id) from friend where follow_user = :me and followed_user = :client or follow_user = :client and followed_user = :me");
+    $res = $stmt->execute([
+      ':me' => $values['me'],
+      ':client' => $values['client']
+    ]);
+      
+      $count = $stmt->fetchColumn();
+      if ($count == 0) {
+        return false;
+      } else {
+        return true;
+      }
+  }
+
   public function isAsked($values) {
     $stmt = $this->db->prepare("select count(id) from friend where follow_user = :me and followed_user = :client and accept_flg = 0 or follow_user = :client and followed_user = :me and accept_flg = 0" );
     $res = $stmt->execute([
@@ -127,7 +142,7 @@ class Friend extends \MyApp\Model {
   }
 
   public function getNewNum($values) {
-    $stmt = $this->db->prepare("select count(id) from friend where followed_user = :me and open_flg = 0 and delete_flg = 0" );
+    $stmt = $this->db->prepare("select count(id) from friend where followed_user = :me and accept_flg = 0 and delete_flg = 0" );
     $res = $stmt->execute([
       ':me'  => $values['me']
     ]);

@@ -46,6 +46,8 @@ class DeleteFriend extends \MyApp\Controller {
           return;
       }
       track('友達解除処理完了');
+      $_SESSION['messages'] = [];
+      $_SESSION['messages']['friend-list'] = DELETEFRIEND;
       track('friendList.phpへ遷移します');
       header('Location:' .SITE_URL . '/Corange/public_html/friendList.php');
   }  

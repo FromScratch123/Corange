@@ -35,12 +35,21 @@ class AskBeFriend extends \MyApp\Controller {
     try {
       //友達状態確認
         track('友達状態確認');
-        $isFriend = $friendModel->isFriend([
+        $isFriend = $friendModel->hasAskedBeFriend([
           'me' => $_SESSION['me']->id,
           'client' => $_GET['u']
         ]);
         if ($isFriend) {
           track('既に友達関係です');
+          if (strpos($_SERVER['HTTP_REFERER'], 'profile.php', 0) !== false) {
+            $_SESSION['messages']['Profile'] = HASASKEDBEFRIEND;
+          }
+          if (strpos($_SERVER['HTTP_REFERER'], 'home.php', 0) !== false) {
+            $_SESSION['messages']['home'] = HASASKEDBEFRIEND;
+          }
+          if (strpos($_SERVER['HTTP_REFERER'], 'searchFriend.php', 0) !== false) {
+            $_SESSION['messages']['search-friend'] = HASASKEDBEFRIEND;
+          }
           track('遷移元ページへ遷移します');
           header('Location:' . $_SERVER['HTTP_REFERER']);
           return;
@@ -58,7 +67,19 @@ class AskBeFriend extends \MyApp\Controller {
           $this->setErrors('common', $e->getMessage());
           return;
       }
+
       track('友達申請処理完了');
+      $_SESSION['messages'] = [];
+      if (strpos($_SERVER['HTTP_REFERER'], 'profile.php', 0) !== false) {
+        $_SESSION['messages']['Profile'] = ASKBEFRIEND;
+      }
+      if (strpos($_SERVER['HTTP_REFERER'], 'home.php', 0) !== false) {
+        $_SESSION['messages']['home'] = ASKBEFRIEND;
+      }
+      if (strpos($_SERVER['HTTP_REFERER'], 'searchFriend.php', 0) !== false) {
+        $_SESSION['messages']['search-friend'] = ASKBEFRIEND;
+      }
+      
       track('遷移元ページへ遷移します');
       header('Location:' . $_SERVER['HTTP_REFERER']);
   }  

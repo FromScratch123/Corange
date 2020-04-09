@@ -72,7 +72,7 @@ class Home extends \MyApp\Controller {
         array_push($friendsId, $this->getProperties('_friends')->$i->id);
       }
       foreach ($friendsId as $value) {
-        $where .= ' work.create_user = ' . $value . ' or';
+        $where .= ' work.delete_flg = 0 and users.delete_flg = 0 and work.create_user = ' . $value . ' or';
       }
         $where = substr_replace($where, "", -2);
         $friendWorks = $workModel->getFriendWorks([

@@ -29,6 +29,13 @@ $logoPath = './home.php';
 require_once(__DIR__ . '/header.php');
 ?>
 
+<!-- message -->
+<?php if (!empty($_SESSION['messages']['Profile'])) : ?>
+  <div class="message">
+    <p class="message__text"><?= !empty($app->getMessage('Profile')) ? h($app->getMessage('Profile')) : "" ?></p>
+  </div>
+<?php endif; ?>
+
 <!-- 他のユーザーのプロフィール画面 -->
 <?php if (!isset($app->getProperties('_users')->myself)) : ?>
 <section class="profile">
@@ -80,16 +87,19 @@ require_once(__DIR__ . '/header.php');
       <p class="profile-summary__text"><?= isset($app->getProperties('_friends')->profile) ? h($app->getProperties('_friends')->profile) : "自己紹介文はありません" ?></p>
     </div>
 
-    <?php for ($i = 0; isset($app->getProperties('_myWorks')->$i); $i++) : ?>
+    <h1 class="work-dispaly__title">Works</h1>
     <div class="work-display--flex flex-container">
+    <?php for ($i = 0; isset($app->getProperties('_othersWorks')->$i); $i++) : ?>
       <div class="work-img-wrap">
-        <img src="<?= isset($app->getProperties('_myWorks')->$i->thumbnail) ? h($app->getProperties('_myWorks')->$i->thumbnail) : "" ?>" alt="" class="work__img"> 
+        <img src="<?= isset($app->getProperties('_othersWorks')->$i->thumbnail) ? h($app->getProperties('_othersWorks')->$i->thumbnail) : "" ?>" alt="" class="work__img"> 
+        <a href="./workDetails.php?w=<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : "" ?>" class="work__link" data-work-id="<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : ""; ?>">
         <div class="work-img-cover">
-          <p class="work-title"><?= isset($app->getProperties('_myWorks')->$i->title) ? h($app->getProperties('_myWorks')->$i->title) : "" ?></p>
+          <p class="work-title margin--0"><?= isset($app->getProperties('_othersWorks')->$i->title) ? h($app->getProperties('_othersWorks')->$i->title) : "" ?></p>
         </div>
+        </a>
       </div>
+      <?php endfor; ?>
     </div>
-    <?php endfor; ?>
 
   </section>
 <?php endif; ?>
@@ -166,9 +176,11 @@ require_once(__DIR__ . '/header.php');
       <?php for ($i = 0; isset($app->getProperties('_myWorks')->$i); $i++) : ?>
       <div class="work-img-wrap">
         <img src="<?= isset($app->getProperties('_myWorks')->$i->thumbnail) ? h($app->getProperties('_myWorks')->$i->thumbnail) : "" ?>" alt="" class="work__img"> 
+        <a href="./workDetails.php?w=<?= isset($app->getProperties('_myWorks')->$i->work_id) ? h($app->getProperties('_myWorks')->$i->work_id) : "" ?>" class="work__link" data-work-id="<?= isset($app->getProperties('_myWorks')->$i->work_id) ? h($app->getProperties('_myWorks')->$i->work_id) : ""; ?>">
         <div class="work-img-cover">
           <p class="work-title margin--0"><?= isset($app->getProperties('_myWorks')->$i->title) ? h($app->getProperties('_myWorks')->$i->title) : "" ?></p>
         </div>
+        </a>
       </div>
       <?php endfor; ?>
     </div>

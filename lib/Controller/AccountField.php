@@ -30,19 +30,22 @@ class AccountField extends \MyApp\Controller {
     $newMsgNum = $chatModel->getNewNum([
       'me' => $_SESSION['me']->id
     ]);
+    track('new message: '. $newMsgNum);
     //新規友達申請数を取得
     $newFriendNum = $friendModel->getNewNum([
       'me' => $_SESSION['me']->id
     ]);
+    track('new friend: '. $newFriendNum);
     //新規コメント数を取得
     $newCommentNum = $workModel->getNewCommentNum([
       'me' => $_SESSION['me']->id
     ]);
+    track('new comment: '. $newCommentNum);
     //新規お気に入り被登録数を取得
     $newFavoriteNum = $workModel->getNewFavoriteNum([
       'me' => $_SESSION['me']->id
     ]);
-
+    track('new favorite: '. $newFavoriteNum);
     $total = (int)$newMsgNum + (int)$newFriendNum + (int)$newCommentNum + (int)$newFavoriteNum;
 
     track('total: ' . print_r($total, true));

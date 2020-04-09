@@ -47,8 +47,12 @@ define('SENTPASS', 'パスワードをご登録のメールアドレスへ送信
 define('SENTCOMMENT', 'コメントを送信しました。');
 define('MODIFIEDWORK', '作品情報を更新しました。');
 define('DELETEFRIEND', '友達関係を解除しました。');
+define('ACCEPTFRIEND', '友達申請を承認しました。');
 define('DELETEWORK', '作品を削除しました。');
 define('UPLOADWORK', '作品をアップロードしました。');
+define('ASKBEFRIEND', '友達申請を送信しました。');
+define('HASASKEDBEFRIEND', '既に友達申請は送信済です。');
+
 
 //*********** その他 ***********
 //サイトURL

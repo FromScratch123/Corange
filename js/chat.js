@@ -25,16 +25,16 @@ $(function () {
     $(window).on('load scroll', function () {
         $chatTable.each(function () {
           let targetOffset = $(this).offset();
-          let $chatWindowHight = $chatWindow.height();
-          if (targetOffset.top >= $chatWindow.scrollTop() + $chatWindowHight / 5) {
-            let $msgId = $(this).data('messageId') || null;
+          let $chatWindowHeight = $chatWindow.height();
+          if (targetOffset.top >= $chatWindow.scrollTop() + $chatWindowHeight / 5) {
+            let msgId = $(this).data('messageId') || null;
           $.ajax({
             type: "POST",
             url: "./../public_html/chatRead.php",
-            data: { messageId : $msgId},
+            data: { messageId : msgId},
             context: $(this)
           }).done(function(data, textStatus, jqXHR){
-            
+            console.log('Ajaxは成功しました');
           }).fail(function(jqXHR, textStatus, errorThrown){
             return;
           });
@@ -42,7 +42,6 @@ $(function () {
         return;
       });
   });
-
 
 });
 

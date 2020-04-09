@@ -19,7 +19,7 @@
   $CSSPath2 = './../CSS/accountField.css';
   $CSSPath3 = './../CSS/aside.css';
   $CSSPath4 = './../CSS/uploadWork.css';
-  $CSSPath5 = './../CSS/uploadWork.css';
+  $CSSPath5 = '';
   
   require_once(__DIR__ . '/head.php');
 
@@ -39,6 +39,7 @@ require_once(__DIR__ . '/aside.php');
   <!-- host user -->
   <div class="chat-window">
     <?php require_once(__DIR__ . '/uploadWork.php'); ?>
+    
     <?php if (isset($app->getProperties('_clients')->profile_img)) : ?>
     <!-- client infomation -->
     <table class="client-info">

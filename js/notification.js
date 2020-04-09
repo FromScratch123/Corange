@@ -28,8 +28,8 @@ $(function () {
    $(window).on('load scroll', function () {
        $notificationTable.each(function () {
          let targetOffset = $(this).offset();
-         let $notificationWindowHight = $notificationWindow.height();
-         if (targetOffset.top >= $notificationWindow.scrollTop() + $notificationWindowHight / 5) {
+         let $notificationWindowHeight = $notificationWindow.height();
+         if (targetOffset.top >= $notificationWindow.scrollTop() + $notificationWindowHeight / 5) {
            let commentId = $(this).data('commentId') || null;
            let favoriteId = $(this).data('favoriteId') || null;
          $.ajax({
@@ -39,6 +39,7 @@ $(function () {
                    comment_id : commentId},
            context: $(this)
          }).done(function(data, textStatus, jqXHR){
+           console.log('Ajaxは成功しました');
          }).fail(function(jqXHR, textStatus, errorThrown){
            return;
          });

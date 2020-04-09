@@ -116,7 +116,7 @@ require_once(__DIR__ . '/uploadWork.php');
             <a href="./profile.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">
             <!-- friend profile -->
               <p class="friend-summary__text margin--0">
-              <?= !empty($app->getProperties('_friends')->$i->profile) ? substr(mb_substr(h($app->getProperties('_friends')->$i->profile), 0, 50, "UTF-8"), '...', -3) : "自己紹介文はありません。"  ?>
+              <?= !empty($app->getProperties('_friends')->$i->profile) ? substr_replace(mb_substr(h($app->getProperties('_friends')->$i->profile), 0, 50, "UTF-8"), '...', -3) : "自己紹介文はありません。"  ?>
               </p>
             </a>
             </td>

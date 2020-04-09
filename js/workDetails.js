@@ -5,7 +5,11 @@ $(function () {
    $times.on('click', function () {
     // $('.work-details').addClass('js--hidden');
     // $('.window-mask').addClass('js--hidden');
-    location.href="./home.php";
+    if (!document.referrer) {
+       location.href="./home.php"
+    } else {
+       location.href=document.referrer;
+    }
    });
 
    //削除選択時にアラート表示

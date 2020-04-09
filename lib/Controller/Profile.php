@@ -11,7 +11,7 @@ class Profile extends \MyApp\Controller {
       header('Location:' . SITE_URL . '/Corange/public_html/index.php');
       exit;
     } 
-      
+    
     //messageをセット
     $this->setValues($_SESSION['messages']);
     //Userクラスをインスタンス化
@@ -70,9 +70,14 @@ class Profile extends \MyApp\Controller {
   private function getProcess() {
     global $userModel;
     global $friendModel;
+    global $workModel;
+
     try {
       $user = $userModel->getProfile([
         'id' => $_GET['u']
+      ]);
+      $works = $workModel->getFriendWorks([
+        'create_user' => 'create_user = ' . $_GET['u']
       ]);
 
     } catch (\MyApp\Exception\Query $e) {
@@ -85,6 +90,9 @@ class Profile extends \MyApp\Controller {
     //取得したprofile情報を_friendにセット
     $this->setProperties($user, '_friends');
     track('ユーザー情報:' . print_r($user, true));
+    //取得した作品情報を_othersWorksにセット
+    $this->setProperties($works, '_othersWorks');
+    track('作品情報:' . print_r($works, true));
   }
 
 
@@ -188,7 +196,6 @@ class Profile extends \MyApp\Controller {
 
     if ($before == $after) {
       track('変更箇所がありません');
-      $_SESSION['messages'] = [];
       track('HOMEへ遷移します');
       header('Location:' . SITE_URL . '/Corange/public_html/home.php');
       exit;

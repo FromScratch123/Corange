@@ -19,7 +19,7 @@
   $CSSPath2 = './../CSS/accountField.css';
   $CSSPath3 = './../CSS/aside.css';
   $CSSPath4 = './../CSS/uploadWork.css';
-  $CSSPath4 = '';
+  $CSSPath5 = '';
   
   require_once(__DIR__ . '/head.php');
 
@@ -44,6 +44,7 @@ require_once(__DIR__ . '/aside.php');
 <main>
   <div class="friend-list-window">
   <?php require_once(__DIR__ . '/uploadWork.php'); ?>
+
   <!-- search window -->
       <form class="search-friend__search-window--wrap" action="./searchFriend.php" method="get">
           <input class="search-friend__search-window" type="text" name="search" placeholder="search users..."><i class="search-friend__search-window--icon fas fa-search"></i>
@@ -96,9 +97,6 @@ require_once(__DIR__ . '/aside.php');
                                       <li class="friend-menu-list">
                                          <a href="./createRoom.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">メッセージ</a>
                                       </li>
-                                      <li class="friend-menu-list">
-                                        <a href="./deleteFriend.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">友達解除</a>
-                                      </li>
                                       <?php endif; ?>
                                       <?php if (isset($app->getProperties('_friends')->$i) && $app->getProperties('_friends')->$i->accept_flg == false && $app->getProperties('_friends')->$i->follow_user !== $_SESSION['me']->id) : ?>
                                       <li class="friend-menu-list">
@@ -108,6 +106,9 @@ require_once(__DIR__ . '/aside.php');
                                          <a href="./deleteFriend.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">友達申請拒否</a>
                                        </li>
                                        <?php endif; ?>
+                                       <li class="friend-menu-list">
+                                        <a href="./deleteFriend.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">友達解除</a>
+                                      </li>
                                        <li class="friend-menu-list">
                                          <a href="">ヘルプ</a>
                                        </li>
