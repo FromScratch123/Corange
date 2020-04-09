@@ -59,7 +59,7 @@ public function getCategories() {
   return $categories;
 }
 
-public function getAllWorks($values, $offset = 0, $order = 'modified_date', $in = 'ASC') {
+public function getAllWorks($values, $order = 'create_date', $in = 'ASC', $offset = 0) {
   $stmt = $this->db->prepare("select work.*, users.id, users.surname, users.givenname, users.profile_img from work inner join users on work.create_user = users.id where create_user not in(:me) and work.delete_flg = 0 and users.delete_flg = 0 order by " . $order . " " . $in . " limit 10 offset " . $offset);
   $res = $stmt->execute([
     ':me' => $values['me']
@@ -79,9 +79,10 @@ public function getMyWorks($values, $order = 'modified_date', $in = 'ASC') {
   return $works;
 }
 
-public function getFriendWorks($values, $order = 'modified_date', $in = 'DESC') {
+public function getFriendWorks($values, $order = 'create_date', $in = 'DESC') {
   $stmt = $this->db->query("select work.*, users.id, users.surname, users.givenname, users.slogan, users.profile, users.profile_img, users.banner_img from work inner join users on work.create_user = users.id where " . $values['create_user'] . " and work.delete_flg = 0 and users.delete_flg = 0 order by " . $order . " " . $in);
 
+  track(print_r($stmt, true));
   if ($stmt) {
     $stmt->setFetchMode(\PDO::FETCH_CLASS, 'stdClass');
     $works = $stmt->fetchAll();
@@ -129,7 +130,7 @@ public function getComment($values) {
   return $comment;
 }
 
-public function search($values, $order = 'modified_date', $in = 'DESC') {
+public function search($values, $order = 'create_date', $in = 'DESC') {
   $stmt = $this->db->prepare("select work.*, users.id, users.surname, users.givenname, users.slogan, users.profile, users.profile_img, users.banner_img from work inner join users on work.create_user = users.id where work.create_user like :search and work.delete_flg = 0 and users.delete_flg = 0 or work.title like :search and work.delete_flg = 0 and users.delete_flg = 0 or work.description like :search and work.delete_flg = 0 and users.delete_flg = 0 or users.surname like :search and work.delete_flg = 0 and users.delete_flg = 0 or users.givenname like :search and work.delete_flg = 0 and users.delete_flg = 0 order by " . $order . " " . $in);
   $res = $stmt->execute([
     ':search' => "%" . $values['search'] . "%",
@@ -203,7 +204,7 @@ public function isFavorite($values) {
     }
 }
 
-public function getMyFavorite($values, $order = 'modified_date', $in = 'DESC') {
+public function getMyFavorite($values, $order = 'create_date', $in = 'DESC') {
   $stmt = $this->db->prepare("select work.*, users.id, users.surname, users.givenname, users.profile_img from work inner join favorite on work.work_id = favorite.work_id inner join users on work.create_user = users.id where favorite.register_user = :me and work.delete_flg = 0 and users.delete_flg = 0 order by " . $order . " " . $in);
   $res = $stmt->execute([
     ':me' => $values['me']
@@ -241,7 +242,7 @@ public function getNewFavorite($values) {
     }
 }
 
-public function getWorkByCategory($values, $offset = 0, $order = 'work.modified_date', $in = 'ASC') {
+public function getWorkByCategory($values, $offset = 0, $order = 'work.create_date', $in = 'ASC') {
   $stmt = $this->db->prepare("select categories.id, categories.name, work.*, users.id, users.surname, users.givenname, users.profile_img from categories inner join work on categories.id = work.category inner join users on work.create_user = users.id where categories.id = :id and categories.delete_flg = 0 and work.delete_flg = 0 order by " . $order . " " . $in . " limit 10 offset " . $offset);
   $res = $stmt->execute([
     ':id' => $values['id']

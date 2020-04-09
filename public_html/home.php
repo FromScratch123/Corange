@@ -31,7 +31,7 @@
 
 <body>
 <?php 
-$logoPath = '';
+$logoPath = './home.php';
 require_once(__DIR__ . '/header.php');
 require_once(__DIR__ . '/accountField.php');
 require_once(__DIR__ . '/aside.php');
@@ -64,20 +64,42 @@ require_once(__DIR__ . '/aside.php');
        </a>
       </p>
         <!-- work time -->
-        <p class="margin--0"><?= isset($app->getProperties('_myWorks')->$i->modified_date) ? date('m月d日 H:i', strtotime(h($app->getProperties('_myWorks')->$i->modified_date))) : "" ?></p>
+        <p class="margin--0"><?= isset($app->getProperties('_myWorks')->$i->create_date) ? date('m月d日 H:i', strtotime(h($app->getProperties('_myWorks')->$i->create_date))) : "" ?></p>
       </div>
       <?php endfor; ?>
     </div>
 
+    <!-- TOOL BAR -->
     <div id="tool-bar" class="tool-bar--flex flex-container">
-      <div class="tool-bar__breadcrumbs">
-        <span>Home >> My work >> 最近使用したファイル</span>
+      <div class="breadcrumbs">
+        <ol itemscope itemtype="https://schema.org/BreadcrumbList" class="breadcrumbs--flex flex-container">
+        <?php require_once('./breadcrumbs/bcHome.php'); ?>
+        </ol>
       </div>
       <div class="tool-bar__sort">
         <ul class="tool-bar__sort--flex flex-container">
-          <li class="sort-icon"><i class="fas fa-sort-alpha-down"></i></li>
-          <li class="sort-icon"><i class="fas fa-sort-alpha-up"></i></li>
-          <li class="sort-icon"><i class="far fa-clock"></i></li>
+          <!-- title desc -->
+          <li class="sort-icon">
+            <a href="./home.php?sort=AD">
+              <i class="fas fa-sort-alpha-down"></i></li>
+            </a>
+          <!-- title asc -->
+          <li class="sort-icon">
+            <a href="./home.php?sort=AA">
+              <i class="fas fa-sort-alpha-up"></i></li>
+            </a>
+            <!-- time asc -->
+            <li class="sort-icon">
+              <a href="./home.php">
+              <i class="fas fa-history"></i>
+            </a>
+          </li>
+            <!-- time desc -->
+            <li class="sort-icon">
+              <a href="./home.php?sort=DA">
+                <i class="sort-icon__clock fas fa-history"></i>
+              </a>
+            </li>
         </ul>
       </div>
     </div>
@@ -130,7 +152,7 @@ require_once(__DIR__ . '/aside.php');
 
         <div class="time">
           <p class="time__text margin--0">
-             <?= isset($app->getProperties('_othersWorks')->$i->modified_date) ? date('m月d日 H:i', strtotime(h($app->getProperties('_othersWorks')->$i->modified_date))) : "" ?>
+             <?= isset($app->getProperties('_othersWorks')->$i->create_date) ? date('m月d日 H:i', strtotime(h($app->getProperties('_othersWorks')->$i->create_date))) : "" ?>
           </p>
             <i class="thumbs-up fas fa-thumbs-up <?= isset($app->getProperties('_othersWorks')->$i->isFavorite) && $app->getProperties('_othersWorks')->$i->isFavorite > 0 ? 'thumbs-up--true' : "" ?>" data-work-id="<?= isset($app->getProperties('_othersWorks')->$i) ? h($app->getProperties('_othersWorks')->$i->work_id) : "" ?>" data-create-user="<?= isset($app->getProperties('_othersWorks')->$i->create_user) ? h($app->getProperties('_othersWorks')->$i->create_user) : "" ?>"></i>
           <span class="good-count"><?= isset($app->getProperties('_othersWorks')->$i->favoriteNum) ? h($app->getProperties('_othersWorks')->$i->favoriteNum) : "" ?></span>
@@ -141,22 +163,14 @@ require_once(__DIR__ . '/aside.php');
             <i id="others-menu-trigger" class="others-menu-trigger fas fa-ellipsis-h">
               <div class="others-menu-box js--hidden">
                   <ul>
-                    <?php if (isset($app->getProperties('_friends')->$i) && $app->getProperties('_friends')->$i->accept_flg == 1) : ?>
-                    <li class="others-menu-list">
-                        <a href="./createRoom.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">メッセージ</a>
-                    </li>
-                    <li class="others-menu-list">
-                      <a href="./deleteFriend.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">友達解除</a>
-                    </li>
-                    <?php endif; ?>
-                    <?php if (isset($app->getProperties('_friends')->$i) && $app->getProperties('_friends')->$i->accept_flg == false && $app->getProperties('_friends')->$i->follow_user !== $_SESSION['me']->id) : ?>
-                    <li class="others-menu-list">
-                        <a href="./acceptFriend.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">友達申請承諾</a>
-                    </li>
-                    <li class="others-menu-list">
-                        <a href="./deleteFriend.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">友達申請拒否</a>
+                      <li class="others-menu-list">
+                         <a href="./profile.php?u=<?= isset($app->getProperties('_othersWorks')->$i) ? h($app->getProperties('_othersWorks')->$i->id) : "" ?>">プロフィール</a>
                       </li>
-                      <?php endif; ?>
+                      <li class="others-menu-list">
+                        <a href="./workDetails.php?w=<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : "" ?>" class="work__link" data-work-id="<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : ""; ?>">
+                        作品詳細
+                        </a>
+                      </li>
                       <li class="others-menu-list">
                         <a href="">ヘルプ</a>
                       </li>

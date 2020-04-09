@@ -103,6 +103,20 @@ body {
   font-size: 1.6em;
 }
 
+.breadcrumbs--flex {
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumbs-name {
+  margin-right: 8px;
+}
+
+.breadcrumbs-right {
+  margin-right: 8px;
+}
+
+
 .tool-bar__sort--flex {
   flex-flow: row nowrap;
   justify-content: flex-end;
@@ -110,6 +124,10 @@ body {
 
 .sort-icon {
   margin-right: 16px;
+}
+
+.sort-icon__clock {
+  transform: rotateY(180deg);
 }
 
 /* ======= others work area ======= */
@@ -246,7 +264,7 @@ body {
 }
 
 .others-menu-box {
-  width: 100px;
+  width: 150px;
   height: auto;
   padding: 32px 16px;
   position: absolute;

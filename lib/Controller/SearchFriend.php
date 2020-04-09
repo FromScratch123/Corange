@@ -29,7 +29,7 @@ class SearchFriend extends \MyApp\Controller {
     //_usersにユーザーの属性をセット
     $this->setProperties($_SESSION['me'], '_users');
 
-    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (!empty($_GET)) {
       track('GET送信がありました');
       track('GET内容:' . print_r($_GET, true));
       $this->getProcess();

@@ -45,18 +45,47 @@ require_once(__DIR__ . '/aside.php');
   <?php require_once(__DIR__ . '/uploadWork.php'); ?>
 
 
-    <div id="tool-bar" class="tool-bar--flex flex-container">
-      <div class="tool-bar__breadcrumbs">
-        <span>Home >> My work >> 最近使用したファイル</span>
+<!-- TOOL BAR -->
+<div id="tool-bar" class="tool-bar--flex flex-container">
+      <div class="breadcrumbs">
+        <ol itemscope itemtype="https://schema.org/BreadcrumbList" class="breadcrumbs--flex flex-container">
+
+        <?php if (strpos($_SERVER['REQUEST_URI'], '?my=', 0) !== false) : ?>
+        <?php require_once('./breadcrumbs/bcMyWork.php'); ?>
+        <?php endif; ?>
+        <?php if (strpos($_SERVER['REQUEST_URI'], '?all=', 0) !== false) : ?>
+        <?php require_once('./breadcrumbs/bcAllWork.php'); ?>
+        <?php endif; ?>
+        <?php if (strpos($_SERVER['REQUEST_URI'], '?favorite=', 0) !== false) : ?>
+        <?php require_once('./breadcrumbs/bcFavorite.php'); ?>
+        <?php endif; ?>
+        <?php if (strpos($_SERVER['REQUEST_URI'], '?trash=', 0) !== false) : ?>
+        <?php require_once('./breadcrumbs/bctrash.php'); ?>
+        <?php endif; ?>
+        <?php if (strpos($_SERVER['REQUEST_URI'], '?category=', 0) !== false) : ?>
+        <?php require_once('./breadcrumbs/bcSearch.php'); ?>
+        <?php endif; ?>
+        </ol>
       </div>
-      <div class="tool-bar__sort">
-        <ul class="tool-bar__sort--flex flex-container">
-          <li class="sort-icon"><i class="fas fa-sort-alpha-down"></i></li>
-          <li class="sort-icon"><i class="fas fa-sort-alpha-up"></i></li>
-          <li class="sort-icon"><i class="far fa-clock"></i></li>
-        </ul>
-      </div>
+
+      <?php if (strpos($_SERVER['REQUEST_URI'], '?my=', 0) !== false) : ?>
+        <?php require_once('./sort/myWork.php'); ?>
+        <?php endif; ?>
+        <?php if (strpos($_SERVER['REQUEST_URI'], '?all=', 0) !== false) : ?>
+        <?php require_once('./sort/allWork.php'); ?>
+        <?php endif; ?>
+        <?php if (strpos($_SERVER['REQUEST_URI'], '?favorite=', 0) !== false) : ?>
+        <?php require_once('./sort/favorite.php'); ?>
+        <?php endif; ?>
+        <?php if (strpos($_SERVER['REQUEST_URI'], '?trash=', 0) !== false) : ?>
+        <?php require_once('./sort/trash.php'); ?>
+        <?php endif; ?>
+        <?php if (strpos($_SERVER['REQUEST_URI'], '?category=', 0) !== false) : ?>
+        <?php require_once('./sort/search.php'); ?>
+        <?php endif; ?>
+        
     </div>
+    
 
     <!-- NOTHING TO SHOW -->
     <?php if (!isset($app->getProperties('_othersWorks')->{0})) : ?>
@@ -98,7 +127,7 @@ require_once(__DIR__ . '/aside.php');
              <div class="others-icon-wrap">
               <a href="./profile.php?u=<?= isset($app->getProperties('_othersWorks')->$i) ? h($app->getProperties('_othersWorks')->$i->id) : "" ?>">
                   <img class="others-icon__img" src="<?= isset($app->getProperties  ('_othersWorks')->$i->profile_img) ? h($app->getProperties('_othersWorks')->$i->profile_img) : './../images/default_user_icon.png' ?>" alt="ユーザーのアイコン画像">
-               1   </a>
+                  </a>
                </div>
   
            <!-- ohters name -->
@@ -119,7 +148,7 @@ require_once(__DIR__ . '/aside.php');
 
         <div class="time">
           <p class="time__text margin--0">
-             <?= isset($app->getProperties('_othersWorks')->$i->modified_date) ? date('m月d日 H:i', strtotime(h($app->getProperties('_othersWorks')->$i->modified_date))) : "" ?>
+             <?= isset($app->getProperties('_othersWorks')->$i->create_date) ? date('m月d日 H:i', strtotime(h($app->getProperties('_othersWorks')->$i->create_date))) : "" ?>
           </p>
         </div>
         
@@ -131,14 +160,9 @@ require_once(__DIR__ . '/aside.php');
             <i id="others-menu-trigger" class="others-menu-trigger fas fa-ellipsis-h">
               <div class="others-menu-box js--hidden">
                   <ul>
-                    <?php if (isset($app->getProperties('_friends')->$i) && $app->getProperties('_friends')->$i->accept_flg == 1) : ?>
                     <li class="others-menu-list">
-                        <a href="./createRoom.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">メッセージ</a>
+                     <a href="./profile.php?u=<?= isset($app->getProperties('_othersWorks')->$i) ? h($app->getProperties('_othersWorks')->$i->id) : "" ?>">プロフィール</a>
                     </li>
-                    <li class="others-menu-list">
-                      <a href="./deleteFriend.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">友達解除</a>
-                    </li>
-                    <?php endif; ?>
                     <?php if (isset($app->getProperties('_friends')->$i) && $app->getProperties('_friends')->$i->accept_flg == false && $app->getProperties('_friends')->$i->follow_user !== $_SESSION['me']->id) : ?>
                     <li class="others-menu-list">
                         <a href="./acceptFriend.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">友達申請承諾</a>
@@ -147,6 +171,11 @@ require_once(__DIR__ . '/aside.php');
                         <a href="./deleteFriend.php?u=<?= isset($app->getProperties('_friends')->$i) ? h($app->getProperties('_friends')->$i->id) : "" ?>">友達申請拒否</a>
                       </li>
                       <?php endif; ?>
+                      <li class="others-menu-list">
+                        <a href="./workDetails.php?w=<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : "" ?>" class="work__link" data-work-id="<?= isset($app->getProperties('_othersWorks')->$i->work_id) ? h($app->getProperties('_othersWorks')->$i->work_id) : ""; ?>">
+                        作品詳細
+                        </a>
+                      </li>
                       <li class="others-menu-list">
                         <a href="">ヘルプ</a>
                       </li>

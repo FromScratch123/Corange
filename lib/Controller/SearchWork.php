@@ -26,6 +26,13 @@ class SearchWork extends \MyApp\Controller {
     //カテゴリーを_categoriesにセット
     $categories = $workModel->getCategories();
     $this->setProperties($categories, '_categories');
+    //友達情報を取得
+    $friends = $friendModel->getFriend($_SESSION['me']->id);
+    if (!empty($friends)) {
+      //_friendsに友達情報をセット
+      $this->setProperties($friends, '_friends');
+      track('友達情報:' . print_r($friends, true));
+    }
     //_usersにユーザーの属性をセット
     $this->setProperties($_SESSION['me'], '_users');
 
@@ -46,9 +53,32 @@ class SearchWork extends \MyApp\Controller {
     //My Work
     if (isset($_GET['my'])) {
       track('My Workの絞り込みを行います');
-      $works = $workModel->getMyWorks([
-        'me' => $_SESSION['me']->id
-      ]);
+      if (isset($_GET['sort']) && $_GET['sort'] === 'AD') {
+        track('作品名降順で取得します');
+        $works = $workModel->getMyWorks([
+          'me' => $_SESSION['me']->id
+        ], 'work.title', 'DESC');
+      } elseif (isset($_GET['sort']) && $_GET['sort'] === 'AA') {
+        track('作品名昇順で取得します');
+        $works = $workModel->getMyWorks([
+          'me' => $_SESSION['me']->id
+        ], 'work.title', 'ASC');
+      } elseif (isset($_GET['sort']) && $_GET['sort'] === 'DD') {
+        track('時間降順で取得します');
+        $works = $workModel->getMyWorks([
+          'me' => $_SESSION['me']->id
+        ], 'work.create_date', 'DESC');
+      } elseif (isset($_GET['sort']) && $_GET['sort'] === 'DA') {
+        track('時間昇順で取得します');
+        $works = $workModel->getMyWorks([
+          'me' => $_SESSION['me']->id
+        ], 'work.create_date', 'ASC');
+      } else {
+        track('デフォルト順で取得します');
+        $works = $workModel->getMyWorks([
+          'me' => $_SESSION['me']->id
+        ]);
+      }
 
       for ($i = 0; isset($works->$i->work_id); $i++) {
   
@@ -72,18 +102,40 @@ class SearchWork extends \MyApp\Controller {
     //All Work
     if (isset($_GET['all'])) {
       track('All Workの絞り込みを行います');
-      $works = $workModel->getAllWorks([
-        'me' => $_SESSION['me']->id
-      ]);
+      if (isset($_GET['sort']) && $_GET['sort'] === 'AD') {
+        track('作品名降順で取得します');
+        $works = $workModel->getAllWorks([
+          'me' => $_SESSION['me']->id
+        ], 'work.title', 'DESC');
+      } elseif (isset($_GET['sort']) && $_GET['sort'] === 'AA') {
+        track('作品名昇順で取得します');
+        $works = $workModel->getAllWorks([
+          'me' => $_SESSION['me']->id
+        ], 'work.title', 'ASC');
+      } elseif (isset($_GET['sort']) && $_GET['sort'] === 'DD') {
+        track('時間降順で取得します');
+        $works = $workModel->getAllWorks([
+          'me' => $_SESSION['me']->id
+        ], 'work.create_date', 'DESC');
+      } elseif (isset($_GET['sort']) && $_GET['sort'] === 'DA') {
+        track('時間昇順で取得します');
+        $works = $workModel->getAllWorks([
+          'me' => $_SESSION['me']->id
+        ], 'work.create_date', 'ASC');
+      } else {
+        track('デフォルト順で取得します');
+        $works = $workModel->getAllWorks([
+          'me' => $_SESSION['me']->id
+        ]);
+      }
+
       for ($i = 0; isset($works[$i]); $i++) {
-        track('お気に入り状況確認');
         //お気に入り状況追加
           $isFavorite = $workModel->isFavorite([
             'me' => $_SESSION['me']->id,
             'work_id' => $works[$i]->work_id
           ]);
            $works[$i]->isFavorite = $isFavorite;
-        track('お気に入り数を確認');
         //お気に入りの数を追加
           $favoriteNum = $workModel->favoriteNum([
             'work_id' => $works[$i]->work_id
@@ -98,9 +150,33 @@ class SearchWork extends \MyApp\Controller {
     //My Favorite
     if (isset($_GET['favorite'])) {
       track('Favoriteの絞り込みを行います');
-      $works = $workModel->getMyfavorite([
-        'me' => $_SESSION['me']->id
-      ]);
+      if (isset($_GET['sort']) && $_GET['sort'] === 'AD') {
+        track('作品名降順で取得します');
+        $works = $workModel->getMyFavorite([
+          'me' => $_SESSION['me']->id
+        ], 'work.title', 'DESC');
+      } elseif (isset($_GET['sort']) && $_GET['sort'] === 'AA') {
+        track('作品名昇順で取得します');
+        $works = $workModel->getMyFavorite([
+          'me' => $_SESSION['me']->id
+        ], 'work.title', 'ASC');
+      } elseif (isset($_GET['sort']) && $_GET['sort'] === 'DD') {
+        track('時間降順で取得します');
+        $works = $workModel->getMyFavorite([
+          'me' => $_SESSION['me']->id
+        ], 'work.create_date', 'DESC');
+      } elseif (isset($_GET['sort']) && $_GET['sort'] === 'DA') {
+        track('時間昇順で取得します');
+        $works = $workModel->getMyFavorite([
+          'me' => $_SESSION['me']->id
+        ], 'work.create_date', 'ASC');
+      } else {
+        track('デフォルト順で取得します');
+        $works = $workModel->getMyfavorite([
+          'me' => $_SESSION['me']->id
+        ]);
+      }
+
       for ($i = 0; isset($works[$i]); $i++) {
   
         //お気に入り状況追加
@@ -124,9 +200,33 @@ class SearchWork extends \MyApp\Controller {
     //Trash
     if (isset($_GET['trash'])) {
       track('Trachの絞り込みを行います');
-      $works = $workModel->getTrash([
-        'me' => $_SESSION['me']->id
-      ]);
+      if (isset($_GET['sort']) && $_GET['sort'] === 'AD') {
+        track('作品名降順で取得します');
+        $works = $workModel->getTrash([
+          'me' => $_SESSION['me']->id
+        ], 'work.title', 'DESC');
+      } elseif (isset($_GET['sort']) && $_GET['sort'] === 'AA') {
+        track('作品名昇順で取得します');
+        $works = $workModel->getTrash([
+          'me' => $_SESSION['me']->id
+        ], 'work.title', 'ASC');
+      } elseif (isset($_GET['sort']) && $_GET['sort'] === 'DD') {
+        track('時間降順で取得します');
+        $works = $workModel->getTrash([
+          'me' => $_SESSION['me']->id
+        ], 'work.create_date', 'DESC');
+      } elseif (isset($_GET['sort']) && $_GET['sort'] === 'DA') {
+        track('時間昇順で取得します');
+        $works = $workModel->getTrash([
+          'me' => $_SESSION['me']->id
+        ], 'work.create_date', 'ASC');
+      } else {
+        track('デフォルト順で取得します');
+        $works = $workModel->getTrash([
+          'me' => $_SESSION['me']->id
+        ]);
+      }
+
       for ($i = 0; isset($works[$i]); $i++) {
   
         //お気に入り状況追加
@@ -150,10 +250,34 @@ class SearchWork extends \MyApp\Controller {
     //Category
     if (!empty($_GET['category'])) {
       track('カテゴリーによる絞り込みを行います');
-      //指定カテゴリーの作品を取得
-      $works = $workModel->getWorkByCategory([
-        'id' => $_GET['category'],
-      ]);
+      if (isset($_GET['sort']) && $_GET['sort'] === 'AD') {
+        track('作品名降順で取得します');
+        $works = $workModel->getWorkByCategory([
+          'id' => $_GET['category']
+        ], 'work.title', 'DESC');
+      } elseif (isset($_GET['sort']) && $_GET['sort'] === 'AA') {
+        track('作品名昇順で取得します');
+        $works = $workModel->getWorkByCategory([
+          'id' => $_GET['category']
+        ], 'work.title', 'ASC');
+      } elseif (isset($_GET['sort']) && $_GET['sort'] === 'DD') {
+        track('時間降順で取得します');
+        $works = $workModel->getWorkByCategory([
+          'id' => $_GET['category']
+        ], 'work.create_date', 'DESC');
+      } elseif (isset($_GET['sort']) && $_GET['sort'] === 'DA') {
+        track('時間昇順で取得します');
+        $works = $workModel->getWorkByCategory([
+          'id' => $_GET['category']
+        ], 'work.create_date', 'ASC');
+      } else {
+        track('デフォルト順で取得します');
+          //指定カテゴリーの作品を取得
+          $works = $workModel->getWorkByCategory([
+            'id' => $_GET['category']
+          ]);
+      }
+  
       for ($i = 0; isset($works[$i]); $i++) {
   
         //お気に入り状況追加
