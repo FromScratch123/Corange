@@ -242,7 +242,7 @@ public function getNewFavorite($values) {
     }
 }
 
-public function getWorkByCategory($values, $offset = 0, $order = 'work.create_date', $in = 'ASC') {
+public function getWorkByCategory($values, $order = 'work.create_date', $in = 'ASC', $offset = 0) {
   $stmt = $this->db->prepare("select categories.id, categories.name, work.*, users.id, users.surname, users.givenname, users.profile_img from categories inner join work on categories.id = work.category inner join users on work.create_user = users.id where categories.id = :id and categories.delete_flg = 0 and work.delete_flg = 0 order by " . $order . " " . $in . " limit 10 offset " . $offset);
   $res = $stmt->execute([
     ':id' => $values['id']

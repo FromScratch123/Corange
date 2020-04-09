@@ -114,7 +114,7 @@ class Home extends \MyApp\Controller {
   global $workModel;
 
   //作品名昇順
-  if ($_GET['sort'] === 'AA') {
+  if (isset($_GET['sort']) && $_GET['sort'] === 'AA') {
     track('作品名昇順で取得します');
     try {
       //友達の投稿を取得
@@ -159,7 +159,7 @@ class Home extends \MyApp\Controller {
   }
 
   //作品名降順
-  if ($_GET['sort'] === 'AD') {
+  if (isset($_GET['sort']) && $_GET['sort'] === 'AD') {
     track('作品名降順で取得します');
     try {
       //友達の投稿を取得
@@ -204,7 +204,7 @@ class Home extends \MyApp\Controller {
   }
 
   //時間昇順
-  if ($_GET['sort'] === 'DA') {
+  if (isset($_GET['sort']) && $_GET['sort'] === 'DA') {
     track('時間昇順で取得します');
     try {
       //友達の投稿を取得
