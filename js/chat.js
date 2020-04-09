@@ -22,11 +22,12 @@ $(function () {
     //既読の登録
    let $chatTable = $('.chat-table--right') || null;
    let $chatWindow = $('.chat-window');
-    $(window).on('load scroll', function () {
+
+    $(window).on('load', function () {
         $chatTable.each(function () {
           let targetOffset = $(this).offset();
           let $chatWindowHeight = $chatWindow.height();
-          if (targetOffset.top >= $chatWindow.scrollTop() + $chatWindowHeight / 5) {
+          if (targetOffset.top >= $chatWindow.offset().top + $chatWindowHeight / 5) {
             let msgId = $(this).data('messageId') || null;
           $.ajax({
             type: "POST",
@@ -34,7 +35,27 @@ $(function () {
             data: { messageId : msgId},
             context: $(this)
           }).done(function(data, textStatus, jqXHR){
-            console.log('Ajaxは成功しました');
+
+          }).fail(function(jqXHR, textStatus, errorThrown){
+            return;
+          });
+        }
+        return;
+      });
+  });
+    $chatWindow.on('scroll', function () {
+        $chatTable.each(function () {
+          let targetOffset = $(this).offset();
+          let $chatWindowHeight = $chatWindow.height();
+          if (targetOffset.top >= $chatWindow.offset().top + $chatWindowHeight / 5) {
+            let msgId = $(this).data('messageId') || null;
+          $.ajax({
+            type: "POST",
+            url: "./../public_html/chatRead.php",
+            data: { messageId : msgId},
+            context: $(this)
+          }).done(function(data, textStatus, jqXHR){
+
           }).fail(function(jqXHR, textStatus, errorThrown){
             return;
           });

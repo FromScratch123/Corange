@@ -33,13 +33,16 @@ require_once(__DIR__ . '/accountField.php');
 require_once(__DIR__ . '/aside.php');
  ?>
 
+<!-- message -->
+<?php if (!empty($_SESSION['messages']['chat'])) : ?>
+  <div class="message">
+      <p class="message__text"><?= !empty($app->getMessage('chat')) ? h($app->getMessage('chat')) : ""; ?></p>
+  </div>
+<?php endif; ?>
 
   
 <main>
-  <!-- host user -->
-  <div class="chat-window">
-    <?php require_once(__DIR__ . '/uploadWork.php'); ?>
-    
+
     <?php if (isset($app->getProperties('_clients')->profile_img)) : ?>
     <!-- client infomation -->
     <table class="client-info">
@@ -65,6 +68,8 @@ require_once(__DIR__ . '/aside.php');
     </table>
     <?php endif; ?>
 
+   <!-- host user -->
+  <div class="chat-window">
     <?php for ($i = 0; isset($app->getProperties('_messages')->{0}[$i]->id); $i++) : ?>
     <?php if ($app->getProperties('_messages')->{0}[$i]->from_user === $_SESSION['me']->id) : ?>
     <div class="chat-box">
@@ -128,8 +133,8 @@ require_once(__DIR__ . '/aside.php');
     </form>
 
   </div>
- 
   
+  <?php require_once(__DIR__ . '/uploadWork.php'); ?>
 </main>
 </body>
 </html>

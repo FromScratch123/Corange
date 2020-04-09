@@ -255,7 +255,7 @@
   color: #161267;
 }
 
-.profile__submit:hover {
+.profile-submit:hover {
   background: #161267;
   color: #ffffff;
   transition: all 1s ease-out;

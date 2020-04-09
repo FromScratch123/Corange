@@ -12,11 +12,12 @@ $(function () {
 
   //ohters-menuの表示
   let $fileMenuIcon = $('.others-menu-trigger');
-  $fileMenuIcon.click(function (e) {
+  $fileMenuIcon.on('click', function (e) {
     let target = $(this).children('.others-menu-box');
+    $('.others-menu-box').addClass('js--hidden');
     target.toggleClass('js--hidden');
     e.stopPropagation(); //clickイベント中断
-    $(window).click(function () {
+    $(window).on('click', function () {
      target.addClass('js--hidden');
     });
   });

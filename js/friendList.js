@@ -15,6 +15,7 @@ $(function () {
   let $friendMenuIcon = $('.friend-menu-trigger');
   $friendMenuIcon.click(function (e) {
     let target = $(this).children('.friend-menu-box');
+    $('.friend-menu-box').addClass('js--hidden');
     target.toggleClass('js--hidden');
     e.stopPropagation(); //clickイベント中断
     $(window).click(function () {

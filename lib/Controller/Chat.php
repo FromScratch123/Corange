@@ -176,6 +176,9 @@ class Chat extends \MyApp\Controller {
         $this->setProperties($client, '_clients');
       }
 
+        //メッセージの格納
+        $_SESSION['messages'] = [];
+        $_SESSION['messages']['chat'] = SENTMSG;
       //自画面へリダイレクト(更新時にPOST内容の二重投稿防止)
       header('Location:' . $_SERVER['HTTP_REFERER']);
 

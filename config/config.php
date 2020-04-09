@@ -52,6 +52,7 @@ define('DELETEWORK', '作品を削除しました。');
 define('UPLOADWORK', '作品をアップロードしました。');
 define('ASKBEFRIEND', '友達申請を送信しました。');
 define('HASASKEDBEFRIEND', '既に友達申請は送信済です。');
+define('SENTMSG', 'メッセージを送信しました。');
 
 
 //*********** その他 ***********
