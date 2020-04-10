@@ -112,14 +112,3 @@ body {
   font-size: 2.3em;
 }
 
- /* =========================
-         FOOTER
-========================= */
-
-footer {
-  grid-area: footer;
-  width: 100%;
-  height: 180px;
-  margin-top: 32px;
-  border-top: 1px solid #737373;
-}

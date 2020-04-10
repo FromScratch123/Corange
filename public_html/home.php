@@ -180,9 +180,7 @@ require_once(__DIR__ . '/aside.php');
         </div>
       </div>
       <?php endfor; ?>
-      <footer class="footer">
-        
-      </footer>
+      <?php require_once('./footer.php'); ?>
     </div>
   </div>
 

@@ -321,9 +321,7 @@ require_once(__DIR__ . '/aside.php');
   <?php endfor; ?>
   </ul>
   <?php endif; ?>
-  <footer class="footer">
-        
-        </footer>
+  <?php require_once('./footer.php'); ?>
   </div>
 </main>
 </body>
