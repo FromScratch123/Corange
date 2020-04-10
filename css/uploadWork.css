@@ -200,3 +200,40 @@
   opacity: .8;
   z-index: 1;
 }
+
+/* small screen */
+@media screen and (max-width: 560px) {
+
+
+.upload-work {
+  width: 80%;
+  height: calc(100vh * 0.8);
+  padding: 16px;
+}
+
+.work-file-wrap {
+  width: 100%;
+}
+
+.work-thumbnail-wrap {
+  width: 250px;
+  height: 200px;
+}
+
+.work-title-wrap {
+  width: 100%;
+}
+
+.categories-wrap {
+  width: 100%;
+}
+
+.description-wrap {
+  width: 100%;
+}
+
+.work-submit {
+  width: 100%;
+}
+
+}

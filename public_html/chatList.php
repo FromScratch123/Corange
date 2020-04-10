@@ -98,7 +98,11 @@ require_once(__DIR__ . '/aside.php');
            </li>
        <?php endfor; ?>
         </ul>
+        <footer class="footer">
+        
+        </footer>
   </div>
+
 </main>
 </body>
 </html>

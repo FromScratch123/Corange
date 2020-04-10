@@ -149,6 +149,7 @@
 }
 
 .user-slogan__input {
+  padding: 0;
   font-size: 1em;
   border: none;
 }
@@ -182,6 +183,10 @@
 /* small screen */
 @media screen and (max-width: 560px) {
   
+  .profile-table {
+    width: 100%;
+  }
+
   .user-icon {
     width: 80px;
   }
@@ -195,7 +200,7 @@
   .user-icon__cover {
     line-height: 80px;
   }
-  
+
 }
 
  /* =========================
@@ -336,4 +341,12 @@
 .work-title:hover {
   opacity: 1;
   transition: opacity 0.7s ease-in-out;
+}
+
+/* small screen */
+@media screen and (max-width: 560px) {
+
+  .work-display--flex {
+    justify-content: space-around;
+  }
 }

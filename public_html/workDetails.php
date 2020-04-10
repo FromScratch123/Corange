@@ -161,7 +161,7 @@ require_once(__DIR__ . '/aside.php');
               <table>
                 <tbody>
                   <tr>
-                    <td>
+                    <td class="comment">
                       <div class="comment-user-icon-wrap">
                         <a href="./profile.php?u=<?= isset($work->getProperties('_comment')->$i) ? h($work->getProperties('_comment')->$i->id) : "" ?>">
                         <img class="comment-user-icon__img" src="<?= isset($work->getProperties  ('_comment')->$i->profile_img) ? h($work->getProperties('_comment')->$i->profile_img) : './../images/default_user_icon.png' ?>" alt="ユーザーのアイコン画像">

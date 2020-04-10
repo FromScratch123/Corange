@@ -5,11 +5,15 @@
     
     <li class="categories__list"><a href="./searchWork.php?favorite=<?= $_SESSION['me']->id ?>"><i class="categories-icon fas fa-thumbs-up"></i></a><a class="categories__list-text" href="./searchWork.php?favorite=<?= $_SESSION['me']->id ?>">Favorite</a></li>
     <li class="categories__list"><a href="./searchWork.php?trash=<?= $_SESSION['me']->id ?>"><i class="categories-icon fas fa-trash-alt"></i></a><a class="categories__list-text" href="./searchWork.php?trash=<?= $_SESSION['me']->id ?>">Trash</a></li>
+    <li class="categories__list categories__list--small-screen">
+    <i class="categories-icon fas fa-search"></i>
+    </li>
   </ul>
 
   <form class="side-menu__form" action="./searchWork.php" method="get">
+  <span class="search-times js--hidden"><i class="far fa-times-circle"></i></span>
   <!-- search by categories -->
-    <label for="categories">
+    <label for="categories" class="search-by-category">
             <p class="side-menu__category margin--0">
               <select name="category" id="" class="side-menu__category--select">
                 <option value="0">カテゴリー検索</option>
