@@ -141,7 +141,7 @@ class UploadWork extends \MyApp\Controller {
       $_SESSION['messages'] = [];
       $_SESSION['messages']['home'] = UPLOADWORK;
       track('home.phpへ遷移します');
-      header('Location:' . './home.php');
+      header('Location:' . SITE_URL . '/public_html/home.php');
       exit;
     }
   }

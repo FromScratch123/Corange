@@ -8,7 +8,7 @@ class CreateRoom extends \MyApp\Controller {
   public function run() {
     if (!$this->isLoggedIn()) {
       track('【ログイン未】index.phpへ遷移します');
-      header('Location:' . SITE_URL . '/Corange/public_html/index.php');
+      header('Location:' . SITE_URL . '/public_html/index.php');
       exit;
     } 
       
@@ -64,13 +64,13 @@ class CreateRoom extends \MyApp\Controller {
 
           track('掲示板作成処理完了');
           track('chat.phpへ遷移します');
-          header('Location:' .SITE_URL . '/Corange/public_html/chat.php?r=' . $room_id);
+          header('Location:' .SITE_URL . '/public_html/chat.php?r=' . $room_id);
 
       } else {
 
         track('掲示板が既に存在しています');
         track('指定掲示板へ遷移します');
-        header('Location:' . SITE_URL . '/Corange/public_html/chat.php?r=' . $room[0]->id);
+        header('Location:' . SITE_URL . '/public_html/chat.php?r=' . $room[0]->id);
         exit;
       }
      

@@ -10,6 +10,8 @@ $(function () {
     $windowCover.removeClass('js--hidden');
   });
   $createBtnS.on('click', function () {
+    let $uploadBox = $('.upload-work');
+    let $windowCover = $('.window-cover');
     $uploadBox.removeClass('js--hidden');
     $windowCover.removeClass('js--hidden');
   });

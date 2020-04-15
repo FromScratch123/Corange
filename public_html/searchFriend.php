@@ -5,7 +5,7 @@
 
   $app = new MyApp\Controller\SearchFriend();
   $app->run();
-  $notification = new MyApp\Controller\accountField();
+  $notification = new MyApp\Controller\AccountField();
   $notification->run();
   $upload = new MyApp\Controller\UploadWork();
   $upload->run();
@@ -15,10 +15,10 @@
   $jsPath3 = './../js/aside.js';
   $jsPath4 = './../js/uploadWork.js';
   $jsPath5 = '';
-  $CSSPath1 = './../CSS/searchFriend.css';
-  $CSSPath2 = './../CSS/accountField.css';
-  $CSSPath3 = './../CSS/aside.css';
-  $CSSPath4 = './../CSS/uploadWork.css';
+  $CSSPath1 = './../css/searchFriend.css';
+  $CSSPath2 = './../css/accountField.css';
+  $CSSPath3 = './../css/aside.css';
+  $CSSPath4 = './../css/uploadWork.css';
   $CSSPath5 = '';
   
   require_once(__DIR__ . '/head.php');

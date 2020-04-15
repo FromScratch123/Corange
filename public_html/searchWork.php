@@ -5,7 +5,7 @@
 
   $app = new MyApp\Controller\SearchWork();
   $app->run();
-  $notification = new MyApp\Controller\accountField();
+  $notification = new MyApp\Controller\AccountField();
   $notification->run();
   $upload = new MyApp\Controller\UploadWork();
   $upload->run();
@@ -15,10 +15,10 @@
   $jsPath3 = './../js/aside.js';
   $jsPath4 = './../js/uploadWork.js';
   $jsPath5 = '';
-  $CSSPath1 = './../CSS/home.css';
-  $CSSPath2 = './../CSS/accountField.css';
-  $CSSPath3 = './../CSS/aside.css';
-  $CSSPath4 = './../CSS/uploadWork.css';
+  $CSSPath1 = './../css/home.css';
+  $CSSPath2 = './../css/accountField.css';
+  $CSSPath3 = './../css/aside.css';
+  $CSSPath4 = './../css/uploadWork.css';
   $CSSPath5 = '';
   
   require_once(__DIR__ . '/head.php');
@@ -60,7 +60,7 @@ require_once(__DIR__ . '/aside.php');
         <?php require_once('./breadcrumbs/bcFavorite.php'); ?>
         <?php endif; ?>
         <?php if (strpos($_SERVER['REQUEST_URI'], '?trash=', 0) !== false) : ?>
-        <?php require_once('./breadcrumbs/bctrash.php'); ?>
+        <?php require_once('./breadcrumbs/bcTrash.php'); ?>
         <?php endif; ?>
         <?php if (strpos($_SERVER['REQUEST_URI'], '?category=', 0) !== false) : ?>
         <?php require_once('./breadcrumbs/bcSearch.php'); ?>

@@ -24,9 +24,10 @@ require_once(__DIR__ . '/autoload.php');
 //================================
 
 //*********** データべース情報 ***********
-define('DSN', 'mysql:dbhost=localhost;dbname=Corange;charset=utf8');
-define('DB_USERNAME', 'root');
-define('DB_PASSWORD', 'root');
+define('DSN', 'mysql:host=' . $_SERVER['RDS_HOSTNAME'] . ';dbname=' . $_SERVER['RDS_DB_NAME'] . ';charset=utf8');
+define('DB_USERNAME', $_SERVER['RDS_USERNAME']);
+define('DB_PASSWORD', $_SERVER['RDS_PASSWORD']);
+define('DB_NAME', $_SERVER['RDS_DB_NAME']);
 define('OPTIONS', array(
   // SQL実行失敗時にはエラーコードのみ設定
   PDO::ATTR_ERRMODE => PDO::ERRMODE_SILENT,

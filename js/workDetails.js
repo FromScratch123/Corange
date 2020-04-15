@@ -5,10 +5,10 @@ $(function () {
    $times.on('click', function () {
     // $('.work-details').addClass('js--hidden');
     // $('.window-mask').addClass('js--hidden');
-    if (!document.referrer) {
-       location.href="./home.php"
+    if (!document.referrer || document.referrer === document.URL) {
+       location.href="./home.php";
     } else {
-       location.href=document.referrer;
+      location.href=document.referrer;
     }
    });
 

@@ -342,6 +342,13 @@ select {
   color: #ffffff;
 }
 
+/* small screen */
+@media screen and (max-width: 560px) {
+.signup-drawer {
+    display: none;
+  }
+}
+
   /* =========================
             FOOTER
 ========================= */

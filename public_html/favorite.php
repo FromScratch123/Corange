@@ -11,9 +11,9 @@
   $jsPath3 = '';
   $jsPath4 = '';
   $jsPath5 = '';
-  $CSSPath1 = './../CSS/chat.css';
-  $CSSPath2 = './../CSS/accountField.css';
-  $CSSPath3 = './../CSS/aside.css';
+  $CSSPath1 = './../css/chat.css';
+  $CSSPath2 = './../css/accountField.css';
+  $CSSPath3 = './../css/aside.css';
   $CSSPath3 = '';
   $CSSPath3 = '';
   

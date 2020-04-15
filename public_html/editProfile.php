@@ -4,7 +4,7 @@
   trackingStart();
   $app = new MyApp\Controller\EditProfile();
   $app->run();
-  $notification = new MyApp\Controller\accountField();
+  $notification = new MyApp\Controller\AccountField();
   $notification->run();
 
   $requestPage = 'PROFILE -';
@@ -13,7 +13,7 @@
   $jsPath3 = '';
   $jsPath4 = '';
   $jsPath5 = '';
-  $CSSPath1 = './../CSS/editProfile.css';
+  $CSSPath1 = './../css/editProfile.css';
   $CSSPath2 = './../css/accountField.css';
   $CSSPath3 = '';
   $CSSPath4 = '';

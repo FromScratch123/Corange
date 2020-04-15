@@ -26,8 +26,6 @@ public function save($file) {
   if (!$res) {
     throw new \MyApp\Exception\SaveFailure();
   } else {
-    //権限の変更(所有者:rw- その他:r--)
-    chmod($savePath, 0644);
     return $savePath;
   }
 }

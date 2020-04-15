@@ -7,13 +7,13 @@ class ConfirmCode extends \MyApp\Controller {
   public function run() {
     if ($this->isLoggedIn()) {
       track('【ログイン済】home.phpへ遷移します');
-      header('Location:' . SITE_URL . '/Corange/public_html/home.php');
+      header('Location:' . SITE_URL . '/public_html/home.php');
       exit;
     }
 
     if (!isset($_SESSION['auth_code']) || empty($_SESSION['auth_code'])) {
       track('【認証コード発行未】issueCode.phpへ遷移します');
-      header('Location:' . SITE_URL . '/Corange/public_html/issueCode.php');
+      header('Location:' . SITE_URL . '/public_html/issueCode.php');
       exit;
     }
 
@@ -117,7 +117,7 @@ EOM;
       
 
       track('login.phpへ遷移します');
-      header('Location:' . SITE_URL . '/Corange/public_html/login.php');
+      header('Location:' . SITE_URL . '/public_html/login.php');
       exit;
     }
   }

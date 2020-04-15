@@ -7,7 +7,7 @@ class Login extends \MyApp\Controller {
   public function run() {
     if ($this->isLoggedIn()) {
       track('【ログイン済】home.phpへ遷移します');
-      header('Location:' . SITE_URL . '/Corange/public_html/home.php');
+      header('Location:' . SITE_URL . '/public_html/home.php');
       exit;
     }
 
@@ -60,7 +60,7 @@ class Login extends \MyApp\Controller {
       $_SESSION['messages'] = [];
       $_SESSION['messages']['home'] = WELCOMEBACK;
       track('home.phpへ遷移します');
-      header('Location:' . SITE_URL . '/Corange/public_html/home.php');
+      header('Location:' . SITE_URL . '/public_html/home.php');
       exit;
     }
   }

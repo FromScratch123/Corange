@@ -8,7 +8,7 @@ class DeleteFriend extends \MyApp\Controller {
   public function run() {
     if (!$this->isLoggedIn()) {
       track('【ログイン未】index.phpへ遷移します');
-      header('Location:' . SITE_URL . '/Corange/public_html/index.php');
+      header('Location:' . SITE_URL . '/public_html/index.php');
       exit;
     } 
       
@@ -49,7 +49,7 @@ class DeleteFriend extends \MyApp\Controller {
       $_SESSION['messages'] = [];
       $_SESSION['messages']['friend-list'] = DELETEFRIEND;
       track('friendList.phpへ遷移します');
-      header('Location:' .SITE_URL . '/Corange/public_html/friendList.php');
+      header('Location:' .SITE_URL . '/public_html/friendList.php');
   }  
 
 }
