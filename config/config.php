@@ -4,7 +4,7 @@
 //             ログ
 //================================
 //エラーの表示設定
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 //ログの有無を設定
 ini_set('log_errors', 'on');
 //ログの出力先を設定

@@ -96,8 +96,8 @@
   background: #161267;
   border-radius: 50%;
   position: fixed;
-  right: 40px;
-  bottom: 40px;
+  right: 24px;
+  bottom: 24px;
   box-shadow: 0px 3px 8px #707070;
   z-index: 1;
   display: none;
