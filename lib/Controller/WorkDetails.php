@@ -81,7 +81,7 @@ class WorkDetails extends \MyApp\Controller {
     $this->setProperties($work, '_work');
     $this->setValues($work);
     $comment = $workModel->getComment([
-      'work_id' => $_GET['w']
+      'work_id' => $_GET['w'],
     ]);
     if (!$comment) {
       return;
@@ -128,6 +128,9 @@ class WorkDetails extends \MyApp\Controller {
               'description' => $_POST['description'],
               'work_id' => $this->getProperties('_work')->work_id
             ]);
+            track('作品情報更新処理終了');
+            $_SESSION['messages'] = [];
+            $_SESSION['messages']['work-details'] = MODIFIEDWORK;
           
           } catch (\MyApp\Exception\Query $e) {
             track('クエリ実行に失敗しました');
@@ -137,24 +140,27 @@ class WorkDetails extends \MyApp\Controller {
             }
           } else {
             track('作品情報に変更はありません');
-            return;
           }
-          track('作品情報更新処理終了');
-          $_SESSION['messages'] = [];
-          $_SESSION['messages']['work-details'] = MODIFIEDWORK;
-          track('workDetails.phpへ遷移します');
-          header('Location:' . SITE_URL . '/public_html/workDetails.php?w=' . $_GET['w']);
-          exit;
       }
 
       if (!empty($_POST['comment'])) {
         track('コメント保存処理開始');
         try {
-          $workModel->insertComment([
-            'work_id' => $_GET['w'],
-            'comment' => $_POST['comment'],
-            'post_user' => $_SESSION['me']->id
-          ]);
+          if ($this->getProperties('_work')->create_user === $_SESSION['me']->id) {
+            track('自身のコメントです');
+            $workModel->insertComment([
+              'work_id' => $_GET['w'],
+              'comment' => $_POST['comment'],
+              'post_user' => $_SESSION['me']->id
+            ], 1);
+          } else {
+            track('他者からのコメントです');
+            $workModel->insertComment([
+              'work_id' => $_GET['w'],
+              'comment' => $_POST['comment'],
+              'post_user' => $_SESSION['me']->id
+            ]);
+          }
         } catch (\MyApp\Exception\Query $e) {
           track('クエリ実行に失敗しました');
             track('Exception:' . $e->getMessage());
@@ -163,10 +169,10 @@ class WorkDetails extends \MyApp\Controller {
           }
           $_SESSION['messages'] = [];
           $_SESSION['messages']['work-details'] = SENTCOMMENT;
-          track('workDetails.phpへ遷移します');
-          header('Location:' . SITE_URL . '/public_html/workDetails.php?w=' . $_GET['w']);
-          exit;
         }
+        track('workDetails.phpへ遷移します');
+        header('Location:' . SITE_URL . '/public_html/workDetails.php?w=' . $_GET['w']);
+        exit;
       }
 
   }

@@ -16,7 +16,6 @@ $(function () {
     $windowCover.removeClass('js--hidden');
   });
 
-
   //submitの表示
   let $select = $('.side-menu__category--select');
   let $search = $('.side-menu__search-window');

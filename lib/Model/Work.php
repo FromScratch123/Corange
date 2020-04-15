@@ -147,8 +147,8 @@ public function search($values, $order = 'create_date', $in = 'DESC') {
     }
 }
 
-public function insertComment($values) {
-  $stmt = $this->db->prepare("insert into comment (work_id, comment, post_user, modified_date, create_date) values (:work_id, :comment, :post_user, now(), now())");
+public function insertComment($values, $open_flg = 0) {
+  $stmt = $this->db->prepare("insert into comment (work_id, comment, post_user, open_flg, modified_date, create_date) values (:work_id, :comment, :post_user, " . $open_flg . ", now(), now())");
   $res = $stmt->execute([
     ':work_id' => $values['work_id'],
     ':comment' => $values['comment'],
@@ -253,7 +253,7 @@ public function getWorkByCategory($values, $order = 'work.create_date', $in = 'A
 }
 
 public function getNewComment($values) {
-  $stmt = $this->db->prepare("select work.work_id, work.work, work.thumbnail, work.title, work.category, work.description, work.create_user, comment.comment_id, comment.work_id, comment.comment, comment.post_user, comment.open_flg, comment.modified_date, comment.create_date, users.id, users.surname, users.givenname, users.profile_img, users.banner_img from work inner join comment on work.work_id = comment.work_id inner join users on comment.post_user = users.id where work.create_user = :me and work.delete_flg = 0 and comment.open_flg = 0 and comment.delete_flg = 0 and users.delete_flg = 0");
+  $stmt = $this->db->prepare("select work.work_id, work.work, work.thumbnail, work.title, work.category, work.description, work.create_user, comment.comment_id, comment.work_id, comment.comment, comment.post_user, comment.open_flg, comment.modified_date, comment.create_date, users.id, users.surname, users.givenname, users.profile_img, users.banner_img from work inner join comment on work.work_id = comment.work_id inner join users on comment.post_user = users.id where work.create_user = :me and comment.post_user not in(:me) and work.delete_flg = 0 and comment.open_flg = 0 and comment.delete_flg = 0 and users.delete_flg = 0");
   $res = $stmt->execute([
     ':me' => $values['me']
   ]);
