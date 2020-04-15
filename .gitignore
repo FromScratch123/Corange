@@ -1,4 +1,5 @@
 *.log
+*.zip
 userPost/
 logs/
 config/
