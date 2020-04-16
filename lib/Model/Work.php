@@ -59,7 +59,7 @@ public function getCategories() {
   return $categories;
 }
 
-public function getAllWorks($values, $order = 'create_date', $in = 'ASC', $offset = 0) {
+public function getAllWorks($values, $order = 'create_date', $in = 'DESC', $offset = 0) {
   $stmt = $this->db->prepare("select work.*, users.id, users.surname, users.givenname, users.profile_img from work inner join users on work.create_user = users.id where create_user not in(:me) and work.delete_flg = 0 and users.delete_flg = 0 order by " . $order . " " . $in . " limit 10 offset " . $offset);
   $res = $stmt->execute([
     ':me' => $values['me']
@@ -69,7 +69,7 @@ public function getAllWorks($values, $order = 'create_date', $in = 'ASC', $offse
   return $works;
 }
 
-public function getMyWorks($values, $order = 'modified_date', $in = 'ASC') {
+public function getMyWorks($values, $order = 'modified_date', $in = 'DESC') {
   $stmt = $this->db->prepare("select work.*, users.id, users.surname, users.givenname, users.profile_img from work inner join users on work.create_user = users.id where create_user = :me and work.delete_flg = 0 and users.delete_flg = 0 order by " . $order . " " . $in);
   $res = $stmt->execute([
     ':me' => $values['me']
@@ -242,7 +242,7 @@ public function getNewFavorite($values) {
     }
 }
 
-public function getWorkByCategory($values, $order = 'work.create_date', $in = 'ASC', $offset = 0) {
+public function getWorkByCategory($values, $order = 'work.create_date', $in = 'DESC', $offset = 0) {
   $stmt = $this->db->prepare("select categories.id, categories.name, work.*, users.id, users.surname, users.givenname, users.profile_img from categories inner join work on categories.id = work.category inner join users on work.create_user = users.id where categories.id = :id and categories.delete_flg = 0 and work.delete_flg = 0 order by " . $order . " " . $in . " limit 10 offset " . $offset);
   $res = $stmt->execute([
     ':id' => $values['id']

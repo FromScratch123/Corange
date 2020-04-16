@@ -80,26 +80,26 @@ require_once(__DIR__ . '/aside.php');
         <ul class="tool-bar__sort--flex flex-container">
           <!-- title desc -->
           <li class="sort-icon">
-            <a href="./home.php?sort=AD">
+            <a href="./home.php?sort=AA">
               <i class="fas fa-sort-alpha-down"></i></li>
             </a>
           <!-- title asc -->
           <li class="sort-icon">
-            <a href="./home.php?sort=AA">
+            <a href="./home.php?sort=AD">
               <i class="fas fa-sort-alpha-up"></i></li>
             </a>
-            <!-- time asc -->
-            <li class="sort-icon">
-              <a href="./home.php">
-              <i class="fas fa-history"></i>
-            </a>
-          </li>
             <!-- time desc -->
             <li class="sort-icon">
               <a href="./home.php?sort=DA">
                 <i class="sort-icon__clock fas fa-history"></i>
               </a>
             </li>
+            <!-- time asc -->
+            <li class="sort-icon">
+              <a href="./home.php">
+              <i class="fas fa-history"></i>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
